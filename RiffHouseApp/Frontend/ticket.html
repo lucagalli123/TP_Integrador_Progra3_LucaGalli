@@ -11,12 +11,18 @@
         <header>
             <img src="assets/img/logo/logo.png" alt="Logo" class="logo" />
             <h1>RiffHouse</h1>
+            <div class="theme-selector">
+                <select id="tema">
+                    <option value="claro">Claro</option>
+                    <option value="oscuro">Oscuro</option>
+                </select>
+            </div>
             <nav>
                 <a href="index.html" id="btnNuevaCompra">Nueva Compra</a>
             </nav>
         </header>
 
-        <main>
+        <main class="claro">
             <h2>Ticket de Compra</h2>
             <div id="ticketContainer"></div>
             <button id="btnDescargar">Descargar PDF</button>

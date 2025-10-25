@@ -11,9 +11,16 @@
         <header>
             <img src="assets/img/logo/logo.png" alt="Logo" class="logo" />
             <h1>RiffHouse</h1>
+            <div class="theme-selector">
+                <label for="tema">Tema:</label>
+                <select id="tema">
+                    <option value="claro">Claro</option>
+                    <option value="oscuro">Oscuro</option>
+                </select>
+            </div>
         </header>
 
-        <main>
+        <main class="claro">
             <h2>Bienvenido al Autoservicio de Guitarras y Bajos</h2>
             <input type="text" id="nombreUsuario" placeholder="Ingrese su nombre" required />
             <button id="btnContinuar">Continuar</button>
