@@ -1,6 +1,13 @@
 import { $ } from "./utils.js";
+import { obtenerTemaCargado } from "./temas.js";
 
+// leer carrito desde el loscalStorage
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+// leer tema desde el localStorage
+document.addEventListener("DOMContentLoaded", () => {
+    const temaCargado = obtenerTemaCargado();
+});
 
 function renderCarrito() {
     const cont = $("carritoContainer");

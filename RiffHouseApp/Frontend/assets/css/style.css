@@ -42,7 +42,7 @@ header h1 {
     margin-right: 1rem;
 }
 
-header div.theme-selector {
+header .div-selector-tema {
     /* flex: 1; */
     margin-right: 80px;
     margin-left: 15px;
@@ -111,18 +111,10 @@ input {
     width: 100%;
 }
 
-/* ______________ Footer ______________*/
-footer {
-    background-color: #222;
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
-}
-
 /* ______________ Main (Oscuro) ______________*/
 
 main.oscuro {
-    background-color: #222222;
+    background-color: #3a3a3a;
     width: 100%;
     flex: 1;
     padding: 1rem;
@@ -130,6 +122,14 @@ main.oscuro {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+/* ______________ Footer ______________*/
+footer {
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
 }
 
 /* ============================ PAG INDEX ============================ */
@@ -178,25 +178,31 @@ main h2 {
     }
 }
 
-.producto-carta {
+#pagNum {
+    color: #fd7b25;
+}
+
+/* producto-carta (claro)________________ */
+.producto-carta-claro {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background-color: #fff;
+    background: linear-gradient(to top, #eddab9, #ffffff);
+    /* background-color: #ffffff; */
     border-radius: 10px;
     padding: 1rem;
     text-align: center;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.12);
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.producto-carta:hover {
+.producto-carta-claro:hover {
     transform: translateY(-4px);
-    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 7px 12px rgba(0, 0, 0, 0.6);
 }
 
-.producto-carta img {
+.producto-carta-claro img {
     flex: 1;
     width: 100%;
     height: auto;
@@ -206,21 +212,71 @@ main h2 {
     margin-bottom: 0.8rem;
 }
 
-.producto-carta h3 {
+.producto-carta-claro h3 {
     font-weight: 300;
     font-size: 1.1rem;
     margin: 0.4rem 0;
 }
 
-.producto-carta p {
+.producto-carta-claro p {
     font-weight: bold;
     margin-bottom: 0.5rem;
 }
 
-.producto-carta button {
+.producto-carta-claro button {
     margin-top: 0.5rem;
     padding: 0.5rem 1rem;
     font-size: 1rem;
+}
+
+/* producto-carta (oscuro)________________ */
+.producto-carta-oscuro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background: linear-gradient(to top, #000000, #6e6e6e);
+    /* background-color: #6b6b6b; */
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.producto-carta-oscuro:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 7px 12px rgba(246, 159, 71, 0.6);
+}
+
+.producto-carta-oscuro img {
+    flex: 1;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+    margin-bottom: 0.8rem;
+}
+
+.producto-carta-oscuro h3 {
+    font-weight: 300;
+    font-size: 1.1rem;
+    margin: 0.4rem 0;
+    color: white;
+}
+
+.producto-carta-oscuro p {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.producto-carta-oscuro button {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: black;
 }
 
 /*______________ botones categorias ______________*/
