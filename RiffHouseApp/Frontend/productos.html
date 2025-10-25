@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>RiffHouse - Productos</title>
+        <link rel="stylesheet" href="assets/css/style.css" />
+        <link rel="icon" type="image/png" href="assets/img/logo/logo.png" />
+    </head>
+    <body>
+        <header>
+            <img src="assets/img/logo/logo.png" class="logo" alt="Logo" />
+            <h1>RiffHouse</h1>
+            <nav>
+                <a href="index.html">Inicio</a>
+                <a href="carrito.html">Carrito</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="categorias">
+                <div class="linea"></div>
+                <button id="btnGuitarras">Guitarras</button>
+                <button id="btnBajos">Bajos</button>
+                <div class="linea"></div>
+            </section>
+
+            <section id="productosContainer" class="productos-grid"></section>
+
+            <section class="paginacion">
+                <div class="linea"></div>
+                <button id="pagAnterior">Anterior</button>
+                <span id="pagNum">1</span>
+                <button id="pagSiguiente">Siguiente</button>
+                <div class="linea"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Desarrollado por: Luca Galli</p>
+        </footer>
+
+        <script type="module" src="assets/js/productos.js"></script>
+    </body>
+</html>
