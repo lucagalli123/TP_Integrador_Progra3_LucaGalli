@@ -1,7 +1,7 @@
 import { $ } from "./utils.js";
 import { obtenerTemaCargadoLocalStorage, cargarTemaLocalStorage } from "./temas.js";
 
-// Botón continuar
+// boton continuar
 $("btnContinuar").addEventListener("click", () => {
     const nombre = $("nombreUsuario").value.trim();
     if (!nombre) {
@@ -12,7 +12,7 @@ $("btnContinuar").addEventListener("click", () => {
     window.location.href = "productos.html";
 });
 
-// Funciones de tema
+// funciones de tema
 function cargarTemaMain(tema) {
     const main = $("main");
     if (!main) return;
@@ -41,7 +41,7 @@ function aplicarTema(tema) {
     }
 }
 
-// Al cargar la página
+// carga de pagina
 document.addEventListener("DOMContentLoaded", () => {
     const temaGuardado = obtenerTemaCargadoLocalStorage();
     aplicarTema(temaGuardado);

@@ -33,7 +33,7 @@ const prodPorPagina = 6;
 
 // ==================== FUNCIONES ====================
 
-// Renderiza productos según categoría, página y tema
+// carga productos
 function renderProductos(tema) {
     const cont = $("productosContainer");
     cont.innerHTML = "";
@@ -73,7 +73,7 @@ function renderProductos(tema) {
     }
 }
 
-// Agrega un producto al carrito y guarda en localStorage
+// agrega un producto al carrito y guarda en localStorage
 function agregarAlCarrito(idProducto) {
     const producto = productos.find(p => p.id === idProducto);
     if (!producto) return;
@@ -89,7 +89,7 @@ function agregarAlCarrito(idProducto) {
     alert(`${producto.nombre} agregado al carrito`);
 }
 
-// Aplica clase de tema al main
+// aplica clase de tema al main
 function cargarTemaMain(tema) {
     if (tema === "oscuro") {
         $("main").classList.remove("claro");
@@ -100,7 +100,7 @@ function cargarTemaMain(tema) {
     }
 }
 
-// Aplica tema y renderiza productos
+// aplica tema y renderiza productos
 function aplicarTema(tema) {
     cargarTemaMain(tema);
     renderProductos(tema);

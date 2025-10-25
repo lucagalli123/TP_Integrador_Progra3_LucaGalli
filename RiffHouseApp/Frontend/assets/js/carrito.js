@@ -1,13 +1,13 @@
 import { $ } from "./utils.js";
-import { obtenerTemaCargado } from "./temas.js";
+// import { obtenerTemaCargado } from "./temas.js";
 
 // leer carrito desde el loscalStorage
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 // leer tema desde el localStorage
-document.addEventListener("DOMContentLoaded", () => {
-    const temaCargado = obtenerTemaCargado();
-});
+// document.addEventListener("DOMContentLoaded", () => {
+//     const temaCargado = obtenerTemaCargado();
+// });
 
 function renderCarrito() {
     const cont = $("carritoContainer");
@@ -25,7 +25,7 @@ function renderCarrito() {
     } else {
         carrito.forEach((item, index) => {
             const div = document.createElement("div");
-            div.classList.add("producto-carta");
+            div.classList.add("producto-carta-claro");
 
             // imagen
             const img = document.createElement("img");
