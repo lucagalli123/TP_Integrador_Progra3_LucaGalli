@@ -15,3 +15,9 @@ export function cargarTemaMain(tema) {
     main.classList.toggle("oscuro", tema === "oscuro");
     main.classList.toggle("claro", tema === "claro");
 }
+
+export function cambiarColorTitulo(tema) {
+    const titulo = $("titulo");
+    if (!titulo) return;
+    titulo.style.color = tema === "oscuro" ? "white" : "black";
+}

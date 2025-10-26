@@ -1,20 +1,5 @@
 import { $ } from "./utils.js";
-import { obtenerTemaCargadoLocalStorage, cargarTemaLocalStorage } from "./temas.js";
-
-// cambiar tema del main
-function cargarTemaMain(tema) {
-    const main = $("main");
-    if (!main) return;
-    main.classList.toggle("oscuro", tema === "oscuro");
-    main.classList.toggle("claro", tema === "claro");
-}
-
-// cambiar el tema del titulo
-function cambiarColorTitulo(tema) {
-    const titulo = $("titulo");
-    if (!titulo) return;
-    titulo.style.color = tema === "oscuro" ? "white" : "black";
-}
+import { obtenerTemaCargadoLocalStorage, cargarTemaLocalStorage, cambiarColorTitulo, cargarTemaMain } from "./temas.js";
 
 // aplicar cambio de tema general
 function aplicarTema(tema) {

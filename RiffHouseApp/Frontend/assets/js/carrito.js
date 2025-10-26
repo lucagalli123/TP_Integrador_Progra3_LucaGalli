@@ -1,4 +1,4 @@
-import { obtenerTemaCargadoLocalStorage, cargarTemaLocalStorage, cargarTemaMain } from "./temas.js";
+import { obtenerTemaCargadoLocalStorage, cargarTemaLocalStorage, cargarTemaMain, cambiarColorTitulo } from "./temas.js";
 import { $ } from "./utils.js";
 
 // leer carrito desde el loscalStorage
@@ -77,13 +77,6 @@ function renderCarrito(tema) {
     // mostrar total
     const totalCompra = $("totalCompra");
     totalCompra.textContent = `Total: $${total}`;
-}
-
-// cambiar el tema del titulo
-function cambiarColorTitulo(tema) {
-    const titulo = $("titulo");
-    if (!titulo) return;
-    titulo.style.color = tema === "oscuro" ? "white" : "black";
 }
 
 function aplicarTema(tema) {
