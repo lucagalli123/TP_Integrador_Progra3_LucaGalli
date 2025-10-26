@@ -1,5 +1,5 @@
 import { $ } from "./utils.js";
-import { obtenerTemaCargadoLocalStorage, cargarTemaLocalStorage } from "./temas.js";
+import { obtenerTemaCargadoLocalStorage, cargarTemaLocalStorage, cargarTemaMain } from "./temas.js";
 
 // ==================== VARIABLES ====================
 
@@ -27,13 +27,13 @@ const productos = [
     { id: 16, nombre: "Warwick RockBass Corvette", categoria: "bajos", precio: 1450, imagen: "assets/img/bajos/bajo8.png", activo: true },
 ];
 
+// ==================== FUNCIONES ====================
+
+// carga productos
 let categoriaActual = "guitarras";
 let pagActual = 1;
 const prodPorPagina = 6;
 
-// ==================== FUNCIONES ====================
-
-// carga productos
 function renderProductos(tema) {
     const cont = $("productosContainer");
     cont.innerHTML = "";
@@ -89,37 +89,29 @@ function agregarAlCarrito(idProducto) {
     alert(`${producto.nombre} agregado al carrito`);
 }
 
-// aplica clase de tema al main
-function cargarTemaMain(tema) {
-    if (tema === "oscuro") {
-        $("main").classList.remove("claro");
-        $("main").classList.add("oscuro");
-    } else {
-        $("main").classList.remove("oscuro");
-        $("main").classList.add("claro");
-    }
-}
-
-// aplica tema y renderiza productos
+// aplicar cambio de tema general
 function aplicarTema(tema) {
     cargarTemaMain(tema);
     renderProductos(tema);
-    $("tema").value = tema; // sincroniza select
+    const temaSelect = $("tema");
+    if (temaSelect) {
+        temaSelect.value = tema;
+        temaSelect.addEventListener("change", () => {
+            const nuevoTema = temaSelect.value;
+            cargarTemaLocalStorage(nuevoTema);
+            aplicarTema(nuevoTema);
+        });
+    }
 }
-
 // ==================== EVENTOS ====================
 
+// carga de pagina (para aplicar tema)
 document.addEventListener("DOMContentLoaded", () => {
     const temaGuardado = obtenerTemaCargadoLocalStorage() || "claro";
     aplicarTema(temaGuardado);
 });
 
-$("tema").addEventListener("change", () => {
-    const nuevoTema = $("tema").value;
-    cargarTemaLocalStorage(nuevoTema);
-    aplicarTema(nuevoTema);
-});
-
+// botones categorias
 $("btnGuitarras").addEventListener("click", () => {
     categoriaActual = "guitarras";
     pagActual = 1;
@@ -132,6 +124,7 @@ $("btnBajos").addEventListener("click", () => {
     aplicarTema(obtenerTemaCargadoLocalStorage());
 });
 
+// botones paginas
 $("pagAnterior").addEventListener("click", () => {
     if (pagActual > 1) pagActual--;
     aplicarTema(obtenerTemaCargadoLocalStorage());

@@ -1,18 +1,7 @@
 import { $ } from "./utils.js";
 import { obtenerTemaCargadoLocalStorage, cargarTemaLocalStorage } from "./temas.js";
 
-// boton continuar
-$("btnContinuar").addEventListener("click", () => {
-    const nombre = $("nombreUsuario").value.trim();
-    if (!nombre) {
-        alert("Por favor, ingrese su nombre.");
-        return;
-    }
-    localStorage.setItem("nombreUsuario", nombre);
-    window.location.href = "productos.html";
-});
-
-// funciones de tema
+// cambiar tema del main
 function cargarTemaMain(tema) {
     const main = $("main");
     if (!main) return;
@@ -20,16 +9,17 @@ function cargarTemaMain(tema) {
     main.classList.toggle("claro", tema === "claro");
 }
 
+// cambiar el tema del titulo
 function cambiarColorTitulo(tema) {
     const titulo = $("titulo");
     if (!titulo) return;
     titulo.style.color = tema === "oscuro" ? "white" : "black";
 }
 
+// aplicar cambio de tema general
 function aplicarTema(tema) {
     cargarTemaMain(tema);
     cambiarColorTitulo(tema);
-
     const temaSelect = $("tema");
     if (temaSelect) {
         temaSelect.value = tema;
@@ -41,8 +31,21 @@ function aplicarTema(tema) {
     }
 }
 
-// carga de pagina
+// LISTENERS ===============================================================
+
+// aplicar tema al cargar la pagina...
 document.addEventListener("DOMContentLoaded", () => {
     const temaGuardado = obtenerTemaCargadoLocalStorage();
     aplicarTema(temaGuardado);
+});
+
+// boton continuar
+$("btnContinuar").addEventListener("click", () => {
+    const nombre = $("nombreUsuario").value.trim();
+    if (!nombre) {
+        alert("Por favor, ingrese su nombre.");
+        return;
+    }
+    localStorage.setItem("nombreUsuario", nombre);
+    window.location.href = "productos.html";
 });

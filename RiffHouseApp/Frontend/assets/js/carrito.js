@@ -1,15 +1,10 @@
+import { obtenerTemaCargadoLocalStorage, cargarTemaLocalStorage, cargarTemaMain } from "./temas.js";
 import { $ } from "./utils.js";
-// import { obtenerTemaCargado } from "./temas.js";
 
 // leer carrito desde el loscalStorage
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-// leer tema desde el localStorage
-// document.addEventListener("DOMContentLoaded", () => {
-//     const temaCargado = obtenerTemaCargado();
-// });
-
-function renderCarrito() {
+function renderCarrito(tema) {
     const cont = $("carritoContainer");
     cont.innerHTML = "";
     let total = 0;
@@ -25,7 +20,7 @@ function renderCarrito() {
     } else {
         carrito.forEach((item, index) => {
             const div = document.createElement("div");
-            div.classList.add("producto-carta-claro");
+            div.classList.add(`producto-carta-${tema}`);
 
             // imagen
             const img = document.createElement("img");
@@ -84,6 +79,28 @@ function renderCarrito() {
     totalCompra.textContent = `Total: $${total}`;
 }
 
+// cambiar el tema del titulo
+function cambiarColorTitulo(tema) {
+    const titulo = $("titulo");
+    if (!titulo) return;
+    titulo.style.color = tema === "oscuro" ? "white" : "black";
+}
+
+function aplicarTema(tema) {
+    cargarTemaMain(tema);
+    renderCarrito(tema);
+    cambiarColorTitulo(tema);
+    const temaSelect = $("tema");
+    if (temaSelect) {
+        temaSelect.value = tema;
+        temaSelect.addEventListener("change", () => {
+            const nuevoTema = temaSelect.value;
+            cargarTemaLocalStorage(nuevoTema);
+            aplicarTema(nuevoTema);
+        });
+    }
+}
+
 function modificarCantidad(index, cambio) {
     carrito[index].cantidad += cambio;
     if (carrito[index].cantidad <= 0) {
@@ -127,6 +144,11 @@ $("btnFinalizar").addEventListener("click", () => {
 $("btnSalir").addEventListener("click", () => {
     localStorage.removeItem("carrito");
     window.location.href = "index.html";
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const temaGuardado = obtenerTemaCargadoLocalStorage() || "claro";
+    aplicarTema(temaGuardado);
 });
 
 renderCarrito();
