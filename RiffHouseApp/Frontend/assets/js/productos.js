@@ -1,5 +1,5 @@
 import { $ } from "./utils.js";
-import { obtenerTemaCargadoLocalStorage, cargarTemaLocalStorage, cargarTemaMain } from "./temas.js";
+import { getTema, setTema, cambiarTemaMain } from "./temas.js";
 
 // ==================== VARIABLES ====================
 
@@ -66,11 +66,7 @@ function renderProductos(tema) {
     });
 
     $("pagNum").textContent = pagActual;
-    if (tema === "claro") {
-        $("pagNum").style.color = "black";
-    } else {
-        $("pagNum").style.color = "white";
-    }
+    tema === "claro" ? ($("pagNum").style.color = "black") : ($("pagNum").style.color = "white");
 }
 
 // agrega un producto al carrito y guarda en localStorage
@@ -91,14 +87,14 @@ function agregarAlCarrito(idProducto) {
 
 // aplicar cambio de tema general
 function aplicarTema(tema) {
-    cargarTemaMain(tema);
+    cambiarTemaMain(tema);
     renderProductos(tema);
     const temaSelect = $("tema");
     if (temaSelect) {
         temaSelect.value = tema;
         temaSelect.addEventListener("change", () => {
             const nuevoTema = temaSelect.value;
-            cargarTemaLocalStorage(nuevoTema);
+            setTema(nuevoTema);
             aplicarTema(nuevoTema);
         });
     }
@@ -107,7 +103,7 @@ function aplicarTema(tema) {
 
 // carga de pagina (para aplicar tema)
 document.addEventListener("DOMContentLoaded", () => {
-    const temaGuardado = obtenerTemaCargadoLocalStorage() || "claro";
+    const temaGuardado = getTema() || "claro";
     aplicarTema(temaGuardado);
 });
 
@@ -115,23 +111,23 @@ document.addEventListener("DOMContentLoaded", () => {
 $("btnGuitarras").addEventListener("click", () => {
     categoriaActual = "guitarras";
     pagActual = 1;
-    aplicarTema(obtenerTemaCargadoLocalStorage());
+    aplicarTema(getTema());
 });
 
 $("btnBajos").addEventListener("click", () => {
     categoriaActual = "bajos";
     pagActual = 1;
-    aplicarTema(obtenerTemaCargadoLocalStorage());
+    aplicarTema(getTema());
 });
 
 // botones paginas
 $("pagAnterior").addEventListener("click", () => {
     if (pagActual > 1) pagActual--;
-    aplicarTema(obtenerTemaCargadoLocalStorage());
+    aplicarTema(getTema());
 });
 
 $("pagSiguiente").addEventListener("click", () => {
     const maxPag = Math.ceil(productos.filter(p => p.categoria === categoriaActual).length / prodPorPagina);
     if (pagActual < maxPag) pagActual++;
-    aplicarTema(obtenerTemaCargadoLocalStorage());
+    aplicarTema(getTema());
 });

@@ -1,16 +1,16 @@
 import { $ } from "./utils.js";
-import { obtenerTemaCargadoLocalStorage, cargarTemaLocalStorage, cambiarColorTitulo, cargarTemaMain } from "./temas.js";
+import { getTema, setTema, cambiarTemaTitulo, cambiarTemaMain } from "./temas.js";
 
 // aplicar cambio de tema general
 function aplicarTema(tema) {
-    cargarTemaMain(tema);
-    cambiarColorTitulo(tema);
+    cambiarTemaMain(tema);
+    cambiarTemaTitulo(tema);
     const temaSelect = $("tema");
     if (temaSelect) {
         temaSelect.value = tema;
         temaSelect.addEventListener("change", () => {
             const nuevoTema = temaSelect.value;
-            cargarTemaLocalStorage(nuevoTema);
+            setTema(nuevoTema);
             aplicarTema(nuevoTema);
         });
     }
@@ -20,7 +20,7 @@ function aplicarTema(tema) {
 
 // aplicar tema al cargar la pagina...
 document.addEventListener("DOMContentLoaded", () => {
-    const temaGuardado = obtenerTemaCargadoLocalStorage();
+    const temaGuardado = getTema() || "claro";
     aplicarTema(temaGuardado);
 });
 

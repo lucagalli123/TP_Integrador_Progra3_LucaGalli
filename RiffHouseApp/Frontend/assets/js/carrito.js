@@ -1,4 +1,4 @@
-import { obtenerTemaCargadoLocalStorage, cargarTemaLocalStorage, cargarTemaMain, cambiarColorTitulo } from "./temas.js";
+import { getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./temas.js";
 import { $ } from "./utils.js";
 
 // leer carrito desde el loscalStorage
@@ -12,6 +12,7 @@ function renderCarrito(tema) {
     if (carrito.length === 0) {
         const p = document.createElement("p");
         p.textContent = "El carrito está vacío.";
+        tema === "claro" ? (p.style.color = "black") : (p.style.color = "white");
         p.style.position = "absolute";
         p.style.top = "50%";
         p.style.left = "50%";
@@ -80,15 +81,15 @@ function renderCarrito(tema) {
 }
 
 function aplicarTema(tema) {
-    cargarTemaMain(tema);
+    cambiarTemaMain(tema);
     renderCarrito(tema);
-    cambiarColorTitulo(tema);
+    cambiarTemaTitulo(tema);
     const temaSelect = $("tema");
     if (temaSelect) {
         temaSelect.value = tema;
         temaSelect.addEventListener("change", () => {
             const nuevoTema = temaSelect.value;
-            cargarTemaLocalStorage(nuevoTema);
+            setTema(nuevoTema);
             aplicarTema(nuevoTema);
         });
     }
@@ -100,13 +101,13 @@ function modificarCantidad(index, cambio) {
         carrito.splice(index, 1);
     }
     localStorage.setItem("carrito", JSON.stringify(carrito));
-    renderCarrito();
+    aplicarTema(getTema());
 }
 
 function eliminarProducto(index) {
     carrito.splice(index, 1);
     localStorage.setItem("carrito", JSON.stringify(carrito));
-    renderCarrito();
+    aplicarTema(getTema());
 }
 
 // boton finalizar
@@ -133,6 +134,8 @@ $("btnFinalizar").addEventListener("click", () => {
     }
 });
 
+// LISTENERS ====================================================
+
 // boton salir
 $("btnSalir").addEventListener("click", () => {
     localStorage.removeItem("carrito");
@@ -140,7 +143,7 @@ $("btnSalir").addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    const temaGuardado = obtenerTemaCargadoLocalStorage() || "claro";
+    const temaGuardado = getTema() || "claro";
     aplicarTema(temaGuardado);
 });
 
