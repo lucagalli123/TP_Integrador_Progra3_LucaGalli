@@ -8,6 +8,7 @@ function renderCarrito(tema) {
     const cont = $("carritoContainer");
     cont.innerHTML = "";
     let total = 0;
+    $("detalleCompra").innerHTML = "";
 
     if (carrito.length === 0) {
         const p = document.createElement("p");
@@ -71,6 +72,12 @@ function renderCarrito(tema) {
             // agregar div al contenedor
             cont.appendChild(div);
 
+            const prodDetalle = document.createElement("p");
+            prodDetalle.textContent = `Producto: ${item.nombre}, cantidad: ${item.cantidad}`;
+            prodDetalle.classList.add("detalle-productos-compra");
+            tema === "claro" ? (prodDetalle.style.color = "black") : (prodDetalle.style.color = "white");
+            $("detalleCompra").appendChild(prodDetalle);
+
             total += item.precio * item.cantidad;
         });
     }
@@ -84,6 +91,8 @@ function aplicarTema(tema) {
     cambiarTemaMain(tema);
     renderCarrito(tema);
     cambiarTemaTitulo(tema);
+    tema === "claro" ? ($("detalleTotal").style.backgroundColor = "#ffffffff") : ($("detalleTotal").style.backgroundColor = "#222");
+    tema === "claro" ? ($("totalCompra").style.color = "#222") : ($("totalCompra").style.color = "#ffffffff");
     const temaSelect = $("tema");
     if (temaSelect) {
         temaSelect.value = tema;
@@ -110,6 +119,8 @@ function eliminarProducto(index) {
     aplicarTema(getTema());
 }
 
+// LISTENERS ====================================================
+
 // boton finalizar
 $("btnFinalizar").addEventListener("click", () => {
     if (carrito.length === 0) {
@@ -133,8 +144,6 @@ $("btnFinalizar").addEventListener("click", () => {
         window.location.href = "ticket.html";
     }
 });
-
-// LISTENERS ====================================================
 
 // boton salir
 $("btnSalir").addEventListener("click", () => {
