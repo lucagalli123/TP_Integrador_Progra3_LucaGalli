@@ -27,11 +27,11 @@ function renderCarrito(tema) {
             // imagen
             const img = document.createElement("img");
             img.src = item.imagen;
-            img.alt = item.nombre;
+            img.alt = item.marca + " " + item.modelo;
 
             // nombre
             const h3 = document.createElement("h3");
-            h3.textContent = item.nombre;
+            h3.textContent = item.marca + " " + item.modelo;
 
             // precio
             const precio = document.createElement("p");
@@ -73,7 +73,7 @@ function renderCarrito(tema) {
             cont.appendChild(div);
 
             const prodDetalle = document.createElement("p");
-            prodDetalle.textContent = `Producto: ${item.nombre}, cantidad: ${item.cantidad}`;
+            prodDetalle.textContent = `Producto: ${item.marca + " " + item.modelo}, cantidad: ${item.cantidad}`;
             prodDetalle.classList.add("detalle-productos-compra");
             tema === "claro" ? (prodDetalle.style.color = "black") : (prodDetalle.style.color = "white");
             $("detalleCompra").appendChild(prodDetalle);
