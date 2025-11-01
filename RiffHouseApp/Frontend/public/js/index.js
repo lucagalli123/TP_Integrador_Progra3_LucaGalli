@@ -32,5 +32,5 @@ $("btnContinuar").addEventListener("click", () => {
         return;
     }
     localStorage.setItem("nombreUsuario", nombre);
-    window.location.href = "./paginas/productos.html";
+    window.location.href = "./productos.html";
 });

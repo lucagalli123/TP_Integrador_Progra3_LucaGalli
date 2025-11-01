@@ -13,5 +13,5 @@ const ruta = path.resolve(__dirname, "./public");
 app.use(express.static(ruta));
 
 app.listen(PORT, () => {
-    console.log(`Escuchando en puerto ${PORT}`);
+    console.log(`Escuchando en puerto ${PORT}, http://localhost:3000`);
 });
