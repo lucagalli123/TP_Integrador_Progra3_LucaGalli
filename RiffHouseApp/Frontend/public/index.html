@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>RiffHouse - Bienvenida</title>
+        <link rel="stylesheet" href="/css/style.css" />
+        <link rel="icon" type="image/png" href="/img/logo/logo.png" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle&family=Bungee+Inline&family=Bungee+Shade&family=Honk:SHLN@46.9&family=Nosifer&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle&family=Bungee+Inline&family=Bungee+Shade&family=Honk:SHLN@46.9&family=Nosifer&family=Rubik+Wet+Paint&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <img src="/img/logo/logo.png" alt="Logo" class="logo" />
+            <h1>RiffHouse</h1>
+            <div class="div-selector-tema">
+                <label for="tema">Tema:</label>
+                <select id="tema">
+                    <option value="claro">Claro</option>
+                    <option value="oscuro">Oscuro</option>
+                </select>
+            </div>
+        </header>
+
+        <main id="main" class="claro">
+            <h2 id="titulo">Bienvenido al Autoservicio de Guitarras y Bajos</h2>
+            <input type="text" id="nombreUsuario" placeholder="Ingrese su nombre" required />
+            <button id="btnContinuar">Continuar</button>
+        </main>
+
+        <footer>
+            <p>Desarrollado por: Luca Galli</p>
+        </footer>
+
+        <script type="module" src="/js/index.js"></script>
+        <script type="module" src="/js/temas.js"></script>
+    </body>
+</html>
