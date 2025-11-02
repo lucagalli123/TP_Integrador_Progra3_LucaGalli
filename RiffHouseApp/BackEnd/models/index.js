@@ -1,25 +1,19 @@
-import { Cliente } from "./cliente.js";
 import { Producto } from "./producto.js";
 import { Usuario } from "./usuario.js";
 import { Venta } from "./venta.js";
-import { VentaProducto } from "./ventaProducto.js";
+import { DetalleVenta } from "./detalleVenta.js";
 
 // relaciones ================================================
 
-// cliente y venta
+// Producto y Venta
 
-Cliente.hasMany(Venta, { foreignKey: "idCliente" });
-Venta.belongsTo(Cliente, { foreignKey: "idCliente" });
+Producto.belongsToMany(Venta, { through: "DetalleVenta" });
+Venta.belongsToMany(Producto, { through: "DetalleVenta" });
 
-// producto y venta
+Producto.hasMany(DetalleVenta);
+DetalleVenta.belongsTo(Producto);
 
-Producto.belongsToMany(Venta, { through: "VentaProducto" });
-Venta.belongsToMany(Producto, { through: "VentaProducto" });
+Venta.hasMany(DetalleVenta);
+DetalleVenta.belongsTo(Venta);
 
-Producto.hasMany(VentaProducto);
-VentaProducto.belongsTo(Producto);
-
-Venta.hasMany(VentaProducto);
-VentaProducto.belongsTo(Venta);
-
-export { Cliente, Producto, Venta, VentaProducto, Usuario };
+export { Producto, Venta, DetalleVenta, Usuario };
