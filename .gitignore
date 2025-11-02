@@ -1,4 +1,5 @@
 pendientes.txt
 RiffHouseApp/FrontEnd/node_modules/
+RiffHouseApp/FrontEnd/.env
 RiffHouseApp/BackEnd/node_modules/
 RiffHouseApp/BackEnd/.env
