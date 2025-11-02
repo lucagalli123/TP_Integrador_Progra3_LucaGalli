@@ -460,5 +460,45 @@ main h2 {
     margin-bottom: 8px;
     font-size: 15px;
     color: #333;
+    /* font-weight: bold; */
+}
+
+/* tabla ticket productos */
+
+.tabla-productos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.tabla-productos th,
+.tabla-productos td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.tabla-productos th {
+    background-color: #f0f0f0;
     font-weight: bold;
+}
+
+.fuente-nombre-empresa-ticket {
+    display: block;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.div-total-ticket {
+    display: flex;
+    justify-content: space-between;
+}
+
+.div-linea {
+    height: 2px;
+    width: 100%;
+    background-color: black;
+    margin-top: 15px;
 }
