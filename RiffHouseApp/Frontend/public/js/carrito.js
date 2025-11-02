@@ -1,7 +1,7 @@
 import { getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./temas.js";
 import { $ } from "./utils.js";
 
-// leer carrito desde el loscalStorage
+// leer carrito desde el localStorage
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 function renderCarrito(tema) {
@@ -119,16 +119,29 @@ function eliminarProducto(index) {
     aplicarTema(getTema());
 }
 
-// LISTENERS ====================================================
+// LISTENERS ======================================================
 
-// boton finalizar
 $("btnFinalizar").addEventListener("click", () => {
     if (carrito.length === 0) {
         alert("El carrito está vacío.");
         return;
     }
-    if (confirm("¿Desea confirmar la compra?")) {
-        // guardar carrito en localStorage para ticket
+
+    const modal = $("modalCompraConfirm");
+    const btnClose = $("cerrarModal");
+    const btnConfirm = $("confirmCompra");
+    const btnCancel = $("cancelCompra");
+
+    // mostrar modal
+    modal.style.display = "block";
+
+    // cerrar con X
+    btnClose.addEventListener("click", () => (modal.style.display = "none"));
+
+    // cancelar compra
+    btnCancel.addEventListener("click", () => (modal.style.display = "none"));
+
+    btnConfirm.addEventListener("click", () => {
         localStorage.setItem(
             "ticket",
             JSON.stringify({
@@ -138,17 +151,14 @@ $("btnFinalizar").addEventListener("click", () => {
                 total: carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0),
             })
         );
-        // Limpiar carrito
-        carrito = [];
-        localStorage.setItem("carrito", JSON.stringify(carrito));
-        window.location.href = "ticket.html";
-    }
+        localStorage.removeItem("carrito");
+        window.location.href = "/ticket.html";
+    });
 });
 
-// boton salir
+// boton salir (link <a>)
 $("btnSalir").addEventListener("click", () => {
     localStorage.removeItem("carrito");
-    window.location.href = "index.html";
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -156,4 +166,5 @@ document.addEventListener("DOMContentLoaded", () => {
     aplicarTema(temaGuardado);
 });
 
+// render inicial
 renderCarrito();
