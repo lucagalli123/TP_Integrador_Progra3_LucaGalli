@@ -1,74 +1,73 @@
 import { $ } from "./utils.js";
+// import { PUERTO_API } from "../../variablesEntorno.js";
 import { getTema, setTema, cambiarTemaMain } from "./temas.js";
 
 // ==================== VARIABLES ====================
-
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let productosDataGlobal = {};
 
-const productos = [
-    { id: 1, marca: "Fender", modelo: "Stratocaster Player", categoria: "guitarras", precio: 1200, imagen: "../img/guitarras/guitarra1.png", activo: true },
-    { id: 2, marca: "Gibson", modelo: "Les Paul Standard", categoria: "guitarras", precio: 1800, imagen: "../img/guitarras/guitarra2.png", activo: true },
-    { id: 3, marca: "Ibanez", modelo: "RG450DX", categoria: "guitarras", precio: 950, imagen: "../img/guitarras/guitarra3.png", activo: true },
-    { id: 4, marca: "PRS", modelo: "SE Custom 24", categoria: "guitarras", precio: 1400, imagen: "../img/guitarras/guitarra4.png", activo: true },
-    { id: 5, marca: "Yamaha", modelo: "Pacifica 112V", categoria: "guitarras", precio: 700, imagen: "../img/guitarras/guitarra5.png", activo: true },
-    { id: 6, marca: "ESP", modelo: "LTD EC-256", categoria: "guitarras", precio: 850, imagen: "../img/guitarras/guitarra6.png", activo: true },
-    { id: 7, marca: "Schecter", modelo: "Omen Extreme-6", categoria: "guitarras", precio: 950, imagen: "../img/guitarras/guitarra7.png", activo: true },
-    { id: 8, marca: "Gretsch", modelo: "G2622 Streamliner", categoria: "guitarras", precio: 1100, imagen: "../img/guitarras/guitarra8.png", activo: true },
-    { id: 9, marca: "Fender", modelo: "Jazz Bass Player", categoria: "bajos", precio: 1300, imagen: "../img/bajos/bajo1.png", activo: true },
-    { id: 10, marca: "Music Man", modelo: "StingRay 4", categoria: "bajos", precio: 1600, imagen: "../img/bajos/bajo2.png", activo: true },
-    { id: 11, marca: "Yamaha", modelo: "TRBX304", categoria: "bajos", precio: 900, imagen: "../img/bajos/bajo3.png", activo: true },
-    { id: 12, marca: "Ibanez", modelo: "SR500E", categoria: "bajos", precio: 1150, imagen: "../img/bajos/bajo4.png", activo: true },
-    { id: 13, marca: "Squier", modelo: "Precision Bass", categoria: "bajos", precio: 600, imagen: "../img/bajos/bajo5.png", activo: true },
-    { id: 14, marca: "ESP", modelo: "LTD B-204SM", categoria: "bajos", precio: 950, imagen: "../img/bajos/bajo6.png", activo: true },
-    { id: 15, marca: "Schecter", modelo: "Stiletto Stealth-4", categoria: "bajos", precio: 980, imagen: "../img/bajos/bajo7.png", activo: true },
-    { id: 16, marca: "Warwick", modelo: "RockBass Corvette", categoria: "bajos", precio: 1450, imagen: "../img/bajos/bajo8.png", activo: true },
-];
-
-// ==================== FUNCIONES ====================
-
-// carga productos
 let categoriaActual = "guitarras";
 let pagActual = 1;
 const prodPorPagina = 6;
 
-function renderProductos(tema) {
+// ==================== FUNCIONES ====================
+
+// renderiza los productos de la pag
+async function renderProductos(tema) {
     const cont = $("productosContainer");
     cont.innerHTML = "";
 
-    const productosFiltrados = productos.filter(p => p.categoria === categoriaActual);
-    const inicio = (pagActual - 1) * prodPorPagina;
-    const productosEnPantalla = productosFiltrados.slice(inicio, inicio + prodPorPagina);
+    // traer productos desde el backend
 
-    productosEnPantalla.forEach(p => {
-        const div = document.createElement("div");
-        div.classList.add(`producto-carta-${tema}`);
+    try {
+        const respuestaAPI = await fetch(`http://localhost:3001/api/productos?categoria=${categoriaActual}&&pag=${pagActual}&limit=${prodPorPagina}`); // VER TEMA DE PUERTO EN .ENV
 
-        const img = document.createElement("img");
-        img.src = p.imagen;
-        img.alt = p.marca + " " + p.modelo;
+        const productosData = await respuestaAPI.json();
+        const listaProductos = productosData.listaProd;
 
-        const h3 = document.createElement("h3");
-        h3.textContent = p.marca + " " + p.modelo;
+        // le mando los productos a la variable global para guardar productos en el carrito
+        productosDataGlobal = productosData;
 
-        const precio = document.createElement("p");
-        precio.textContent = `$${p.precio}`;
+        listaProductos.forEach(p => {
+            const div = document.createElement("div");
+            div.classList.add(`producto-carta-${tema}`);
 
-        const btn = document.createElement("button");
-        btn.textContent = "Agregar al carrito";
-        btn.style.width = "80%";
-        btn.addEventListener("click", () => agregarAlCarrito(p.id));
+            const img = document.createElement("img");
+            img.src = `http://localhost:3001/public/img/${categoriaActual}/${p.imagen}`; // VER TEMA DE PUERTO EN .ENV
+            img.alt = `${p.marca} ${p.modelo}`;
 
-        div.append(img, h3, precio, btn);
-        cont.appendChild(div);
-    });
+            const h3 = document.createElement("h3");
+            h3.textContent = `${p.marca} ${p.modelo}`;
 
-    $("pagNum").textContent = pagActual;
-    tema === "claro" ? ($("pagNum").style.color = "black") : ($("pagNum").style.color = "white");
+            const precio = document.createElement("p");
+            precio.textContent = `$${p.precio}`;
+
+            const btn = document.createElement("button");
+            btn.textContent = "Agregar al carrito";
+            btn.style.width = "80%";
+            btn.addEventListener("click", () => agregarAlCarrito(p.id));
+
+            div.append(img, h3, precio, btn);
+            cont.appendChild(div);
+        });
+
+        // actualizar numero de pagina
+        $("pagNum").textContent = pagActual;
+        tema === "claro" ? ($("pagNum").style.color = "black") : ($("pagNum").style.color = "white");
+    } catch (error) {
+        console.error(error);
+
+        const textError = document.createElement("p");
+        textError.textContent = "Error al cargar los productos. Intente mas tarde";
+        textError.style.textAlign = "center";
+
+        cont.appendChild(textError);
+    }
 }
 
 // agrega un producto al carrito y guarda en localStorage
 function agregarAlCarrito(idProducto) {
-    const producto = productos.find(p => p.id === idProducto);
+    const producto = productosDataGlobal.listaProd.find(p => p.id === idProducto);
     if (!producto) return;
 
     const index = carrito.findIndex(item => item.id === idProducto);
@@ -79,52 +78,50 @@ function agregarAlCarrito(idProducto) {
     }
 
     localStorage.setItem("carrito", JSON.stringify(carrito));
-    alert(`${producto.marca + " " + producto.modelo} agregado al carrito`);
+    alert(`${producto.marca} ${producto.modelo} agregado al carrito`);
 }
 
-// aplicar cambio de tema general
-function aplicarTema(tema) {
-    cambiarTemaMain(tema);
-    renderProductos(tema);
-    const temaSelect = $("tema");
-    if (temaSelect) {
-        temaSelect.value = tema;
-        temaSelect.addEventListener("change", () => {
-            const nuevoTema = temaSelect.value;
-            setTema(nuevoTema);
-            aplicarTema(nuevoTema);
-        });
-    }
-}
 // ==================== EVENTOS ====================
 
-// carga de pagina (para aplicar tema)
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const temaGuardado = getTema() || "claro";
-    aplicarTema(temaGuardado);
-});
+    cambiarTemaMain(temaGuardado);
+    await renderProductos(temaGuardado);
 
-// botones categorias
-$("btnGuitarras").addEventListener("click", () => {
-    categoriaActual = "guitarras";
-    pagActual = 1;
-    aplicarTema(getTema());
-});
+    // listener de cambio de tema
+    const temaSelect = $("tema");
+    if (temaSelect) {
+        temaSelect.value = temaGuardado;
+        temaSelect.addEventListener("change", async () => {
+            const nuevoTema = temaSelect.value;
+            setTema(nuevoTema);
+            cambiarTemaMain(nuevoTema);
+            await renderProductos(nuevoTema);
+        });
+    }
 
-$("btnBajos").addEventListener("click", () => {
-    categoriaActual = "bajos";
-    pagActual = 1;
-    aplicarTema(getTema());
-});
+    // botones categorias
+    $("btnGuitarras").addEventListener("click", async () => {
+        categoriaActual = "guitarras";
+        pagActual = 1;
+        await renderProductos(getTema());
+    });
 
-// botones paginas
-$("pagAnterior").addEventListener("click", () => {
-    if (pagActual > 1) pagActual--;
-    aplicarTema(getTema());
-});
+    $("btnBajos").addEventListener("click", async () => {
+        categoriaActual = "bajos";
+        pagActual = 1;
+        await renderProductos(getTema());
+    });
 
-$("pagSiguiente").addEventListener("click", () => {
-    const maxPag = Math.ceil(productos.filter(p => p.categoria === categoriaActual).length / prodPorPagina);
-    if (pagActual < maxPag) pagActual++;
-    aplicarTema(getTema());
+    // botones paginacion
+    $("pagAnterior").addEventListener("click", async () => {
+        if (pagActual > 1) pagActual--;
+        await renderProductos(getTema());
+    });
+
+    $("pagSiguiente").addEventListener("click", async () => {
+        const maxPag = productosDataGlobal.paginas;
+        if (pagActual < maxPag) pagActual++;
+        await renderProductos(getTema());
+    });
 });

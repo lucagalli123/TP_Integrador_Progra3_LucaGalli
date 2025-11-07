@@ -1,47 +1,41 @@
 import express from "express";
-import { sequelize } from "./database/index.js";
+import { sequelize } from "./api/database/index.js";
 import { PUERTO } from "./variablesEntorno.js";
-// importacion de modelos
-import { Producto, Venta, DetalleVenta, Usuario } from "./models/index.js";
-// importacion de rutas
+import { iniciarDB } from "./iniciarDbPrueba.js";
+import path from "node:path";
+import { fileURLToPath } from "url";
+import { dirname, resolve } from "path";
+import cors from "cors";
 
-// inicio de express
+// declaro path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// importacion de modelos
+import { Producto, Venta, VentaProducto, Usuario } from "./api/models/index.js";
+
+// importacion de rutas
+import productosRouter from "./api/routes/productosRouter.js";
+import ventasRouter from "./api/routes/ventasRouter.js";
+
+// ================================= INICIO DE EXPRESS =================================
+
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
-const iniciarDB = async () => {
-    // usuario
-    await Usuario.create({
-        nombre: "moni",
-        email: "moni@example.com",
-        password: "1234",
-    });
+// ================================= RUTAS =================================
 
-    await Venta.create({
-        idCliente: "1",
-        fecha: new Date().toLocaleString(),
-        total: 15.12,
-    });
+// ruta estatica /public
+const ruta = path.resolve(__dirname, "public"); // VER TEMA DE QUE LA RUTA ESTE EN .ENV
+app.use("/public", express.static(ruta));
 
-    // await Usuario.create({
-    //     nombre: "carlos",
-    //     email: "carlos@example.com",
-    //     password: "1111",
-    // });
+// ruta api/productos
+app.use("/api/productos", productosRouter);
 
-    // await Producto.create({
-    //     marca: "Fender",
-    //     modelo: "Stratocaster",
-    //     imagen: "",
-    // });
-};
-
-// rutas
-
-// app.use("/api/clientes", clientesRouter);
-// app.use("/api/productos", peliculasRouter);
-// app.use("/api/usuarios", alquileresRouter);
+// ruta api/ventas
+app.use("/api/ventas", ventasRouter);
 
 sequelize
     .sync({ force: true })

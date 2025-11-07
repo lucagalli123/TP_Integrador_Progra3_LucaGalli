@@ -1,106 +1,144 @@
-// import { createElement } from "react";
 import { getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./temas.js";
 import { $ } from "./utils.js";
 
 // obtener ticket
 const ticket = JSON.parse(localStorage.getItem("ticket"));
+// console.log(ticket);
 
-const cont = $("ticketContainer");
+function cargarPagina(tema) {
+    const cont = $("ticketContainer");
+    cont.innerHTML = "";
 
-if (!ticket) {
-    const mensaje = document.createElement("p");
-    mensaje.textContent = "No hay ticket disponible.";
-    cont.appendChild(mensaje);
-} else {
-    const div = document.createElement("div");
-    div.classList.add("producto-card");
+    if (!ticket) {
+        const mensaje = document.createElement("p");
+        mensaje.textContent = "No hay ticket disponible.";
+        cont.appendChild(mensaje);
+    } else {
+        const div = document.createElement("div");
+        // div.setAttribute("id", "divTicket");
+        div.classList.add("producto-card");
+        div.style.backgroundColor = tema === "oscuro" ? "#d9d7d7ff" : "white";
 
-    const empresa = document.createElement("span");
-    empresa.textContent = "Riffhouse";
-    empresa.classList.add("fuente-nombre-empresa-ticket");
-    div.appendChild(empresa);
+        const empresa = document.createElement("span");
+        empresa.textContent = "Riffhouse";
+        empresa.classList.add("fuente-nombre-empresa-ticket");
+        div.appendChild(empresa);
 
-    const nombre = document.createElement("p");
-    nombre.textContent = `Cliente: ${ticket.nombreUsuario}`;
-    div.appendChild(nombre);
+        const nombre = document.createElement("p");
+        nombre.textContent = `Cliente: ${ticket.cliente}`;
+        div.appendChild(nombre);
 
-    const fecha = document.createElement("p");
-    fecha.textContent = `Fecha: ${ticket.fecha}`;
-    div.appendChild(fecha);
+        const fecha = document.createElement("p");
+        fecha.textContent = `Fecha: ${ticket.fecha}`;
+        div.appendChild(fecha);
 
-    // tabla
-    const tabla = document.createElement("table");
-    tabla.classList.add("tabla-productos");
+        // tabla
+        const tabla = document.createElement("table");
+        // tabla.setAttribute("id", "tablaTicket");
+        // tabla.style.backgroundColor = tema === "oscuro" ? "black" : "white";
+        // tabla.style.color = tema === "oscuro" ? "white" : "black";
+        tabla.classList.add("tabla-productos");
 
-    //  encabezado
-    const thead = document.createElement("thead");
-    const encabezadoFila = document.createElement("tr");
-    const columnas = ["Artículo", "Cantidad", "Precio Unitario", "Total"];
-    columnas.forEach(col => {
-        const th = document.createElement("th");
-        th.textContent = col;
-        encabezadoFila.appendChild(th);
-    });
-    thead.appendChild(encabezadoFila);
-    tabla.appendChild(thead);
+        //  encabezado
+        const thead = document.createElement("thead");
 
-    //  cuerpo de la tabla
-    const tbody = document.createElement("tbody");
+        const encabezadoFila = document.createElement("tr");
+        const columnas = ["Artículo", "Cantidad", "Precio Unitario", "Total"];
+        columnas.forEach(col => {
+            const th = document.createElement("th");
+            th.textContent = col;
+            // th.style.backgroundColor = tema === "oscuro" ? "black" : "white";
+            // th.style.color = tema === "oscuro" ? "white" : "black";
+            encabezadoFila.appendChild(th);
+        });
+        thead.appendChild(encabezadoFila);
+        tabla.appendChild(thead);
 
-    ticket.productos.forEach(p => {
-        const fila = document.createElement("tr");
+        //  cuerpo de la tabla
+        const tbody = document.createElement("tbody");
 
-        const articulo = document.createElement("td");
-        articulo.textContent = `${p.marca} ${p.modelo}`;
-        fila.appendChild(articulo);
+        ticket.productos.forEach(p => {
+            const fila = document.createElement("tr");
 
-        const cantidad = document.createElement("td");
-        cantidad.textContent = p.cantidad;
-        fila.appendChild(cantidad);
+            const articulo = document.createElement("td");
+            articulo.textContent = `${p.marca} ${p.modelo}`;
+            fila.appendChild(articulo);
 
-        const precio = document.createElement("td");
-        precio.textContent = `$${p.precio.toFixed(2)}`;
-        fila.appendChild(precio);
+            const cantidad = document.createElement("td");
+            cantidad.textContent = p.cantidad;
+            fila.appendChild(cantidad);
 
-        const subtotal = document.createElement("td");
-        subtotal.textContent = `$${(p.precio * p.cantidad).toFixed(2)}`;
-        fila.appendChild(subtotal);
+            const precio = document.createElement("td");
+            precio.textContent = `$${p.precio}`;
+            fila.appendChild(precio);
 
-        tbody.appendChild(fila);
-    });
+            const subtotal = document.createElement("td");
+            subtotal.textContent = `$${(p.precio * p.cantidad).toFixed(2)}`;
+            fila.appendChild(subtotal);
 
-    tabla.appendChild(tbody);
-    div.appendChild(tabla);
+            tbody.appendChild(fila);
+        });
 
-    const divLinea = document.createElement("div");
-    divLinea.classList.add("div-linea");
-    div.appendChild(divLinea);
+        tabla.appendChild(tbody);
+        div.appendChild(tabla);
 
-    // total general
-    const divTotal = document.createElement("div");
+        const divLinea = document.createElement("div");
+        divLinea.classList.add("div-linea");
+        div.appendChild(divLinea);
 
-    const totalLiteral = document.createElement("span");
-    totalLiteral.textContent = "Total:";
-    totalLiteral.style.marginTop = "15px";
+        // total general
+        const divTotal = document.createElement("div");
 
-    const totalNumero = document.createElement("span");
+        const totalLiteral = document.createElement("span");
+        totalLiteral.textContent = "Total:";
+        totalLiteral.style.marginTop = "15px";
 
-    // VER TEMA DE CANTIDAD DE DECIMALES
-    totalNumero.textContent = `$${ticket.total}`;
-    totalNumero.style.fontWeight = "bold";
-    totalNumero.style.marginTop = "15px";
+        const totalNumero = document.createElement("span");
 
-    divTotal.appendChild(totalLiteral);
-    divTotal.appendChild(totalNumero);
-    divTotal.classList.add("div-total-ticket");
+        // VER TEMA DE CANTIDAD DE DECIMALES
+        totalNumero.textContent = `$${ticket.total}`;
+        totalNumero.style.fontWeight = "bold";
+        totalNumero.style.marginTop = "15px";
 
-    div.appendChild(divTotal);
+        divTotal.appendChild(totalLiteral);
+        divTotal.appendChild(totalNumero);
+        divTotal.classList.add("div-total-ticket");
 
-    cont.appendChild(div);
+        div.appendChild(divTotal);
+
+        cont.appendChild(div);
+    }
 }
+
+function aplicarTema(tema) {
+    cambiarTemaMain(tema);
+    cargarPagina(tema);
+    cambiarTemaTitulo(tema);
+    // tema === "oscuro" ? ($("divTicket").style.backgroundColor = "black") : ($("divTicket").style.backgroundColor = "white");
+    // tema === "oscuro" ? ($("divTicket").style.color = "white") : ($("divTicket").style.color = "black");
+    // tema === "oscuro" ? ($("divTabla").style.color = "white") : ($("divTabla").style.color = "black");
+    const temaSelect = $("tema");
+    if (temaSelect) {
+        temaSelect.value = tema;
+        temaSelect.addEventListener("change", () => {
+            const nuevoTema = temaSelect.value;
+            setTema(nuevoTema);
+            aplicarTema(nuevoTema);
+        });
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const temaGuardado = getTema() || "claro";
+    aplicarTema(temaGuardado);
+});
+
+// ================ LISTENERS =================
 
 // boton nueva compra
 $("btnNuevaCompra").addEventListener("click", () => {
     localStorage.removeItem("ticket");
     window.location.href = "index.html";
 });
+
+// cargarPagina();

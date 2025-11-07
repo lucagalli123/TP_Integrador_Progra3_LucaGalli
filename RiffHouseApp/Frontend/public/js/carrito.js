@@ -26,7 +26,7 @@ function renderCarrito(tema) {
 
             // imagen
             const img = document.createElement("img");
-            img.src = item.imagen;
+            img.src = `http://localhost:3001/public/img/${item.categoria}/${item.imagen}`;
             img.alt = item.marca + " " + item.modelo;
 
             // nombre
@@ -145,7 +145,7 @@ $("btnFinalizar").addEventListener("click", () => {
         localStorage.setItem(
             "ticket",
             JSON.stringify({
-                nombreUsuario: localStorage.getItem("nombreUsuario"),
+                cliente: localStorage.getItem("nombreCliente"),
                 productos: carrito,
                 fecha: new Date().toLocaleString(),
                 total: carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0),

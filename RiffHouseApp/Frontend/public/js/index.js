@@ -26,11 +26,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // boton continuar
 $("btnContinuar").addEventListener("click", () => {
-    const nombre = $("nombreUsuario").value.trim();
+    const nombre = $("nombreCliente").value.trim();
     if (!nombre) {
         alert("Por favor, ingrese su nombre.");
         return;
     }
-    localStorage.setItem("nombreUsuario", nombre);
+    localStorage.setItem("nombreCliente", nombre);
     window.location.href = "./productos.html";
 });
