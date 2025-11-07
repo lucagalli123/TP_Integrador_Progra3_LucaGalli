@@ -10,7 +10,7 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
-const ruta = path.resolve(__dirname, "public");
+const ruta = path.resolve(__dirname, "public"); // VER TEMA DE QUE LA RUTA ESTE EN .ENV
 app.use("/", express.static(ruta));
 
 app.listen(PUERTO, () => {
