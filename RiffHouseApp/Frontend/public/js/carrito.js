@@ -1,8 +1,10 @@
 import { getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./temas.js";
+import { obtenerConfig } from "./variablesEntorno.js";
 import { $ } from "./utils.js";
 
 // leer carrito desde el localStorage
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let API_URL = "";
 
 function renderCarrito(tema) {
     const cont = $("carritoContainer");
@@ -26,7 +28,7 @@ function renderCarrito(tema) {
 
             // imagen
             const img = document.createElement("img");
-            img.src = `http://localhost:3001/public/img/${item.categoria}/${item.imagen}`;
+            img.src = `${API_URL}/public/img/${item.categoria}/${item.imagen}`;
             img.alt = item.marca + " " + item.modelo;
 
             // nombre
@@ -161,10 +163,12 @@ $("btnSalir").addEventListener("click", () => {
     localStorage.removeItem("carrito");
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+    const config = await obtenerConfig();
+    API_URL = config.API_URL;
     const temaGuardado = getTema() || "claro";
     aplicarTema(temaGuardado);
 });
 
 // render inicial
-renderCarrito();
+// renderCarrito();

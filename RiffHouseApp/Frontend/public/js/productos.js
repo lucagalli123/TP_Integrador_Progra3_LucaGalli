@@ -1,11 +1,11 @@
 import { $ } from "./utils.js";
-// import { PUERTO_API } from "../../variablesEntorno.js";
+import { obtenerConfig } from "./variablesEntorno.js";
 import { getTema, setTema, cambiarTemaMain } from "./temas.js";
 
 // ==================== VARIABLES ====================
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 let productosDataGlobal = {};
-
+let API_URL = "";
 let categoriaActual = "guitarras";
 let pagActual = 1;
 const prodPorPagina = 6;
@@ -20,7 +20,7 @@ async function renderProductos(tema) {
     // traer productos desde el backend
 
     try {
-        const respuestaAPI = await fetch(`http://localhost:3001/api/productos?categoria=${categoriaActual}&&pag=${pagActual}&limit=${prodPorPagina}`); // VER TEMA DE PUERTO EN .ENV
+        const respuestaAPI = await fetch(`${API_URL}/api/productos?tipo=cliente&categoria=${categoriaActual}&pag=${pagActual}&limit=${prodPorPagina}`); // VER TEMA DE PUERTO EN .ENV
 
         const productosData = await respuestaAPI.json();
         const listaProductos = productosData.listaProd;
@@ -33,7 +33,7 @@ async function renderProductos(tema) {
             div.classList.add(`producto-carta-${tema}`);
 
             const img = document.createElement("img");
-            img.src = `http://localhost:3001/public/img/${categoriaActual}/${p.imagen}`; // VER TEMA DE PUERTO EN .ENV
+            img.src = `${API_URL}/public/img/${categoriaActual}/${p.imagen}`; // VER TEMA DE PUERTO EN .ENV
             img.alt = `${p.marca} ${p.modelo}`;
 
             const h3 = document.createElement("h3");
@@ -84,6 +84,8 @@ function agregarAlCarrito(idProducto) {
 // ==================== EVENTOS ====================
 
 document.addEventListener("DOMContentLoaded", async () => {
+    const config = await obtenerConfig();
+    API_URL = config.API_URL;
     const temaGuardado = getTema() || "claro";
     cambiarTemaMain(temaGuardado);
     await renderProductos(temaGuardado);

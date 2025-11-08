@@ -1,48 +1,47 @@
 import { Producto } from "../models/index.js";
 
 class ProductosController {
-    // para el cliente ---> GET ---> (QUERY) ---> http://localhost:3001/api/productos?pag=x&limit=x&categoria=x
-    static async getProductosActivosPaginados(req, res) {
+    // validar datos...
+    static async getProductos(req, res) {
         try {
-            const pag = parseInt(req.query.pag);
-            const limitValor = parseInt(req.query.limit);
-            const categoria = req.query.categoria;
-            const offsetValor = (pag - 1) * limitValor;
+            let { tipo, pag, limit, categoria } = req.query;
 
-            const productos = await Producto.findAndCountAll({
-                where: {
-                    activo: true,
-                    categoria: categoria,
-                },
-                limit: limitValor,
-                offset: offsetValor,
-            });
+            if (tipo === "cliente") {
+                pag = parseInt(pag) || 1;
+                limit = parseInt(limit) || 6;
+                const offset = (pag - 1) * limit;
 
-            if (productos.rows.length === 0) return res.status(200).send({ message: "No hay productos activos" });
+                const productos = await Producto.findAndCountAll({
+                    where: { activo: true, categoria: categoria },
+                    // categoria: categoria,
+                    limit: limit,
+                    offset: offset,
+                });
 
-            return res.send({
-                total: productos.count,
-                paginas: Math.ceil(productos.count / limitValor),
-                listaProd: productos.rows,
-            });
+                // ver dsp el tema de las validaciones...
+                // if (productos.rows.length === 0) {
+                //     return res.status(200).json({ message: "No hay productos activos" });
+                // }
+
+                return res.status(200).send({
+                    total: productos.count,
+                    paginas: Math.ceil(productos.count / limit),
+                    listaProd: productos.rows,
+                });
+            }
+
+            if (tipo === "admin") {
+                const productos = await Producto.findAll();
+                return res.status(200).send(productos);
+            }
         } catch (error) {
             console.error(error);
-            return res.status(500).send({ message: "Error al obtener productos activos" });
-        }
-    }
-
-    // para el admin ---> GET ---> http://localhost:3001/api/productos/todos
-    static async getTodosLosProductos(req, res) {
-        try {
-            const todosLosProductos = await Producto.findAll();
-            res.send(todosLosProductos);
-        } catch (error) {
-            console.log(error);
-            return res.status(500).send({ message: "Error interno del servidor" });
+            return res.status(500).send({ message: "Error al obtener los productos" });
         }
     }
 
     // 1 producto por id ---> GET ---> (PARAMS) ---> http://localhost:3001/api/productos/x
+    // validar datos...
     static async getProductoPorId(req, res) {
         try {
             const { id } = req.params;
@@ -60,6 +59,7 @@ class ProductosController {
     }
 
     // crear un producto ---> POST ---> (BODY/marca-modelo-categoria-imagen-precio) ---> http://localhost:3001/api/productos/
+    // validar datos...
     static async crearProducto(req, res) {
         const body = req.body;
         try {
@@ -80,6 +80,7 @@ class ProductosController {
 
     // actualizar un producto ---> PATCH ---> (BODY/marca-modelo-categoria-precio-imagen) ---> http://localhost:3001/api/productos/
     // falta ---> validacion middle ---> validar que haya cambios para realizar (que los datos ingresados sean distintos a los de la DDBB)
+    // validar datos...
     static async actualizarProducto(req, res) {
         try {
             const { id } = req.params;

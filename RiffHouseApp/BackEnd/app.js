@@ -17,6 +17,7 @@ import { Producto, Venta, VentaProducto, Usuario } from "./api/models/index.js";
 // importacion de rutas
 import productosRouter from "./api/routes/productosRouter.js";
 import ventasRouter from "./api/routes/ventasRouter.js";
+import usuariosRouter from "./api/routes/usuariosRouter.js";
 
 // ================================= INICIO DE EXPRESS =================================
 
@@ -36,6 +37,9 @@ app.use("/api/productos", productosRouter);
 
 // ruta api/ventas
 app.use("/api/ventas", ventasRouter);
+
+// ruta api/usuarios
+app.use("/api/usuarios", usuariosRouter);
 
 sequelize
     .sync({ force: true })

@@ -41,46 +41,46 @@ export const iniciarDB = async () => {
     ]);
 
     // ==== VENTAS ====
-    const ventas = await Venta.bulkCreate([
-        { cliente: "Moni", fecha: new Date().toLocaleString(), total: 2000.0 },
-        { cliente: "Carlos", fecha: new Date().toLocaleString(), total: 1500.0 },
-        { cliente: "Lucia", fecha: new Date().toLocaleString(), total: 800.0 },
-        { cliente: "Juan", fecha: new Date().toLocaleString(), total: 1300.0 },
-    ]);
+    // const ventas = await Venta.bulkCreate([
+    //     { cliente: "Moni", fecha: new Date().toLocaleString(), total: 2000.0 },
+    //     { cliente: "Carlos", fecha: new Date().toLocaleString(), total: 1500.0 },
+    //     { cliente: "Lucia", fecha: new Date().toLocaleString(), total: 800.0 },
+    //     { cliente: "Juan", fecha: new Date().toLocaleString(), total: 1300.0 },
+    // ]);
 
     // ==== DETALLES DE VENTAS ====
-    await VentaProducto.bulkCreate([
-        {
-            idVenta: ventas[0].id,
-            idProducto: productos[0].id, // Stratocaster
-            cantidad: 1,
-            precioUnitario: 1200.0,
-        },
-        {
-            idVenta: ventas[0].id,
-            idProducto: productos[4].id, // Jazz Bass
-            cantidad: 1,
-            precioUnitario: 800.0,
-        },
-        {
-            idVenta: ventas[1].id,
-            idProducto: productos[1].id, // Les Paul
-            cantidad: 1,
-            precioUnitario: 1500.0,
-        },
-        {
-            idVenta: ventas[2].id,
-            idProducto: productos[3].id, // Pacifica
-            cantidad: 1,
-            precioUnitario: 800.0,
-        },
-        {
-            idVenta: ventas[3].id,
-            idProducto: productos[6].id, // Ibanez SR300E
-            cantidad: 1,
-            precioUnitario: 950.0,
-        },
-    ]);
+    // await VentaProducto.bulkCreate([
+    //     {
+    //         idVenta: ventas[0].id,
+    //         idProducto: productos[0].id, // Stratocaster
+    //         cantidad: 1,
+    //         precioUnitario: 1200.0,
+    //     },
+    //     {
+    //         idVenta: ventas[0].id,
+    //         idProducto: productos[4].id, // Jazz Bass
+    //         cantidad: 1,
+    //         precioUnitario: 800.0,
+    //     },
+    //     {
+    //         idVenta: ventas[1].id,
+    //         idProducto: productos[1].id, // Les Paul
+    //         cantidad: 1,
+    //         precioUnitario: 1500.0,
+    //     },
+    //     {
+    //         idVenta: ventas[2].id,
+    //         idProducto: productos[3].id, // Pacifica
+    //         cantidad: 1,
+    //         precioUnitario: 800.0,
+    //     },
+    //     {
+    //         idVenta: ventas[3].id,
+    //         idProducto: productos[6].id, // Ibanez SR300E
+    //         cantidad: 1,
+    //         precioUnitario: 950.0,
+    //     },
+    // ]);
 
     console.log("Datos de prueba cargados correctamente 🎸✅");
 };

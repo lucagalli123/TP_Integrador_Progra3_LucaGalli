@@ -1,14 +1,15 @@
 import { Router } from "express";
-import VentasController from "../controllers/ventascontroller.js";
+import VentasController from "../controllers/ventasController.js";
 
 const router = Router();
 
 // ============= RUTAS ================
 
 // Crear una nueva venta (con sus productos)
-router.post("/", VentasController.crearVenta);
+// router.post("/", VentasController.crearVenta);
 
-router.get("/", VentasController.probar);
+router.post("/", VentasController.crearVenta);
+router.get("/", VentasController.getVentas);
 // Listar todas las ventas
 // router.get("/");
 

@@ -1,17 +1,7 @@
-import { Venta } from "../models/venta.js";
-import { VentaProducto } from "../models/ventaProducto.js";
-import { Producto } from "../models/producto.js";
+import { Venta, Producto, VentaProducto } from "../models/index.js";
 
 class VentasController {
     // Crear una nueva venta (con sus productos)
-
-    static async crearVenta(req, res) {
-        try {
-        } catch (error) {
-            console.error(error);
-            res.status(500).send({ message: "Error interno del servidor" });
-        }
-    }
 
     // VENTA MODEL---------------------
     // id, cliente, fecha, total
@@ -22,35 +12,80 @@ class VentasController {
     // VENTA_PRODUCTO MODEL -----------
     // idVenta, idProducto, cantidad, precioUnitario
 
-    static async probar(req, res) {
-        const prodId = req.params.id; // producto
-
-        const { cliente, fecha, total, productos } = req.body; // ticket del localstorage
-
+    // validar datos...
+    static async crearVenta(req, res) {
         try {
-            this.#crearProducto();
-        } catch (error) {}
-    }
+            let { cliente, fecha, total, productos } = req.body;
 
-    static async #crearProducto(datosProducto) {
-        try {
-            const producto = await Producto.create({
-                marca: body.marca,
-                modelo: body.modelo,
-                categoria: body.categoria,
-                imagen: body.imagen,
-                precio: parseFloat(body.precio),
-                activo: true,
+            total = parseFloat(total);
+
+            const ventaCreada = await Venta.create({
+                cliente,
+                fecha,
+                total,
             });
-            return res.send({ message: "Producto creado con exito", resultado: producto });
+
+            const ventaProductosCreados = [];
+
+            for (const p of productos) {
+                let producto = await Producto.findOne({
+                    where: { id: p.id },
+                });
+
+                const ventaProducto = await VentaProducto.create({
+                    idVenta: ventaCreada.id,
+                    idProducto: producto.id,
+                    cantidad: p.cantidad,
+                    precioUnitario: parseFloat(p.precio),
+                });
+
+                ventaProductosCreados.push(ventaProducto);
+            }
+
+            return res.status(201).send({
+                message: "Venta creada correctamente",
+                venta: ventaCreada,
+                productosAsociados: ventaProductosCreados,
+            });
         } catch (error) {
-            console.error(error);
-            return res.status(500).send({ message: "Error al crear producto", error: error.message });
+            console.error("Error al crear venta:", error);
+            return res.status(500).send({ message: "Error al crear venta", error: error.message });
         }
     }
 
     // listar todas las ventas
-    // ver detalles de una venta
+
+    // VENTA MODEL---------------------
+    // id, cliente, fecha, total
+
+    // VENTA_PRODUCTO MODEL -----------
+    // idVenta, idProducto, cantidad, precioUnitario
+
+    // validar datos...
+    static async getVentas(req, res) {
+        try {
+            const ventas = await Venta.findAll({
+                attributes: ["cliente", "fecha", "total"],
+                include: [
+                    {
+                        model: VentaProducto,
+                        attributes: ["cantidad", "precioUnitario"],
+                        include: [
+                            {
+                                model: Producto,
+                                attributes: ["marca", "modelo", "categoria"],
+                            },
+                        ],
+                    },
+                ],
+            });
+
+            res.status(200).send({ message: "Busqueda exitosa", resultado: ventas });
+        } catch (error) {
+            console.error("Error al listar ventas:", error);
+            return res.status(500).send({ message: "Error al listar ventas", error: error.message });
+        }
+    }
 }
 
 export default VentasController;
