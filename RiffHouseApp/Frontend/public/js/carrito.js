@@ -6,6 +6,23 @@ import { $ } from "./utils.js";
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 let API_URL = "";
 
+async function crearVenta(ventaData) {
+    try {
+        const response = await fetch(`${API_URL}/api/ventas`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(ventaData),
+        });
+
+        const resultado = await response.json();
+        console.log(resultado);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 function renderCarrito(tema) {
     const cont = $("carritoContainer");
     cont.innerHTML = "";
@@ -125,7 +142,7 @@ function eliminarProducto(index) {
 
 $("btnFinalizar").addEventListener("click", () => {
     if (carrito.length === 0) {
-        alert("El carrito está vacío.");
+        alert("El carrito esta vacio.");
         return;
     }
 
@@ -143,16 +160,15 @@ $("btnFinalizar").addEventListener("click", () => {
     // cancelar compra
     btnCancel.addEventListener("click", () => (modal.style.display = "none"));
 
-    btnConfirm.addEventListener("click", () => {
-        localStorage.setItem(
-            "ticket",
-            JSON.stringify({
-                cliente: localStorage.getItem("nombreCliente"),
-                productos: carrito,
-                fecha: new Date().toLocaleString(),
-                total: carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0),
-            })
-        );
+    btnConfirm.addEventListener("click", async () => {
+        const data = {
+            cliente: localStorage.getItem("nombreCliente"),
+            productos: carrito,
+            fecha: new Date().toLocaleString(),
+            total: carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0),
+        };
+        localStorage.setItem("ticket", JSON.stringify(data));
+        await crearVenta(data);
         localStorage.removeItem("carrito");
         window.location.href = "/ticket.html";
     });
@@ -169,6 +185,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     const temaGuardado = getTema() || "claro";
     aplicarTema(temaGuardado);
 });
-
-// render inicial
-// renderCarrito();
