@@ -6,9 +6,6 @@ const router = Router();
 
 // ============= RUTAS ================
 
-// Crear una nueva venta (con sus productos)
-// router.post("/", VentasController.crearVenta);
-
 router.post("/", validarDatosVenta, VentasController.crearVenta);
 router.get("/", VentasController.getVentas);
 router.get("/:id", VentasController.getVentaPorId);
