@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+    <%- include("../layouts/head", { tituloHead }) %>
+    <body>
+        <!-- header -->
+        <%- include("../layouts/header") %>
+
+        <!-- main -->
+        <main class="main">
+            <h2>Iniciar sesión</h2>
+
+            <form id="loginForm" class="login-form" novalidate>
+                <label>Email:</label>
+                <input id="email" type="email" name="email" required />
+
+                <label>Contraseña:</label>
+                <input id="password" type="password" name="password" required />
+
+                <button type="submit">Ingresar</button>
+            </form>
+        </main>
+
+        <!-- footer -->
+        <%- include("../layouts/footer") %>
+
+        <script type="module" src="/js/login.js"></script>
+    </body>
+</html>

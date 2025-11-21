@@ -59,7 +59,7 @@ class ProductosController {
     }
 
     // crear un producto ---> POST ---> (BODY/marca-modelo-categoria-imagen-precio) ---> http://localhost:3001/api/productos/
-    // validar datos...
+    // validar datos... ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     static async crearProducto(req, res) {
         const body = req.body;
         try {
@@ -80,7 +80,7 @@ class ProductosController {
 
     // actualizar un producto ---> PATCH ---> (BODY/marca-modelo-categoria-precio-imagen) ---> http://localhost:3001/api/productos/
     // falta ---> validacion middle ---> validar que haya cambios para realizar (que los datos ingresados sean distintos a los de la DDBB)
-    // validar datos...
+    // validar datos... |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     static async actualizarProducto(req, res) {
         try {
             const { id } = req.params;
@@ -102,7 +102,7 @@ class ProductosController {
 
     // activar un producto ---> PATCH ---> (PARAMS) ---> http://localhost:3001/api/productos/x
     // ver que pasa si el producto ya esta activo...
-    // falta validar datos con middle
+    // falta validar datos con middle ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     static async activarProducto(req, res) {
         try {
             const id = req.params.id;

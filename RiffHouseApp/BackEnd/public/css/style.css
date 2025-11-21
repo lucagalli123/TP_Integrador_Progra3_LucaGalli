@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f7f7f7;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/*______________ Header ______________*/
+header {
+    background-color: #222;
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+header img.logo {
+    height: 60px;
+}
+
+header h1 {
+    flex: 1;
+    font-family: "Nosifer", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background: linear-gradient(to top, #bd1d07, #e5e531);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+/* ______________ Main ______________*/
+main {
+    background-color: #dfdfdf;
+    width: 100%;
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ______________ Footer ______________*/
+footer {
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+}

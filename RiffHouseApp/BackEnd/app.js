@@ -19,6 +19,7 @@ import productosRouter from "./api/routes/productosRouter.js";
 import ventasRouter from "./api/routes/ventasRouter.js";
 import usuariosRouter from "./api/routes/usuariosRouter.js";
 import ticketRoutes from "./api/routes/ticketRouter.js";
+import adminRouter from "./api/routes/adminRouter.js";
 
 // ================================= INICIO DE EXPRESS =================================
 
@@ -27,11 +28,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ================================= RUTAS =================================
+// set de motor de plantilla ejs
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
-// ruta estatica /public
+// ================================= RUTAS ESTATICAS =================================
+
+// ruta estatica de css/js/img --> para las plantillas ejs
 const ruta = path.resolve(__dirname, "public"); // VER TEMA DE QUE LA RUTA ESTE EN .ENV
-app.use("/public", express.static(ruta));
+app.use(express.static(ruta));
+
+// ================================= RUTAS ENDPOINTS API =================================
 
 // ruta api/productos
 app.use("/api/productos", productosRouter);
@@ -42,9 +49,8 @@ app.use("/api/ventas", ventasRouter);
 // ruta api/usuarios
 app.use("/api/usuarios", usuariosRouter);
 
-// ruta a EJS
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
+// ruta al login del admin
+app.use("/admin", adminRouter);
 
 // ruta api/ticket
 app.use("/ticket", ticketRoutes);

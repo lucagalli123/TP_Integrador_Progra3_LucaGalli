@@ -24,9 +24,9 @@ class UsuariosController {
     // validar...
     static async login(req, res) {
         try {
-            let { nombre, password } = req.body;
+            let { email, password } = req.body;
             const usuario = await Usuario.findOne({
-                where: { nombre: nombre },
+                where: { email: email },
             });
             const resultadoLogin = await bcrypt.compare(password, usuario.password);
             if (resultadoLogin) res.status(200).send({ message: "Password correcta!" });
