@@ -169,6 +169,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
+// boton para descargar el pdf (peticion al back)
+document.getElementById("btnDescargar").addEventListener("click", () => {
+    window.open(`${API_URL}/ticket/${idVenta}/download`);
+});
+
 // boton nueva compra
 $("btnNuevaCompra").addEventListener("click", () => {
     localStorage.removeItem("idVenta");
