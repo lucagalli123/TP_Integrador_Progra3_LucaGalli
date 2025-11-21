@@ -6,25 +6,25 @@
         <%- include("../layouts/header") %>
 
         <!-- main -->
-        <main id="loginMain" class="main">
-            <div id="loginDivContainer">
+        <main class="form-style">
+            <section>
                 <h2>Iniciar sesión</h2>
 
-                <form id="loginForm" class="login-form" novalidate>
-                    <div id="divLabel-Inputs">
+                <form id="loginForm" novalidate>
+                    <div>
                         <label>Email:</label>
-                        <input placeholder="Ingrese el mail..." id="email" type="email" name="email" required />
+                        <input id="inputEmail" type="email" name="email" required />
                     </div>
 
-                    <div id="divLabel-Inputs">
+                    <div>
                         <label>Contraseña:</label>
-                        <input placeholder="Ingrese la contraseña..." id="password" type="password" name="password" required />
+                        <input id="inputPassword" type="password" name="password" required />
                     </div>
 
                     <button id="btnIngresar" type="submit">Ingresar</button>
                 </form>
                 <button id="btnRegistrarse">Registrarse</button>
-            </div>
+            </section>
         </main>
 
         <!-- footer -->

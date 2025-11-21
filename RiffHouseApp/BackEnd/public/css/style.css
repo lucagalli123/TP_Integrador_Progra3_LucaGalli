@@ -101,35 +101,38 @@ footer {
     padding: 1rem;
 }
 
-/* ======================================== LOGIN =============================================== */
+/* ======================================== FORMULARIOS GENERALES =============================================== */
 
-#loginDivContainer {
+.form-style section {
     background-color: rgb(222, 217, 217);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 40px;
+    padding: 20px;
     border-radius: 5px;
     gap: 10px;
-    /* width: 30%; */
 }
 
-#loginDivContainer button {
+/* botones generales del form */
+.form-style section button {
     width: 100px;
 }
 
-#loginDivContainer button:hover {
+/* botones generales del form (hover) */
+.form-style section button:hover {
     width: 100px;
     background-color: rgb(214, 214, 214);
 }
 
-#loginMain h2 {
-    margin-bottom: 30px;
+/* titulo del form */
+.form-style section h2 {
+    margin-bottom: 10px;
     text-align: center;
 }
 
-#loginForm {
+/* form */
+.form-style form {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -137,24 +140,19 @@ footer {
     align-items: center;
 }
 
-#loginForm input {
+/* boton puntual del form */
+.form-style form button {
+    margin-top: 15px;
+}
+
+/* inputs del form */
+.form-style form input {
     padding: 5px;
 }
 
-#loginForm button {
-    /* margin-top: 20px; */
-    width: 100px;
-}
-
-#btnIngresar {
-    margin-top: 20px;
-}
-
-#divLabel-Inputs {
+/* divs del form */
+.form-style form div {
     display: flex;
     flex-direction: column;
-}
-
-#btnRegistrarse {
-    margin-top: 0px;
+    font-size: 0.9rem;
 }

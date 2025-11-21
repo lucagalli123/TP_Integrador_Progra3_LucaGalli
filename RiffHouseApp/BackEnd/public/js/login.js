@@ -1,10 +1,11 @@
 const form = document.getElementById("loginForm");
+const btnRegistrarse = document.getElementById("btnRegistrarse");
 
 form.addEventListener("submit", async e => {
     e.preventDefault();
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const email = document.getElementById("inputEmail").value;
+    const password = document.getElementById("inputPassword").value;
 
     try {
         const response = await fetch("/api/usuarios/login", {
@@ -26,4 +27,8 @@ form.addEventListener("submit", async e => {
         console.error("Error en login:", err);
         // VER DESPUES TEMA ERROR DE LA PETICION AL ENVIARLA ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     }
+});
+
+btnRegistrarse.addEventListener("click", () => {
+    window.location.href = "/admin/registro";
 });
