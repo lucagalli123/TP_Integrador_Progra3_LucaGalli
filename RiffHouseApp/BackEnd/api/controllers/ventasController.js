@@ -86,6 +86,34 @@ class VentasController {
             return res.status(500).send({ message: "Error al listar ventas", error: error.message });
         }
     }
+
+    static async getVentaPorId(req, res) {
+        try {
+            const { id } = req.params;
+
+            const venta = await Venta.findByPk(id, {
+                include: [
+                    {
+                        model: VentaProducto,
+                        attributes: ["cantidad", "precioUnitario"],
+                        include: [
+                            {
+                                model: Producto,
+                                attributes: ["marca", "modelo", "categoria", "precio"],
+                            },
+                        ],
+                    },
+                ],
+            });
+
+            if (!venta) return res.status(404).send({ message: "No se encontro la venta que busca" });
+
+            res.status(200).send({ message: "Busqueda exitosa", resultado: venta });
+        } catch (error) {
+            console.error("Error al listar ventas:", error);
+            return res.status(500).send({ message: "Error al listar ventas", error: error.message });
+        }
+    }
 }
 
 export default VentasController;

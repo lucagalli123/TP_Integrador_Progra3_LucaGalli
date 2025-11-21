@@ -4,25 +4,28 @@ import { $ } from "./utils.js";
 
 // leer carrito desde el localStorage
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-let API_URL = "";
 
+// peticion al back para crear venta
 async function crearVenta(ventaData) {
     try {
         const response = await fetch(`${API_URL}/api/ventas`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(ventaData),
         });
 
-        const resultado = await response.json();
-        console.log(resultado);
+        if (!response.ok) {
+            const errorResponse = await response.json();
+            throw new Error(errorResponse.message);
+        }
+
+        return await response.json();
     } catch (error) {
-        console.error(error);
+        throw error;
     }
 }
 
+// carga el carrito
 function renderCarrito(tema) {
     const cont = $("carritoContainer");
     cont.innerHTML = "";
@@ -123,6 +126,7 @@ function aplicarTema(tema) {
     }
 }
 
+// modificar cantidad de productos del carrito y recarga pagina
 function modificarCantidad(index, cambio) {
     carrito[index].cantidad += cambio;
     if (carrito[index].cantidad <= 0) {
@@ -132,6 +136,7 @@ function modificarCantidad(index, cambio) {
     aplicarTema(getTema());
 }
 
+// elimina un producto del carrito y recarga pagina
 function eliminarProducto(index) {
     carrito.splice(index, 1);
     localStorage.setItem("carrito", JSON.stringify(carrito));
@@ -147,6 +152,7 @@ $("btnFinalizar").addEventListener("click", () => {
     }
 
     const modal = $("modalCompraConfirm");
+    // console.log(modal);
     const btnClose = $("cerrarModal");
     const btnConfirm = $("confirmCompra");
     const btnCancel = $("cancelCompra");
@@ -160,18 +166,23 @@ $("btnFinalizar").addEventListener("click", () => {
     // cancelar compra
     btnCancel.addEventListener("click", () => (modal.style.display = "none"));
 
-    btnConfirm.addEventListener("click", async () => {
-        const data = {
+    btnConfirm.onclick = async () => {
+        let data = {
             cliente: localStorage.getItem("nombreCliente"),
             productos: carrito,
-            fecha: new Date().toLocaleString(),
+            fecha: new Date(),
             total: carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0),
         };
-        localStorage.setItem("ticket", JSON.stringify(data));
-        await crearVenta(data);
+        try {
+            const response = await crearVenta(data);
+            console.log(response); // <----- DESPUES TENGO QUE VER COMO MANEJO ESTE MENSAJE
+            localStorage.setItem("idVenta", JSON.stringify(response.venta.id));
+        } catch (error) {
+            console.log(error); // <----- DESPUES TENGO QUE VER COMO MANEJO ESTE ERROR
+        }
         localStorage.removeItem("carrito");
         window.location.href = "/ticket.html";
-    });
+    };
 });
 
 // boton salir (link <a>)
@@ -179,6 +190,7 @@ $("btnSalir").addEventListener("click", () => {
     localStorage.removeItem("carrito");
 });
 
+let API_URL = "";
 document.addEventListener("DOMContentLoaded", async () => {
     const config = await obtenerConfig();
     API_URL = config.API_URL;

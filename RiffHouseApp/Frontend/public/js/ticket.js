@@ -1,11 +1,25 @@
 import { getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./temas.js";
+import { obtenerConfig } from "./variablesEntorno.js";
 import { $ } from "./utils.js";
 
-// obtener ticket
-const ticket = JSON.parse(localStorage.getItem("ticket"));
-// console.log(ticket);
+// funcion para obtener el ticket de la api del back
+async function obtenerTicket(id) {
+    try {
+        const response = await fetch(`${API_URL}/api/ventas/${id}`);
+        const resultado = await response.json();
 
-function cargarPagina(tema) {
+        if (!response.ok) {
+            throw new Error(resultado.message);
+        }
+
+        return resultado;
+    } catch (error) {
+        throw error;
+    }
+}
+
+// recibe el tema(claro/oscuro) y el ticket descargado de la api
+function cargarPagina(tema, ticket) {
     const cont = $("ticketContainer");
     cont.innerHTML = "";
 
@@ -14,29 +28,43 @@ function cargarPagina(tema) {
         mensaje.textContent = "No hay ticket disponible.";
         cont.appendChild(mensaje);
     } else {
+        // formateo el ticket para obtener los datos para mostrar el ticket
+        const ticketFormateado = {
+            cliente: ticket.cliente,
+            fecha: ticket.fecha,
+            total: ticket.total,
+            productos: ticket.VentaProductos.map(vp => ({
+                marca: vp.Producto.marca,
+                modelo: vp.Producto.modelo,
+                cantidad: vp.cantidad,
+                precio: vp.precioUnitario,
+            })),
+        };
+
         const div = document.createElement("div");
-        // div.setAttribute("id", "divTicket");
         div.classList.add("producto-card");
         div.style.backgroundColor = tema === "oscuro" ? "#d9d7d7ff" : "white";
 
+        // nombre empresa
         const empresa = document.createElement("span");
         empresa.textContent = "Riffhouse";
         empresa.classList.add("fuente-nombre-empresa-ticket");
         div.appendChild(empresa);
 
+        // cliente
         const nombre = document.createElement("p");
-        nombre.textContent = `Cliente: ${ticket.cliente}`;
+        nombre.textContent = `Cliente: ${ticketFormateado.cliente}`;
         div.appendChild(nombre);
 
+        // fecha
         const fecha = document.createElement("p");
-        fecha.textContent = `Fecha: ${ticket.fecha}`;
+        const fechaOriginal = new Date(ticketFormateado.fecha);
+        const fechaFormateada = fechaOriginal.toLocaleDateString();
+        fecha.textContent = `Fecha: ${fechaFormateada}`;
         div.appendChild(fecha);
 
         // tabla
         const tabla = document.createElement("table");
-        // tabla.setAttribute("id", "tablaTicket");
-        // tabla.style.backgroundColor = tema === "oscuro" ? "black" : "white";
-        // tabla.style.color = tema === "oscuro" ? "white" : "black";
         tabla.classList.add("tabla-productos");
 
         //  encabezado
@@ -47,8 +75,6 @@ function cargarPagina(tema) {
         columnas.forEach(col => {
             const th = document.createElement("th");
             th.textContent = col;
-            // th.style.backgroundColor = tema === "oscuro" ? "black" : "white";
-            // th.style.color = tema === "oscuro" ? "white" : "black";
             encabezadoFila.appendChild(th);
         });
         thead.appendChild(encabezadoFila);
@@ -57,7 +83,7 @@ function cargarPagina(tema) {
         //  cuerpo de la tabla
         const tbody = document.createElement("tbody");
 
-        ticket.productos.forEach(p => {
+        ticketFormateado.productos.forEach(p => {
             const fila = document.createElement("tr");
 
             const articulo = document.createElement("td");
@@ -96,7 +122,7 @@ function cargarPagina(tema) {
         const totalNumero = document.createElement("span");
 
         // VER TEMA DE CANTIDAD DE DECIMALES
-        totalNumero.textContent = `$${ticket.total}`;
+        totalNumero.textContent = `$${ticketFormateado.total}`;
         totalNumero.style.fontWeight = "bold";
         totalNumero.style.marginTop = "15px";
 
@@ -110,13 +136,11 @@ function cargarPagina(tema) {
     }
 }
 
-function aplicarTema(tema) {
+// recibe: el tema (claro/oscuro) y el ticket descargado de la api
+function aplicarTema(tema, ticket) {
     cambiarTemaMain(tema);
-    cargarPagina(tema);
+    cargarPagina(tema, ticket);
     cambiarTemaTitulo(tema);
-    // tema === "oscuro" ? ($("divTicket").style.backgroundColor = "black") : ($("divTicket").style.backgroundColor = "white");
-    // tema === "oscuro" ? ($("divTicket").style.color = "white") : ($("divTicket").style.color = "black");
-    // tema === "oscuro" ? ($("divTabla").style.color = "white") : ($("divTabla").style.color = "black");
     const temaSelect = $("tema");
     if (temaSelect) {
         temaSelect.value = tema;
@@ -128,17 +152,25 @@ function aplicarTema(tema) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const temaGuardado = getTema() || "claro";
-    aplicarTema(temaGuardado);
-});
-
 // ================ LISTENERS =================
+
+// aplica configuraciones cuando carga el DOM
+let API_URL = "";
+let idVenta = JSON.parse(localStorage.getItem("idVenta"));
+document.addEventListener("DOMContentLoaded", async () => {
+    const config = await obtenerConfig();
+    API_URL = config.API_URL;
+    const temaGuardado = getTema() || "claro";
+    try {
+        const ticketDescargado = await obtenerTicket(idVenta);
+        aplicarTema(temaGuardado, ticketDescargado.resultado);
+    } catch (error) {
+        console.error(error); // <----- VER DESPUES QUE HACER CON ESTE ERROR
+    }
+});
 
 // boton nueva compra
 $("btnNuevaCompra").addEventListener("click", () => {
-    localStorage.removeItem("ticket");
+    localStorage.removeItem("idVenta");
     window.location.href = "index.html";
 });
-
-// cargarPagina();

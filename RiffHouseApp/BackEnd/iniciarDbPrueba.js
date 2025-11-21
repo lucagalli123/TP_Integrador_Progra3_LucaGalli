@@ -82,5 +82,5 @@ export const iniciarDB = async () => {
     //     },
     // ]);
 
-    console.log("Datos de prueba cargados correctamente 🎸✅");
+    console.log("Datos de prueba cargados correctamente ✅");
 };
