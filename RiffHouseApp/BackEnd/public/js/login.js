@@ -1,12 +1,7 @@
 const form = document.getElementById("loginForm");
-const btnRegistrarse = document.getElementById("btnRegistrarse");
+const btnAccesoRapido = document.getElementById("btnAccesoRapido");
 
-form.addEventListener("submit", async e => {
-    e.preventDefault();
-
-    const email = document.getElementById("inputEmail").value;
-    const password = document.getElementById("inputPassword").value;
-
+async function loguearse(email, password) {
     try {
         const response = await fetch("/api/usuarios/login", {
             method: "POST",
@@ -23,12 +18,21 @@ form.addEventListener("submit", async e => {
             alert(resultado.message);
             console.error("error");
         }
-    } catch (err) {
-        console.error("Error en login:", err);
+    } catch (error) {
+        console.error("Error en login:", error);
         // VER DESPUES TEMA ERROR DE LA PETICION AL ENVIARLA ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     }
+}
+
+form.addEventListener("submit", async e => {
+    e.preventDefault();
+
+    const email = document.getElementById("inputEmail").value;
+    const password = document.getElementById("inputPassword").value;
+
+    await loguearse(email, password);
 });
 
-btnRegistrarse.addEventListener("click", () => {
-    window.location.href = "/admin/registro";
+btnAccesoRapido.addEventListener("click", async () => {
+    await loguearse("moni@example.com", "1234");
 });

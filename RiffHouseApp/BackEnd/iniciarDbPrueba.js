@@ -1,15 +1,30 @@
-import { Producto, Venta, VentaProducto, Usuario } from "./api/models/index.js";
+import { Producto, Usuario } from "./api/models/index.js";
+import bcrypt from "bcrypt";
 
 export const iniciarDB = async () => {
     console.log("Cargando datos de prueba...");
 
-    // ==== USUARIOS ====
-    const usuarios = await Usuario.bulkCreate([
+    const saltRounds = 10;
+
+    // usuarios
+    const listaUsuarios = [
         { nombre: "Moni", email: "moni@example.com", password: "1234" },
         { nombre: "Carlos", email: "carlos@example.com", password: "abcd" },
         { nombre: "Lucia", email: "lucia@example.com", password: "pass123" },
         { nombre: "Juan", email: "jane@example.com", password: "4321" },
-    ]);
+    ];
+
+    const usuariosConHash = [];
+    for (const u of listaUsuarios) {
+        const hashedPassword = await bcrypt.hash(u.password, saltRounds);
+        usuariosConHash.push({
+            nombre: u.nombre,
+            email: u.email,
+            password: hashedPassword,
+        });
+    }
+
+    await Usuario.bulkCreate(usuariosConHash);
 
     // ==== PRODUCTOS ====
     const productos = await Producto.bulkCreate([
@@ -40,47 +55,5 @@ export const iniciarDB = async () => {
         { marca: "ESP", modelo: "LTD B-204", categoria: "bajos", precio: 1050.0, activo: true, imagen: "bajo8.png" },
     ]);
 
-    // ==== VENTAS ====
-    // const ventas = await Venta.bulkCreate([
-    //     { cliente: "Moni", fecha: new Date().toLocaleString(), total: 2000.0 },
-    //     { cliente: "Carlos", fecha: new Date().toLocaleString(), total: 1500.0 },
-    //     { cliente: "Lucia", fecha: new Date().toLocaleString(), total: 800.0 },
-    //     { cliente: "Juan", fecha: new Date().toLocaleString(), total: 1300.0 },
-    // ]);
-
-    // ==== DETALLES DE VENTAS ====
-    // await VentaProducto.bulkCreate([
-    //     {
-    //         idVenta: ventas[0].id,
-    //         idProducto: productos[0].id, // Stratocaster
-    //         cantidad: 1,
-    //         precioUnitario: 1200.0,
-    //     },
-    //     {
-    //         idVenta: ventas[0].id,
-    //         idProducto: productos[4].id, // Jazz Bass
-    //         cantidad: 1,
-    //         precioUnitario: 800.0,
-    //     },
-    //     {
-    //         idVenta: ventas[1].id,
-    //         idProducto: productos[1].id, // Les Paul
-    //         cantidad: 1,
-    //         precioUnitario: 1500.0,
-    //     },
-    //     {
-    //         idVenta: ventas[2].id,
-    //         idProducto: productos[3].id, // Pacifica
-    //         cantidad: 1,
-    //         precioUnitario: 800.0,
-    //     },
-    //     {
-    //         idVenta: ventas[3].id,
-    //         idProducto: productos[6].id, // Ibanez SR300E
-    //         cantidad: 1,
-    //         precioUnitario: 950.0,
-    //     },
-    // ]);
-
-    console.log("Datos de prueba cargados correctamente ✅");
+    console.log("Datos de prueba cargados ✅");
 };
