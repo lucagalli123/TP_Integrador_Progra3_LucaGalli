@@ -19,19 +19,6 @@ function aplicarTema(tema) {
 
 // LISTENERS ===============================================================
 
-// let API_URL = "";
-// document.addEventListener("DOMContentLoaded", async () => {
-//     const config = await obtenerConfig();
-//     API_URL = config.API_URL;
-//     const temaGuardado = getTema() || "claro";
-//     try {
-//         const ticketDescargado = await obtenerTicket(idVenta);
-//         aplicarTema(temaGuardado, ticketDescargado.resultado);
-//     } catch (error) {
-//         console.error(error); // <----- VER DESPUES QUE HACER CON ESTE ERROR
-//     }
-// });
-
 // aplicar tema al cargar la pagina...
 let API_URL = "";
 document.addEventListener("DOMContentLoaded", async () => {
