@@ -13,20 +13,20 @@
                 <form id="registroForm" novalidate>
                     <div>
                         <label>Nombre:</label>
-                        <input placeholder="Ingrese su nombre" id="nombre" type="nombre" name="nombre" required />
+                        <input placeholder="Ingrese su nombre" id="inputNombre" type="nombre" name="nombre" required />
                     </div>
 
                     <div>
                         <label>Email:</label>
-                        <input placeholder="Ingrese un email" id="email" type="email" name="email" required />
+                        <input placeholder="Ingrese un email" id="inputEmail" type="email" name="email" required />
                     </div>
 
                     <div>
                         <label>Contraseña:</label>
-                        <input placeholder="Ingrese una contraseña" id="password" type="password" name="password" required />
+                        <input placeholder="Ingrese una contraseña" id="inputPassword" type="password" name="password" required />
                     </div>
 
-                    <button id="btnRegistrarse" type="submit">Ingresar</button>
+                    <button id="btnAceptarRegistro" type="submit">Ingresar</button>
                 </form>
                 <button id="btnVolver">Volver</button>
             </section>
@@ -34,5 +34,7 @@
 
         <!-- footer -->
         <%- include("../layouts/footer") %>
+
+        <script type="module" src="/js/registro.js"></script>
     </body>
 </html>

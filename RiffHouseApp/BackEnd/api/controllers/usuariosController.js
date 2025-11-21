@@ -1,6 +1,6 @@
 import { Usuario } from "../models/index.js";
 import bcrypt from "bcrypt";
-const saltRounds = 15;
+const saltRounds = 10;
 
 class UsuariosController {
     // validar...
