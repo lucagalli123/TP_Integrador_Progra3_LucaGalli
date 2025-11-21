@@ -15,7 +15,7 @@ body {
 
 /*______________ Header ______________*/
 header {
-    background-color: #222;
+    background-color: #393939;
     color: #fff;
     padding: 1rem;
     display: flex;
@@ -41,9 +41,43 @@ header h1 {
     color: transparent;
 }
 
+header .div-selector-tema {
+    margin-right: 80px;
+    margin-left: 15px;
+}
+
+header select {
+    width: auto;
+    border: none;
+    background-color: #393939;
+    color: white;
+    cursor: pointer;
+}
+
+header label {
+    font-size: 1rem;
+}
+
+header select {
+    font-size: 1rem;
+}
+
+nav a {
+    margin-right: 20px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.888);
+    font-family: "Rubik Wet Paint", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
 /* ______________ Main ______________*/
 main {
-    background-color: #dfdfdf;
+    background-color: #b9b9b9;
     width: 100%;
     flex: 1;
     padding: 1rem;
@@ -55,7 +89,7 @@ main {
 
 /* ______________ Footer ______________*/
 footer {
-    background-color: #222;
+    background-color: #454545;
     color: #fff;
     text-align: center;
     padding: 1rem;
