@@ -13,12 +13,14 @@
                 <form id="loginForm" novalidate>
                     <div>
                         <label>Email:</label>
-                        <input id="inputEmail" type="email" name="email" required />
+                        <input class="input-normal" id="inputEmail" type="email" name="email" required />
+                        <p id="errorEmail" class="oculto errorEstilo">nada</p>
                     </div>
 
                     <div>
                         <label>Contraseña:</label>
-                        <input id="inputPassword" type="password" name="password" required />
+                        <input class="input-normal" id="inputPassword" type="password" name="password" required />
+                        <p id="errorPassword" class="oculto errorEstilo">nada</p>
                     </div>
 
                     <button id="btnIngresar" type="submit">Ingresar</button>

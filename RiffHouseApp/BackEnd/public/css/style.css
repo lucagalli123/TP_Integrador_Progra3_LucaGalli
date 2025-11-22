@@ -103,6 +103,13 @@ footer {
 
 /* ======================================== FORMULARIOS GENERALES =============================================== */
 
+input {
+    border: 1px solid transparent;
+    border-bottom-width: 2px;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
 .form-style section {
     background-color: rgb(222, 217, 217);
     display: flex;
@@ -135,7 +142,7 @@ footer {
 .form-style form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 12px;
     justify-content: center;
     align-items: center;
 }
@@ -155,4 +162,63 @@ footer {
     display: flex;
     flex-direction: column;
     font-size: 0.9rem;
+    gap: 4px;
+}
+
+/* inputs con error */
+
+.input-normal {
+    border-bottom-color: transparent;
+    outline: none;
+}
+
+.input-error {
+    animation: vibrar 0.2s ease;
+    outline: 1px;
+    border-bottom-color: red;
+    border-radius: 5px;
+}
+
+/* Estado FOCUS */
+.input-focus {
+    border-bottom-color: black;
+}
+
+/* Estado BLUR */
+.input-blur {
+    border-bottom-color: transparent;
+}
+
+/* Animación */
+@keyframes vibrar {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-4px);
+    }
+    50% {
+        transform: translateX(4px);
+    }
+    75% {
+        transform: translateX(-4px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* error oculto */
+
+.oculto {
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.errorEstilo {
+    color: red;
+    font-size: 8px;
 }
