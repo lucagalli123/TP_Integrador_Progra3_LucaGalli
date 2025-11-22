@@ -1,8 +1,5 @@
-import { $, limpiarError, listenersInputsLimpiarErrores } from "./utils.js";
+import { $, limpiarError, listenersInputsLimpiarErrores, listenersInputsBlur, listenersInputsFocus } from "./utils.js";
 import { marcarError } from "./utils.js";
-
-import { listenersInputsBlur } from "./utils.js";
-import { listenersInputsFocus } from "./utils.js";
 
 const form = document.getElementById("loginForm");
 const btnAccesoRapido = document.getElementById("btnAccesoRapido");
@@ -31,7 +28,7 @@ async function loguearse(email, password) {
         const data = await response.json();
 
         if (response.ok) {
-            window.location.href = "/admin/dashboard";
+            window.location.href = "/admin/dashboard?tipo=admin";
         } else {
             if (data.error === "email invalido") {
                 marcarError(inputEmail, errorEmail, `*${data.error}`);

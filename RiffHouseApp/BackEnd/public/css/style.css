@@ -232,3 +232,101 @@ input {
     color: red;
     font-size: 8px;
 }
+
+/* ================================== dashboard ==================================== */
+
+.tabla-productos {
+    border-collapse: collapse;
+    border: 2px solid black;
+    background-color: rgb(255, 255, 255);
+}
+
+th,
+td {
+    border: 2px solid black;
+    padding: 6px 15px;
+}
+
+.td-acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.td-acciones button {
+    flex: 1;
+}
+
+.green {
+    background-color: rgb(209, 255, 212);
+}
+.red {
+    background-color: rgb(255, 208, 208);
+}
+
+/* modal dashboard */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-container {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 10px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+}
+
+.cerrar-modal {
+    color: #aaa;
+    position: absolute;
+    top: -5px;
+    right: 6px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cerrar-modal:hover {
+    color: #000;
+}
+
+.modal-botones {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+.modal-botones button {
+    width: 70px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-botones button:hover {
+    opacity: 0.8;
+}
+
+#btnSiConfirmar {
+    background-color: #28a745;
+    color: #fff;
+}
+
+#btnNoConfirmar {
+    background-color: #dc3545;
+    color: #fff;
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+    <%- include("../layouts/head", { tituloHead }) %>
+
+    <body>
+        <!-- header -->
+        <%- include("../layouts/header") %>
+
+        <!-- main -->
+        <main class="dashboard">
+            <h1>Listado de Productos</h1>
+
+            <table id="tablaProductos" class="tabla-productos">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Producto</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Activo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% productos.forEach(p => { %>
+                    <tr class="<%= p.activo ? 'green' : 'red' %>">
+                        <td><%= p.id %></td>
+
+                        <td><%= p.marca %>, <%= p.modelo %></td>
+
+                        <td><%= p.categoria %></td>
+
+                        <td>$<%= p.precio %></td>
+
+                        <td><%= p.activo ? "Si" : "No" %></td>
+
+                        <td class="td-acciones" class="acciones">
+                            <!-- activar/desactivar -->
+                            <% if (p.activo) { %>
+                            <button id="btnDesactivar" data-id="<%= p.id %>" class="btn-desactivar">Desactivar</button>
+                            <% } else { %>
+                            <button id="btnActivar" data-id="<%= p.id %>" class="btn-activar">Activar</button>
+                            <% } %>
+
+                            <!-- editar ( ver el tema del id y como pasarlo) -->
+                            <button id="btnEditar" data-id="<%= p.id %>" class="btn-editar">Editar</button>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+            <div id="modalConfirmar" class="modal">
+                <div class="modal-container">
+                    <span id="cerrarModal" class="cerrar-modal">&times;</span>
+                    <p>¿Desea confirmar?</p>
+                    <div class="modal-botones">
+                        <button id="btnSiConfirmar">Sí</button>
+                        <button id="btnNoConfirmar">No</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- footer -->
+        <%- include("../layouts/footer") %>
+
+        <script type="module" src="/js/dashboard.js"></script>
+    </body>
+</html>

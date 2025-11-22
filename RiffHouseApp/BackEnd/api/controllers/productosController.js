@@ -13,15 +13,13 @@ class ProductosController {
 
                 const productos = await Producto.findAndCountAll({
                     where: { activo: true, categoria: categoria },
-                    // categoria: categoria,
                     limit: limit,
                     offset: offset,
                 });
 
-                // ver dsp el tema de las validaciones...
-                // if (productos.rows.length === 0) {
-                //     return res.status(200).json({ message: "No hay productos activos" });
-                // }
+                if (productos.rows.length === 0) {
+                    return res.status(200).json({ message: "No hay productos activos" });
+                }
 
                 return res.status(200).send({
                     total: productos.count,
