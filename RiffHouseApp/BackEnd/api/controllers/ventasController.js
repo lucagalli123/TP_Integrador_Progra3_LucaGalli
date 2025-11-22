@@ -1,17 +1,6 @@
 import { Venta, Producto, VentaProducto } from "../models/index.js";
 
 class VentasController {
-    // Crear una nueva venta (con sus productos)
-
-    // VENTA MODEL---------------------
-    // id, cliente, fecha, total
-
-    // TICKET DEL LOCALSTORAGE---------
-    // cliente, productos, fecha, total
-
-    // VENTA_PRODUCTO MODEL -----------
-    // idVenta, idProducto, cantidad, precioUnitario
-
     // validar datos...
     static async crearVenta(req, res) {
         try {
@@ -52,14 +41,6 @@ class VentasController {
             return res.status(500).send({ message: "Error al crear venta", error: error.message });
         }
     }
-
-    // listar todas las ventas
-
-    // VENTA MODEL---------------------
-    // id, cliente, fecha, total
-
-    // VENTA_PRODUCTO MODEL -----------
-    // idVenta, idProducto, cantidad, precioUnitario
 
     // validar datos...
     static async getVentas(req, res) {

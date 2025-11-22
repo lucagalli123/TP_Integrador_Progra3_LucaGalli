@@ -18,8 +18,8 @@ async function crearVenta(ventaData) {
             const errorResponse = await response.json();
             throw new Error(errorResponse.message);
         }
-
-        return await response.json();
+        const data = await response.json();
+        return data;
     } catch (error) {
         throw error;
     }

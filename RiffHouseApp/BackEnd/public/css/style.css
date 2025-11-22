@@ -15,8 +15,18 @@ body {
 
 /* ========================== GENERALES ============================= */
 
+button,
+button:hover,
+button:focus {
+    border: 0.5px solid;
+    outline: none;
+    border-radius: 2px;
+    padding: 2px;
+}
+
 button:hover {
     cursor: pointer;
+    /* outline: none; */
 }
 
 /*______________ Header ______________*/

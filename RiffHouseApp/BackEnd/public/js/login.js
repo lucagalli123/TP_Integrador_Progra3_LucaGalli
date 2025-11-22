@@ -28,18 +28,19 @@ async function loguearse(email, password) {
             headers: { "Content-Type": "application/json" },
         });
 
-        const resultado = await response.json();
+        const data = await response.json();
 
         if (response.ok) {
             window.location.href = "/admin/dashboard";
         } else {
-            // VER DESPUES COMO MOSTRAR EL ERROR ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-            alert(resultado.message);
-            console.error("error");
+            if (data.error === "email invalido") {
+                marcarError(inputEmail, errorEmail, `*${data.error}`);
+            } else if (data.error === "contraseña invalida") {
+                marcarError(inputPassword, errorPassword, `*${data.error}`);
+            }
         }
     } catch (error) {
-        console.error("Error en login:", error);
-        // VER DESPUES TEMA ERROR DE LA PETICION AL ENVIARLA ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+        alert("Error en login:\n", error);
     }
 }
 
@@ -48,23 +49,23 @@ function validarDatos(email, password) {
 
     if (!email) {
         todoOk = false;
-        marcarError(inputEmail, errorEmail, "*Campo vacio");
+        marcarError(inputEmail, errorEmail, "*campo vacio");
     } else {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             todoOk = false;
-            marcarError(inputEmail, errorEmail, "*El email no tiene un formato valido");
+            marcarError(inputEmail, errorEmail, "*el email no tiene un formato valido");
         }
     }
 
     if (!password) {
         todoOk = false;
-        marcarError(inputPassword, errorPassword, "*Campo vacio");
+        marcarError(inputPassword, errorPassword, "*campo vacio");
     }
 
     if (password.length < 1) {
         todoOk = false;
-        marcarError(inputPassword, errorPassword, "*Campo vacio");
+        marcarError(inputPassword, errorPassword, "*campo vacio");
     }
     return todoOk;
 }
