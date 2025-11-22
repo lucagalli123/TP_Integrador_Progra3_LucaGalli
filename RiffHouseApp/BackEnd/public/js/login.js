@@ -1,3 +1,5 @@
+import { $ } from "./utils.js";
+
 const form = document.getElementById("loginForm");
 const btnAccesoRapido = document.getElementById("btnAccesoRapido");
 
@@ -26,13 +28,12 @@ async function loguearse(email, password) {
 
 form.addEventListener("submit", async e => {
     e.preventDefault();
-
-    const email = document.getElementById("inputEmail").value;
-    const password = document.getElementById("inputPassword").value;
-
-    await loguearse(email, password);
+    const emailValue = $("inputEmail").value;
+    const passwordValue = $("inputPassword").value;
+    await loguearse(emailValue, passwordValue);
 });
 
 btnAccesoRapido.addEventListener("click", async () => {
-    await loguearse("moni@example.com", "1234");
+    $("inputEmail").value = "moni@example.com";
+    $("inputPassword").value = "1234";
 });
