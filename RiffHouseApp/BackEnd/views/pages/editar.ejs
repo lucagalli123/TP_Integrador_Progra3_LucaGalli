@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+    <%- include("../layouts/head", { tituloHead }) %>
+    <body>
+        <!-- header -->
+        <%- include("../layouts/header") %>
+
+        <!-- main -->
+        <main class="form-style">
+            <section>
+                <h2>Editar producto</h2>
+                <h5>Producto: <%= producto.marca %>, <%= producto.modelo %></h5>
+
+                <form id="editarForm" novalidate>
+                    <div>
+                        <label>Marca:</label>
+                        <input class="input-normal" id="inputMarca" type="text" name="marca" required />
+                        <p id="errorMarca" class="oculto errorEstilo">nada</p>
+                    </div>
+
+                    <div>
+                        <label>Modelo:</label>
+                        <input class="input-normal" id="inputModelo" type="text" name="Modelo" required />
+                        <p id="errorModelo" class="oculto errorEstilo">nada</p>
+                    </div>
+
+                    <!-- ver que onda -->
+                    <div>
+                        <label for="categoria">Categoria</label>
+                        <select name="categoria" id="inputCategoria" size="1">
+                            <option disabled selected>Seleccione una opcion</option>
+                            <option value="F">Guitarras</option>
+                            <option value="M">Bajos</option>
+                        </select>
+                        <p id="errorCategoria" class="oculto errorEstilo">nada</p>
+                    </div>
+
+                    <div>
+                        <label>Precio:</label>
+                        <input class="input-normal" id="inputPrecio" type="number" name="precio" required />
+                        <p id="errorPrecio" class="oculto errorEstilo">nada</p>
+                    </div>
+
+                    <div>
+                        <label>Imagen:</label>
+                        <input class="input-normal" id="inputImagen" type="image" name="imagen" required />
+                        <p id="errorImagen" class="oculto errorEstilo">nada</p>
+                    </div>
+
+                    <button id="btnGuardarCambios" type="submit">Guardar cambios</button>
+                </form>
+                <button id="btnCancelar">Cancelar</button>
+            </section>
+        </main>
+
+        <!-- footer -->
+        <%- include("../layouts/footer") %>
+
+        <!-- paso id desde EJS al JS -->
+        <script>
+            const PRODUCT_ID = <%= producto.id %>;
+        </script>
+
+        <script type="module" src="/js/editar.js"></script>
+    </body>
+</html>

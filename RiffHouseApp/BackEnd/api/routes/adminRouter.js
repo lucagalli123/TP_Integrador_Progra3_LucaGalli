@@ -8,10 +8,6 @@ router.get("/login", (req, res) => {
 
 router.get("/dashboard", AdminController.renderDashboard);
 
-router.get("/editar", (erq, res) => {
-    res.render("pages/editar", { tituloHead: "Riffhouse - Admin - Editar" });
-});
-
-// router.get("/editar");  PENDIENTE |||||||||||
+router.get("/editar/:id", AdminController.renderEditar);
 
 export default router;

@@ -81,6 +81,6 @@ btnDesactivar.forEach(btn => {
 btnEditar.forEach(btn => {
     btn.addEventListener("click", () => {
         const idProducto = btn.dataset.id;
-        window.location.href = `/admin/productos/${idProducto}/editar`;
+        window.location.href = `/admin/editar/${idProducto}`;
     });
 });

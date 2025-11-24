@@ -28,6 +28,21 @@ class AdminController {
             return res.status(500).send({ message: "Error al obtener los productos" });
         }
     }
+
+    static async renderEditar(req, res) {
+        try {
+            const { id } = req.params;
+
+            const producto = await Producto.findByPk(id);
+
+            if (!producto) return res.send({ message: "Producto no encontrado" });
+
+            return res.render("pages/editar", { tituloHead: "Riffhouse - Admin - Editar", producto: producto });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).send({ message: "Error al obtener los productos" });
+        }
+    }
 }
 
 export default AdminController;

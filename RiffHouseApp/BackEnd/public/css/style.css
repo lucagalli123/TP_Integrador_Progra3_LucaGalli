@@ -152,7 +152,7 @@ input {
 .form-style form {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 5px;
     justify-content: center;
     align-items: center;
 }
@@ -234,6 +234,11 @@ input {
 }
 
 /* ================================== dashboard ==================================== */
+
+/* .dashboard {
+    max-height: 100%;
+    overflow-y: auto;
+} */
 
 .tabla-productos {
     border-collapse: collapse;

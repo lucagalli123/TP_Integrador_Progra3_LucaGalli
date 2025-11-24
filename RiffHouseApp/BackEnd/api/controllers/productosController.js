@@ -86,7 +86,7 @@ class ProductosController {
 
             const producto = await Producto.findByPk(id);
             if (!producto) {
-                return res.status(404).send({ message: "Producto no encontrado" });
+                return res.status(404).send({ error: "Producto no encontrado" });
             }
 
             await producto.update({ marca, modelo, categoria, precio, imagen });

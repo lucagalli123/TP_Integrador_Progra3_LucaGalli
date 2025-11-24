@@ -1,5 +1,5 @@
-import { $, limpiarError, listenersInputsLimpiarErrores, listenersInputsBlur, listenersInputsFocus } from "./utils.js";
-import { marcarError } from "./utils.js";
+import { $, limpiarError, listenersInputsLimpiarErrores, listenersInputsBlur, listenersInputsFocus, marcarError } from "./utils.js";
+// import { marcarError } from "./utils.js";
 
 const form = document.getElementById("loginForm");
 const btnAccesoRapido = document.getElementById("btnAccesoRapido");
