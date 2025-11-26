@@ -7,7 +7,7 @@ const router = Router();
 // ============= RUTAS ================
 
 router.post("/", validarDatosVenta, VentasController.crearVenta);
-router.get("/", VentasController.getVentas);
+// router.get("/", VentasController.getVentas);
 router.get("/:id", VentasController.getVentaPorId);
 
 export default router;

@@ -7,7 +7,7 @@ const btnEditar = document.querySelectorAll(".btn-editar");
 // funcion para actualizar el estado del producto
 async function cambiarEstadoProducto(id, accion) {
     try {
-        await fetch(`/api/productos/${id}/${accion}`, {
+        await fetch(`/admin/productos/${id}/${accion}`, {
             method: "PATCH",
         });
 
@@ -29,6 +29,8 @@ btnActivar.forEach(btn => {
 
         // mostrar modal
         modal.style.display = "block";
+
+        $("modalConsulta").textContent = "¿Esta seguro que desea activar este producto?";
 
         // cerrar con X
         btnClose.addEventListener("click", () => (modal.style.display = "none"));
@@ -59,6 +61,8 @@ btnDesactivar.forEach(btn => {
 
         // mostrar modal
         modal.style.display = "block";
+
+        $("modalConsulta").textContent = "¿Esta seguro que desea desactivar este producto?";
 
         // cerrar con X
         btnClose.addEventListener("click", () => (modal.style.display = "none"));

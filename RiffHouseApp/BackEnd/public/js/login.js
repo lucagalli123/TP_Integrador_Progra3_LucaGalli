@@ -19,7 +19,7 @@ const listaInputsErrors = [
 
 async function loguearse(email, password) {
     try {
-        const response = await fetch("/api/usuarios/login", {
+        const response = await fetch("/admin/usuarios/login", {
             method: "POST",
             body: JSON.stringify({ email, password }),
             headers: { "Content-Type": "application/json" },

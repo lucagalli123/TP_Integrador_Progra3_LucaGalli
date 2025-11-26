@@ -1,8 +1,6 @@
-// import { $ } from "./utils.js";
 import { $, limpiarError, listenersInputsLimpiarErrores, listenersInputsBlur, listenersInputsFocus, marcarError } from "./utils.js";
 
 const form = document.getElementById("editarForm");
-const btnEditar = document.getElementById("btnEditar");
 const btnCancelar = document.getElementById("btnCancelar");
 
 let inputMarca = $("inputMarca");
@@ -21,71 +19,79 @@ let inputImagen = $("inputImagen");
 let errorImagen = $("errorImagen");
 
 const listaInputsErrors = [
-    { input: inputMarca, errorText: errorMarca },
-    { input: inputModelo, errorText: errorModelo },
-    { input: inputCategoria, errorText: errorCategoria },
-    { input: inputPrecio, errorText: errorPrecio },
-    { input: inputImagen, errorText: errorImagen },
+    { input: $("inputMarca"), errorText: $("errorMarca") },
+    { input: $("inputModelo"), errorText: $("errorModelo") },
+    { input: $("inputCategoria"), errorText: $("errorCategoria") },
+    { input: $("inputModelo"), errorText: $("errorModelo") },
+    { input: $("inputModelo"), errorText: $("errorModelo") },
 ];
 
-// FUNCIONES ___
+// function validarDatos(marca, modelo, categoria, precio, imagenFile) {
+//     let todoOk = true;
 
-function validarDatos(marca, modelo, categoria, precio, imagen) {
-    let todoOk = true;
+//     if (!marca) {
+//         todoOk = false;
+//         marcarError(inputMarca, errorMarca, "*campo vacío");
+//     }
+//     if (!modelo) {
+//         todoOk = false;
+//         marcarError(inputModelo, errorModelo, "*campo vacío");
+//     }
+//     if (!categoria) {
+//         todoOk = false;
+//         marcarError(inputCategoria, errorCategoria, "*campo vacío");
+//     }
+//     if (!precio) {
+//         todoOk = false;
+//         marcarError(inputPrecio, errorPrecio, "*campo vacío");
+//     }
+//     if (!imagenFile) {
+//         todoOk = false;
+//         marcarError(inputImagen, errorImagen, "*suba una imagen");
+//     }
 
-    if (!marca) {
-        todoOk = false;
-        marcarError(inputMarca, errorMarca, "*campo vacio");
-    }
+//     return todoOk;
+// }
 
-    if (!modelo) {
-        todoOk = false;
-        marcarError(inputModelo, errorModelo, "*campo vacio");
-    }
-
-    if (!categoria) {
-        todoOk = false;
-        marcarError(inputCategoria, errorCategoria, "*campo vacio");
-    }
-
-    if (!precio) {
-        todoOk = false;
-        marcarError(inputPrecio, errorPrecio, "*campo vacio");
-    }
-
-    if (!imagen) {
-        todoOk = false;
-        marcarError(inputImagen, errorImagen, "*campo vacio");
-    }
-    return todoOk;
-}
-
-// listeners__________
-
-// enviar form
 form.addEventListener("submit", async e => {
     e.preventDefault();
-    try {
-        const marca = inputMarca.value;
-        const modelo = inputModelo.value;
-        const categoria = inputCategoria.value;
-        const precio = inputPrecio.value;
-        const imagen = inputImagen.value;
 
-        // despues ver tema de apiurl en .env
-        // marca, modelo, categoria, precio, imagen
-        if (validarDatos(marca, modelo, categoria, precio, imagen)) {
-            const response = await fetch(`http://localhost:3001/api/productos/${PRODUCT_ID}`, {
-                method: "PATCH",
-                body: JSON.stringify({ marca, modelo, categoria, precio, imagen }),
-                headers: { "Content-Type": "application/json" },
-            });
-            const resultado = await response.json();
-            console.log(resultado);
-        }
+    const marca = inputMarca.value;
+    const modelo = inputModelo.value;
+    const categoria = inputCategoria.value;
+    const precio = inputPrecio.value;
+    const imagenFile = inputImagen.files[0]; // <— IMPORTANTE
+
+    // despues pasar a middleware...
+    // if (!validarDatos(marca, modelo, categoria, precio, imagenFile)) return;
+
+    const formData = new FormData();
+    formData.append("marca", marca);
+    formData.append("modelo", modelo);
+    formData.append("categoria", categoria);
+    formData.append("precio", precio);
+    formData.append("imagen", imagenFile);
+
+    try {
+        const response = await fetch(`/admin/productos/${PRODUCT_ID}`, {
+            method: "PATCH",
+            body: formData,
+        });
+
+        const resultado = await response.json();
+        window.location.href = "/admin/dashboard?tipo=admin";
     } catch (error) {
         console.error(error);
     }
 });
 
-// console.log(PRODUCT_ID);
+btnCancelar.addEventListener("click", () => {
+    window.location.href = "/admin/dashboard?tipo=admin";
+});
+
+// LISTENERS ==============
+
+// listeners de los inputs y mensajes de error (blur, focus, input)
+// listenersInputsBlur(listaInputsErrors);
+// listenersInputsFocus(listaInputsErrors);
+// listenersInputsLimpiarErrores(listaInputsErrors);

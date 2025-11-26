@@ -1,6 +1,6 @@
 import ejs from "ejs";
 import puppeteer from "puppeteer";
-import { Venta, VentaProducto, Producto } from "../models/index.js";
+import { Venta, VentaProducto, Producto } from "../../models/index.js";
 
 import path from "path";
 import { fileURLToPath } from "url";
@@ -25,7 +25,7 @@ class TicketController {
 
             if (!venta) return res.status(404).send("Venta no encontrada");
 
-            const vista = path.join(__dirname, "..", "..", "views", "ticket.ejs");
+            const vista = path.join(__dirname, "..", "..", "backoffice", "views", "cliente", "ticket.ejs");
 
             const html = await ejs.renderFile(vista, {
                 ticket: venta,

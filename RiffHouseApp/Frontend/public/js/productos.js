@@ -33,7 +33,7 @@ async function renderProductos(tema) {
             div.classList.add(`producto-carta-${tema}`);
 
             const img = document.createElement("img");
-            img.src = `${API_URL}/img/${categoriaActual}/${p.imagen}`; // VER TEMA DE PUERTO EN .ENV
+            img.src = p.imagen; // VER TEMA DE PUERTO EN .ENV
             img.alt = `${p.marca} ${p.modelo}`;
 
             const h3 = document.createElement("h3");

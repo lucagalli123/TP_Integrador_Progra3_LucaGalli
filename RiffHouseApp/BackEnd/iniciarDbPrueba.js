@@ -1,4 +1,4 @@
-import { Producto, Usuario } from "./api/models/index.js";
+import { Producto, Usuario } from "./src/models/index.js";
 import bcrypt from "bcrypt";
 
 export const iniciarDB = async () => {
@@ -31,28 +31,28 @@ export const iniciarDB = async () => {
         {
             marca: "Fender",
             modelo: "Stratocaster",
-            categoria: "guitarras",
+            categoria: "Guitarras",
             precio: 1200.0,
             activo: true,
-            imagen: "guitarra1.png",
+            imagen: "http://localhost:3001/uploads/guitarras/guitarra1.png",
         },
-        { marca: "Gibson", modelo: "Les Paul", categoria: "guitarras", precio: 1500.0, activo: false, imagen: "guitarra2.png" },
-        { marca: "Ibanez", modelo: "RG550", categoria: "guitarras", precio: 1100.0, activo: true, imagen: "guitarra3.png" },
-        { marca: "Yamaha", modelo: "Pacifica", categoria: "guitarras", precio: 800.0, activo: true, imagen: "guitarra4.png" },
+        { marca: "Gibson", modelo: "Les Paul", categoria: "Guitarras", precio: 1500.0, activo: false, imagen: "http://localhost:3001/uploads/guitarras/guitarra2.png" },
+        { marca: "Ibanez", modelo: "RG550", categoria: "Guitarras", precio: 1100.0, activo: true, imagen: "http://localhost:3001/uploads/guitarras/guitarra3.png" },
+        { marca: "Yamaha", modelo: "Pacifica", categoria: "Guitarras", precio: 800.0, activo: true, imagen: "http://localhost:3001/uploads/guitarras/guitarra4.png" },
 
-        { marca: "Fender", modelo: "Jazz Bass", categoria: "bajos", precio: 1300.0, activo: true, imagen: "bajo1.png" },
-        { marca: "Gibson", modelo: "Thunderbird", categoria: "bajos", precio: 1400.0, activo: false, imagen: "bajo2.png" },
-        { marca: "Ibanez", modelo: "SR300E", categoria: "bajos", precio: 950.0, activo: true, imagen: "bajo3.png" },
-        { marca: "Yamaha", modelo: "TRBX174", categoria: "bajos", precio: 700.0, activo: true, imagen: "bajo4.png" },
+        { marca: "Fender", modelo: "Jazz Bass", categoria: "Bajos", precio: 1300.0, activo: true, imagen: "http://localhost:3001/uploads/bajos/bajo1.png" },
+        { marca: "Gibson", modelo: "Thunderbird", categoria: "Bajos", precio: 1400.0, activo: false, imagen: "http://localhost:3001/uploads/bajos/bajo2.png" },
+        { marca: "Ibanez", modelo: "SR300E", categoria: "Bajos", precio: 950.0, activo: true, imagen: "http://localhost:3001/uploads/bajos/bajo3.png" },
+        { marca: "Yamaha", modelo: "TRBX174", categoria: "Bajos", precio: 700.0, activo: true, imagen: "http://localhost:3001/uploads/bajos/bajo4.png" },
 
-        { marca: "Epiphone", modelo: "SG Standard", categoria: "guitarras", precio: 900.0, activo: true, imagen: "guitarra5.png" },
-        { marca: "Schecter", modelo: "Omen Extreme-6", categoria: "guitarras", precio: 850.0, activo: false, imagen: "guitarra6.png" },
-        { marca: "Jackson", modelo: "Soloist SLX", categoria: "guitarras", precio: 1150.0, activo: true, imagen: "guitarra7.png" },
-        { marca: "PRS", modelo: "SE Custom 24", categoria: "guitarras", precio: 1250.0, activo: true, imagen: "guitarra8.png" },
-        { marca: "Squier", modelo: "Precision Bass", categoria: "bajos", precio: 650.0, activo: true, imagen: "bajo5.png" },
-        { marca: "Music Man", modelo: "StingRay", categoria: "bajos", precio: 1600.0, activo: true, imagen: "bajo6.png" },
-        { marca: "Cort", modelo: "Action PJ", categoria: "bajos", precio: 500.0, activo: true, imagen: "bajo7.png" },
-        { marca: "ESP", modelo: "LTD B-204", categoria: "bajos", precio: 1050.0, activo: true, imagen: "bajo8.png" },
+        { marca: "Epiphone", modelo: "SG Standard", categoria: "Guitarras", precio: 900.0, activo: true, imagen: "http://localhost:3001/uploads/guitarras/guitarra5.png" },
+        { marca: "Schecter", modelo: "Omen Extreme-6", categoria: "Guitarras", precio: 850.0, activo: false, imagen: "http://localhost:3001/uploads/guitarras/guitarra6.png" },
+        { marca: "Jackson", modelo: "Soloist SLX", categoria: "Guitarras", precio: 1150.0, activo: true, imagen: "http://localhost:3001/uploads/guitarras/guitarra7.png" },
+        { marca: "PRS", modelo: "SE Custom 24", categoria: "Guitarras", precio: 1250.0, activo: true, imagen: "http://localhost:3001/uploads/guitarras/guitarra8.png" },
+        { marca: "Squier", modelo: "Precision Bass", categoria: "Bajos", precio: 650.0, activo: true, imagen: "http://localhost:3001/uploads/bajos/bajo5.png" },
+        { marca: "Music Man", modelo: "StingRay", categoria: "Bajos", precio: 1600.0, activo: true, imagen: "http://localhost:3001/uploads/bajos/bajo6.png" },
+        { marca: "Cort", modelo: "Action PJ", categoria: "Bajos", precio: 500.0, activo: true, imagen: "http://localhost:3001/uploads/bajos/bajo7.png" },
+        { marca: "ESP", modelo: "LTD B-204", categoria: "Bajos", precio: 1050.0, activo: true, imagen: "http://localhost:3001/uploads/bajos/bajo8.png" },
     ]);
 
     console.log("Datos de prueba cargados ✅");

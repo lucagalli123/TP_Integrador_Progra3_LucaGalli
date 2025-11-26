@@ -14,36 +14,46 @@
                 <form id="editarForm" novalidate>
                     <div>
                         <label>Marca:</label>
-                        <input class="input-normal" id="inputMarca" type="text" name="marca" required />
+                        <input class="input-normal" id="inputMarca" type="text" name="marca" placeholder="<%= producto.marca %>" />
+
                         <p id="errorMarca" class="oculto errorEstilo">nada</p>
                     </div>
 
                     <div>
                         <label>Modelo:</label>
-                        <input class="input-normal" id="inputModelo" type="text" name="Modelo" required />
+                        <input class="input-normal" id="inputModelo" type="text" name="Modelo" placeholder="<%= producto.modelo %>" />
                         <p id="errorModelo" class="oculto errorEstilo">nada</p>
                     </div>
 
                     <!-- ver que onda -->
                     <div>
-                        <label for="categoria">Categoria</label>
+                        <label for="categoria">Categoria:</label>
                         <select name="categoria" id="inputCategoria" size="1">
-                            <option disabled selected>Seleccione una opcion</option>
-                            <option value="F">Guitarras</option>
-                            <option value="M">Bajos</option>
+                            <option value="<%= producto.categoria %>" selected><%= producto.categoria %></option>
+                            <% if(producto.categoria === "Guitarras") { %>
+                            <option value="Bajos">Bajos</option>
+                            <% } else { %>
+                            <option value="Guitarras">Guitarras</option>
+                            <% } %>
                         </select>
                         <p id="errorCategoria" class="oculto errorEstilo">nada</p>
                     </div>
 
                     <div>
                         <label>Precio:</label>
-                        <input class="input-normal" id="inputPrecio" type="number" name="precio" required />
+                        <input class="input-normal" id="inputPrecio" type="number" name="precio" placeholder="<%= producto.precio %>" />
                         <p id="errorPrecio" class="oculto errorEstilo">nada</p>
                     </div>
 
-                    <div>
+                    <!-- <div>
                         <label>Imagen:</label>
                         <input class="input-normal" id="inputImagen" type="image" name="imagen" required />
+                        <p id="errorImagen" class="oculto errorEstilo">nada</p>
+                    </div> -->
+
+                    <div>
+                        <label>Imagen:</label>
+                        <input id="inputImagen" type="file" name="imagen" />
                         <p id="errorImagen" class="oculto errorEstilo">nada</p>
                     </div>
 

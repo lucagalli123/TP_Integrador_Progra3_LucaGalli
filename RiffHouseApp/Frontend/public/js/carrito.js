@@ -48,7 +48,7 @@ function renderCarrito(tema) {
 
             // imagen
             const img = document.createElement("img");
-            img.src = `${API_URL}/img/${item.categoria}/${item.imagen}`;
+            img.src = item.imagen;
             img.alt = item.marca + " " + item.modelo;
 
             // nombre

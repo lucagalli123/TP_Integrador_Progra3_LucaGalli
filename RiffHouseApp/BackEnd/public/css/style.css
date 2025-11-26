@@ -120,6 +120,14 @@ input {
     box-sizing: border-box;
 }
 
+input[type="file"]:hover {
+    cursor: pointer;
+}
+
+select {
+    cursor: pointer;
+}
+
 .form-style section {
     background-color: rgb(222, 217, 217);
     display: flex;
