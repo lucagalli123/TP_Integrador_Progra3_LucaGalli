@@ -99,8 +99,10 @@ main {
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
+    justify-content: flex-start;
+    align-items: stretch;
 }
 
 /* ______________ Footer ______________*/
@@ -247,6 +249,23 @@ select {
     max-height: 100%;
     overflow-y: auto;
 } */
+
+.div-alta {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: end;
+    margin-bottom: 15px;
+}
+
+.btn-alta {
+    padding: 10px 15px;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+/* tabla */
 
 .tabla-productos {
     border-collapse: collapse;

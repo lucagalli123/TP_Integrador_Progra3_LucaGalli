@@ -28,7 +28,7 @@ async function loguearse(email, password) {
         const data = await response.json();
 
         if (response.ok) {
-            window.location.href = "/admin/dashboard?tipo=admin";
+            window.location.href = "/admin/dashboard";
         } else {
             if (data.error === "email invalido") {
                 marcarError(inputEmail, errorEmail, `*${data.error}`);

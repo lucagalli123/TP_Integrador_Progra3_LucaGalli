@@ -17,9 +17,9 @@ class AdminController {
         try {
             const { tipo } = req.query;
 
-            if (tipo !== "admin") {
-                return res.status(400).json({ message: "Tipo invalido" });
-            }
+            // if (tipo !== "admin") {
+            //     return res.status(400).json({ message: "Tipo invalido" });
+            // }
 
             const productos = await Producto.findAll();
 
@@ -47,6 +47,25 @@ class AdminController {
             return res.render("admin/pages/editar", {
                 tituloHead: "Riffhouse - Admin - Editar",
                 producto,
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).send({ message: "Error al obtener el producto" });
+        }
+    }
+
+    static async renderAlta(req, res) {
+        try {
+            // const { id } = req.params;
+
+            // const producto = await Producto.findByPk(id);
+
+            // if (!producto) {
+            //     return res.status(404).send({ message: "Producto no encontrado" });
+            // }
+
+            return res.render("admin/pages/alta", {
+                tituloHead: "Riffhouse - Admin - Alta",
             });
         } catch (error) {
             console.error(error);

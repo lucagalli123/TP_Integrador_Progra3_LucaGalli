@@ -79,14 +79,14 @@ form.addEventListener("submit", async e => {
         });
 
         const resultado = await response.json();
-        window.location.href = "/admin/dashboard?tipo=admin";
+        window.location.href = "/admin/dashboard";
     } catch (error) {
         console.error(error);
     }
 });
 
 btnCancelar.addEventListener("click", () => {
-    window.location.href = "/admin/dashboard?tipo=admin";
+    window.location.href = "/admin/dashboard";
 });
 
 // LISTENERS ==============

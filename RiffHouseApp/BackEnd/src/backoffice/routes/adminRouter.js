@@ -10,6 +10,8 @@ router.get("/dashboard", AdminController.renderDashboard);
 
 router.get("/editar/:id", AdminController.renderEditar);
 
+router.get("/alta", AdminController.renderAlta);
+
 router.post("/usuarios/login", validarDatosLogin, AdminController.login);
 
 router.post("/productos", AdminController.crearProducto);
