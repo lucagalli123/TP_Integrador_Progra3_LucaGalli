@@ -94,7 +94,7 @@ if (PRODUCT_ID !== null && PRODUCT_ID !== undefined) {
             const result = await response.json();
 
             if (!response.ok) {
-                alert(result.message);
+                alert(`ERROR ${response.status}, ${result.message}`);
             } else {
                 window.location.href = "/admin/dashboard";
             }

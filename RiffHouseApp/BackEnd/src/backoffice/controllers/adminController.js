@@ -1,5 +1,6 @@
 import { Producto } from "../../models/producto.js";
 import { Usuario } from "../../models/usuario.js";
+import Response from "../response.js";
 import bcrypt from "bcrypt";
 import fs from "fs";
 
@@ -68,7 +69,7 @@ class AdminController {
         }
     }
 
-    // ============================= RENDERS =============================
+    // ============================= LOGIN =============================
 
     static async login(req, res) {
         try {
@@ -101,7 +102,7 @@ class AdminController {
 
             const producto = await Producto.findByPk(id);
             if (!producto) {
-                return res.status(404).send({ error: "Producto no encontrado" });
+                return res.status(404).send(Response.error("Producto no encontrado", null));
             }
 
             const { marca, modelo, categoria, precio } = req.body;
@@ -122,13 +123,10 @@ class AdminController {
                 imagen: nuevaImagen,
             });
 
-            res.send({
-                message: "Producto actualizado correctamente",
-                resultado: producto,
-            });
+            res.status(200).send(Response.success(producto, "Producto actualizado correctamente"));
         } catch (error) {
             console.error(error);
-            res.status(500).send({ message: "Error al modificar producto" });
+            res.status(500).send(Response.error("Error al actualizar producto", error));
         }
     }
 

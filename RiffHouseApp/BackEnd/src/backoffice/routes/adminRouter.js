@@ -23,7 +23,6 @@ router.post("/usuarios/login", validarDatosLogin, AdminController.login);
 router.post("/productos", upload.single("imagen"), AdminController.crearProducto);
 
 // en proceso
-// router.patch("/productos/:id", upload.single("imagen"), AdminController.actualizarProducto);
 router.patch("/productos/:id", upload.single("imagen"), validarDatosActualizarProd, AdminController.actualizarProducto);
 
 router.patch("/productos/:id/activar", AdminController.activarProducto);
