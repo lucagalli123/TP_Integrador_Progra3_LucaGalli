@@ -1,47 +1,38 @@
 import { Producto } from "../../models/index.js";
+import ApiResponse from "../apiReponse.js";
 
 class ProductosController {
-    // validar datos...
     static async getProductos(req, res) {
         try {
-            let { tipo, pag, limit, categoria } = req.query;
+            let { pag, limit, categoria } = req.query;
 
-            if (tipo === "cliente") {
-                pag = parseInt(pag) || 1;
-                limit = parseInt(limit) || 6;
-                const offset = (pag - 1) * limit;
+            pag = parseInt(pag) || 1;
+            limit = parseInt(limit) || 6;
+            const offset = (pag - 1) * limit;
 
-                const productos = await Producto.findAndCountAll({
-                    where: { activo: true, categoria: categoria },
-                    limit: limit,
-                    offset: offset,
-                });
+            const productos = await Producto.findAndCountAll({
+                where: { activo: true, categoria: categoria },
+                limit: limit,
+                offset: offset,
+            });
 
-                if (productos.rows.length === 0) {
-                    return res.status(200).json({ message: "No hay productos activos" });
-                }
-
-                return res.status(200).send({
-                    total: productos.count,
-                    paginas: Math.ceil(productos.count / limit),
-                    listaProd: productos.rows,
-                });
+            // res 1
+            if (productos.rows.length === 0) {
+                return res.status(200).json(ApiResponse.success([], "No hay productos activos"));
             }
 
-            // if (tipo === "admin") {
-            //     const productos = await Producto.findAll();
-            //     return res.status(200).send(productos);
-            // }
+            // res 2
+            const data = { total: productos.count, paginas: Math.ceil(productos.count / limit), listaProductos: productos.rows };
+            return res.status(200).json(ApiResponse.success(data, "Productos obtenidos correctamente"));
         } catch (error) {
-            console.error(error);
-            return res.status(500).send({ message: "Error al obtener los productos" });
+            console.error("Error: ", error.message);
+
+            // res 3
+            return res.status(500).json(ApiResponse.error("Error al obtener productos", error));
         }
     }
 
-    //______________________________ en deshuso por ahora ______________________________________________
-
-    // 1 producto por id ---> GET ---> (PARAMS) ---> http://localhost:3001/api/productos/x
-    // validar datos...
+    //______________________________ EN DESHUSO POR AHORA ______________________________________________
 
     // static async getProductoPorId(req, res) {
     //     try {
@@ -56,100 +47,6 @@ class ProductosController {
     //     } catch (error) {
     //         console.error("Error getProductoPorId:", error);
     //         return res.status(500).send({ message: "Error interno del servidor" });
-    //     }
-    // }
-
-    // _____________________________ en deshuso por ahora ________________________________
-
-    // crear un producto ---> POST ---> (BODY/marca-modelo-categoria-imagen-precio) ---> http://localhost:3001/api/productos/
-    // validar datos... ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-    // static async crearProducto(req, res) {
-    //     const body = req.body;
-    //     try {
-    //         const producto = await Producto.create({
-    //             marca: body.marca,
-    //             modelo: body.modelo,
-    //             categoria: body.categoria,
-    //             imagen: body.imagen,
-    //             precio: parseFloat(body.precio),
-    //             activo: true,
-    //         });
-    //         return res.send({ message: "Producto creado con exito", resultado: producto });
-    //     } catch (error) {
-    //         console.error(error);
-    //         return res.status(500).send({ message: "Error al crear producto", error: error.message });
-    //     }
-    // }
-
-    // _________________________ en deshuso por ahora _____________________________
-
-    // actualizar un producto ---> PATCH ---> (BODY/marca-modelo-categoria-precio-imagen) ---> http://localhost:3001/api/productos/
-    // falta ---> validacion middle ---> validar que haya cambios para realizar (que los datos ingresados sean distintos a los de la DDBB)
-    // validar datos... |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-    // static async actualizarProducto(req, res) {
-    //     try {
-    //         const { id } = req.params;
-    //         const { marca, modelo, categoria, precio, imagen } = req.body;
-
-    //         const producto = await Producto.findByPk(id);
-    //         if (!producto) {
-    //             return res.status(404).send({ error: "Producto no encontrado" });
-    //         }
-
-    //         await producto.update({ marca, modelo, categoria, precio, imagen });
-
-    //         res.send({ message: "Producto actualizado correctamente", resultado: producto });
-    //     } catch (error) {
-    //         console.error(error);
-    //         res.status(500).send({ message: "Error al modificar producto" });
-    //     }
-    // }
-
-    // _____________________ en deshuso por ahora _____________________
-
-    // activar un producto ---> PATCH ---> (PARAMS) ---> http://localhost:3001/api/productos/x
-    // ver que pasa si el producto ya esta activo...
-    // falta validar datos con middle ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-    // static async activarProducto(req, res) {
-    //     try {
-    //         const id = req.params.id;
-
-    //         const producto = await Producto.findByPk(id);
-    //         if (!producto) {
-    //             return res.status(404).send({ message: "Producto no encontrado" });
-    //         }
-
-    //         await producto.update({ activo: true, where: { id: id } });
-    //         return res.status(200).send({ message: "Producto activado", resultado: producto });
-    //     } catch (error) {
-    //         console.error(error);
-    //         res.status(500).send({ message: "Error interno del servidor" });
-    //     }
-    // }
-
-    // _____________________ en deshuso por ahora __________________________
-
-    // desactivar un producto ---> PATCH ---> (PARAMS) ---> http://localhost:3001/api/productos/x
-    // ver que pasa si el producto ya esta inactivo...
-    // falta validar datos con middle
-
-    // static async desactivarProducto(req, res) {
-    //     try {
-    //         const id = req.params.id;
-
-    //         const producto = await Producto.findByPk(id);
-    //         if (!producto) {
-    //             return res.status(404).send({ message: "Producto no encontrado" });
-    //         }
-
-    //         await producto.update({ activo: false, where: { id: id } });
-    //         return res.status(200).send({ message: "Producto desactivado", resultado: producto });
-    //     } catch (error) {
-    //         console.error(error);
-    //         res.status(500).send({ message: "Error interno del servidor" });
     //     }
     // }
 }

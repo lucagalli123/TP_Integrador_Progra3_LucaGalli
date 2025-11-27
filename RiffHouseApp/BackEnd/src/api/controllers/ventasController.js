@@ -1,7 +1,7 @@
 import { Venta, Producto, VentaProducto } from "../../models/index.js";
+import ApiResponse from "../apiReponse.js";
 
 class VentasController {
-    // validar datos...
     static async crearVenta(req, res) {
         try {
             let { cliente, fecha, total, productos } = req.body;
@@ -31,14 +31,15 @@ class VentasController {
                 ventaProductosCreados.push(ventaProducto);
             }
 
-            return res.status(201).send({
-                message: "Venta creada correctamente",
+            const data = {
                 venta: ventaCreada,
                 productosAsociados: ventaProductosCreados,
-            });
+            };
+
+            return res.status(201).json(ApiResponse.success(data, "Venta creada correctamente"));
         } catch (error) {
-            console.error("Error al crear venta:", error);
-            return res.status(500).send({ message: "Error al crear venta", error: error.message });
+            console.error(`Error: , ${error.message}`);
+            return res.status(500).json(ApiResponse.error("Error al crear venta", error));
         }
     }
 
@@ -65,8 +66,8 @@ class VentasController {
 
             res.status(200).send({ message: "Busqueda exitosa", resultado: venta });
         } catch (error) {
-            console.error("Error al listar ventas:", error);
-            return res.status(500).send({ message: "Error al listar ventas", error: error.message });
+            console.error("Error: ", error.message);
+            return res.status(500).json(ApiResponse.error("Error al listar ventas", error));
         }
     }
 

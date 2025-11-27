@@ -8,18 +8,19 @@ let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 // peticion al back para crear venta
 async function crearVenta(ventaData) {
     try {
-        const response = await fetch(`${API_URL}/api/ventas`, {
+        const apiResponse = await fetch(`${API_URL}/api/ventas`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(ventaData),
         });
 
-        if (!response.ok) {
-            const errorResponse = await response.json();
-            throw new Error(errorResponse.message);
+        const result = await apiResponse.json();
+
+        if (!apiResponse.ok) {
+            throw new Error(`${result.message}, (Error ${apiResponse.status})`);
         }
-        const data = await response.json();
-        return data;
+
+        return result;
     } catch (error) {
         throw error;
     }
@@ -34,7 +35,7 @@ function renderCarrito(tema) {
 
     if (carrito.length === 0) {
         const p = document.createElement("p");
-        p.textContent = "El carrito está vacío.";
+        p.textContent = "El carrito esta vacio.";
         tema === "claro" ? (p.style.color = "black") : (p.style.color = "white");
         p.style.position = "absolute";
         p.style.top = "50%";
@@ -174,14 +175,13 @@ $("btnFinalizar").addEventListener("click", () => {
             total: carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0),
         };
         try {
-            const response = await crearVenta(data);
-            console.log(response); // <----- DESPUES TENGO QUE VER COMO MANEJO ESTE MENSAJE
-            localStorage.setItem("idVenta", JSON.stringify(response.venta.id));
+            const result = await crearVenta(data);
+            localStorage.setItem("idVenta", JSON.stringify(result.data.venta.id));
+            localStorage.removeItem("carrito");
+            window.location.href = "/ticket.html";
         } catch (error) {
-            console.log(error); // <----- DESPUES TENGO QUE VER COMO MANEJO ESTE ERROR
+            alert(error);
         }
-        localStorage.removeItem("carrito");
-        window.location.href = "/ticket.html";
     };
 });
 

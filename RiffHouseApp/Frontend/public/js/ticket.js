@@ -2,6 +2,9 @@ import { getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./temas.js
 import { obtenerConfig } from "./variablesEntorno.js";
 import { $ } from "./utils.js";
 
+let idVenta = JSON.parse(localStorage.getItem("idVenta"));
+console.log(idVenta);
+
 // funcion para obtener el ticket de la api del back
 async function obtenerTicket(id) {
     try {
@@ -156,7 +159,6 @@ function aplicarTema(tema, ticket) {
 
 // aplica configuraciones cuando carga el DOM
 let API_URL = "";
-let idVenta = JSON.parse(localStorage.getItem("idVenta"));
 document.addEventListener("DOMContentLoaded", async () => {
     const config = await obtenerConfig();
     API_URL = config.API_URL;

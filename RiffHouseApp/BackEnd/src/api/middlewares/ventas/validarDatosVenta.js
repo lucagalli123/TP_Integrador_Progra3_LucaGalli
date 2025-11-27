@@ -1,26 +1,33 @@
+import ApiResponse from "../../apiReponse.js";
+
 export function validarDatosVenta(req, res, next) {
     const { cliente, fecha, total, productos } = req.body;
 
     if (!cliente || typeof cliente !== "string") {
-        return res.status(400).send({ error: "El nombre del cliente es obligatorio" });
+        console.error(" Query 'cliente' invalida:", cliente);
+        return res.status(400).json(ApiResponse.error("Error al procesar la venta. Intente nuevamente si?", null));
     }
 
     if (!fecha || isNaN(Date.parse(fecha))) {
-        return res.status(400).send({ error: "La fecha no es valida" });
+        console.error(" Query 'fecha' invalida:", fecha);
+        return res.status(400).json(ApiResponse.error("Error al procesar la venta. Intente nuevamente", null));
     }
 
     if (!total || isNaN(total)) {
-        return res.status(400).send({ error: "El total debe ser un numero" });
+        console.error(" Query 'total' invalida:", total);
+        return res.status(400).json(ApiResponse.error("Error al procesar la venta. Intente nuevamente", null));
     }
 
     if (!productos || productos.length === 0) {
-        return res.status(400).send({ error: "Debe haber al menos un producto" });
+        console.error(" Query 'productos' invalida:", productos);
+        return res.status(400).json(ApiResponse.error("Error al procesar la venta. Intente nuevamente", null));
     }
 
     for (const p of productos) {
-        if (!p.id) return res.status(400).send({ error: "Producto sin ID" });
-        if (!p.cantidad || p.cantidad <= 0) return res.status(400).send({ error: "Cantidad invalida" });
-        if (!p.precio || isNaN(parseFloat(p.precio))) return res.status(400).send({ error: "Precio invalido" });
+        if (!p.id || !p.cantidad || p.cantidad <= 0 || !p.precio || isNaN(parseFloat(p.precio))) {
+            console.error(" Query invalida:", p);
+            return res.status(400).json(ApiResponse.error("Error al procesar la venta. Intente nuevamente", null));
+        }
     }
 
     next();
