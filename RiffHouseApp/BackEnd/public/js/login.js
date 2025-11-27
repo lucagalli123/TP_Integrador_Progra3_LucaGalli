@@ -88,3 +88,7 @@ btnAccesoRapido.addEventListener("click", async () => {
     $("inputEmail").value = "moni@example.com";
     $("inputPassword").value = "1234";
 });
+
+$("btnIngresarComoCliente").addEventListener("click", () => {
+    window.location.href = `http://localhost:3000/`;
+});
