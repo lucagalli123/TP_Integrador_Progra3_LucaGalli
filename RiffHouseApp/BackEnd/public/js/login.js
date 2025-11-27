@@ -1,5 +1,6 @@
 import { $, limpiarError, listenersInputsLimpiarErrores, listenersInputsBlur, listenersInputsFocus, marcarError } from "./utils.js";
-// import { marcarError } from "./utils.js";
+
+// ============== DOM elementos ==============
 
 const form = document.getElementById("loginForm");
 const btnAccesoRapido = document.getElementById("btnAccesoRapido");
@@ -15,7 +16,7 @@ const listaInputsErrors = [
     { input: $("inputPassword"), errorText: $("errorPassword") },
 ];
 
-// funciones
+// ============== FUNCIONES ==============
 
 async function loguearse(email, password) {
     try {
@@ -25,19 +26,22 @@ async function loguearse(email, password) {
             headers: { "Content-Type": "application/json" },
         });
 
-        const data = await response.json();
+        const result = await response.json();
 
-        if (response.ok) {
-            window.location.href = "/admin/dashboard";
-        } else {
-            if (data.error === "email invalido") {
-                marcarError(inputEmail, errorEmail, `*${data.error}`);
-            } else if (data.error === "contraseña invalida") {
-                marcarError(inputPassword, errorPassword, `*${data.error}`);
+        if (!response.ok) {
+            if (result.message === "email invalido") {
+                marcarError(inputEmail, errorEmail, `*${result.message}`);
+            } else if (result.message === "contraseña invalida") {
+                marcarError(inputPassword, errorPassword, `*${result.message}`);
+            } else {
+                alert(`ERROR ${response.status}\n${result.message}`);
             }
+            return;
         }
+
+        window.location.href = "/admin/dashboard";
     } catch (error) {
-        alert("Error en login:\n", error);
+        alert(`Ocurrio un error\n${error.name}`);
     }
 }
 
@@ -67,13 +71,14 @@ function validarDatos(email, password) {
     return todoOk;
 }
 
-// listeners
+// ============== LISTENERS ==============
 
-form.addEventListener("submit", async e => {
+// listener form
+form.addEventListener("submit", e => {
     e.preventDefault();
     const emailValue = $("inputEmail").value;
     const passwordValue = $("inputPassword").value;
-    if (validarDatos(emailValue, passwordValue)) await loguearse(emailValue, passwordValue);
+    if (validarDatos(emailValue, passwordValue)) loguearse(emailValue, passwordValue);
 });
 
 // listeners de los inputs y mensajes de error (blur, focus, input)
@@ -89,6 +94,7 @@ btnAccesoRapido.addEventListener("click", async () => {
     $("inputPassword").value = "1234";
 });
 
+// listener boton ingresar como cliente
 $("btnIngresarComoCliente").addEventListener("click", () => {
     window.location.href = `http://localhost:3000/`;
 });

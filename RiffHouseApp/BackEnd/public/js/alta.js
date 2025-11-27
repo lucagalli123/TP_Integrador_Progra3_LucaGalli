@@ -1,5 +1,7 @@
 import { $, limpiarError, listenersInputsLimpiarErrores, listenersInputsBlur, listenersInputsFocus, marcarError } from "./utils.js";
 
+// ============== DOM elementos ==============
+
 const form = document.getElementById("altaForm");
 const btnCancelar = document.getElementById("btnCancelar");
 
@@ -26,6 +28,8 @@ const listaInputsErrors = [
     { input: inputImagen, errorText: errorImagen },
 ];
 
+// ============== FUNCIONES ==============
+
 function validarDatos(marca, modelo, categoria, precio, imagenFile) {
     let todoOk = true;
 
@@ -41,10 +45,18 @@ function validarDatos(marca, modelo, categoria, precio, imagenFile) {
         todoOk = false;
         marcarError(inputCategoria, errorCategoria, "*campo vacio");
     }
-    if (!precio) {
+    const precioNum = Number(precio);
+    if (!precio || isNaN(precioNum)) {
         todoOk = false;
-        marcarError(inputPrecio, errorPrecio, "*campo vacio");
+        marcarError(inputPrecio, errorPrecio, "*precio invalido");
+    } else if (precioNum < 0) {
+        todoOk = false;
+        marcarError(inputPrecio, errorPrecio, "*el precio no puede ser negativo");
+    } else if (precioNum > 999999) {
+        todoOk = false;
+        marcarError(inputPrecio, errorPrecio, "*el precio no puede exceder las 6 cifras");
     }
+
     if (!imagenFile) {
         todoOk = false;
         marcarError(inputImagen, errorImagen, "*suba una imagen");
@@ -52,6 +64,8 @@ function validarDatos(marca, modelo, categoria, precio, imagenFile) {
 
     return todoOk;
 }
+
+// ============== LISTENERS ==============
 
 form.addEventListener("submit", async e => {
     e.preventDefault();
@@ -73,15 +87,21 @@ form.addEventListener("submit", async e => {
     formData.append("imagen", imagenFile);
 
     try {
-        const response = await fetch("/admin/productos/", {
+        const response = await fetch(`/admin/productos/`, {
             method: "POST",
             body: formData,
         });
 
-        const resultado = await response.json();
-        console.log(resultado);
-        window.location.href = "/admin/dashboard";
+        const result = await response.json();
+
+        if (!response.ok) {
+            alert(`ERROR ${response.status}\n${result.message}`);
+        } else {
+            window.location.href = "/admin/dashboard";
+            // AGREGAR ALGUN MODAL QUE AVISE QUE SE CREO EL PRODUCTO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        }
     } catch (error) {
+        alert(`Ocurrio un error\n${error.name}`);
         console.error(error);
     }
 });
@@ -89,8 +109,6 @@ form.addEventListener("submit", async e => {
 btnCancelar.addEventListener("click", () => {
     window.location.href = "/admin/dashboard";
 });
-
-// LISTENERS ==============
 
 // listeners de los inputs y mensajes de error (blur, focus, input)
 listenersInputsBlur(listaInputsErrors);

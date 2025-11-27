@@ -7,12 +7,14 @@ import fs from "fs";
 class AdminController {
     // ============================= RENDERS =============================
 
+    // render login
     static async renderLogin(req, res) {
         res.render("admin/pages/login", {
             tituloHead: "Riffhouse - Admin - Login",
         });
     }
 
+    // render dashboard (TERMINAR BIEN EL ERROR) !!!!!!!!!!!!!!!!!!!!!!!!!!!
     static async renderDashboard(req, res) {
         try {
             const productos = await Producto.findAll();
@@ -28,6 +30,7 @@ class AdminController {
         }
     }
 
+    // render editar
     static async renderEditar(req, res) {
         try {
             const { id } = req.params;
@@ -58,6 +61,7 @@ class AdminController {
         }
     }
 
+    // render alta (TERMINAR EL ERROR) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     static async renderAlta(req, res) {
         try {
             return res.render("admin/pages/alta", {
@@ -78,19 +82,21 @@ class AdminController {
             const usuario = await Usuario.findOne({ where: { email } });
 
             if (!usuario) {
-                return res.status(401).send({ error: "email invalido" });
+                return res.status(401).send(Response.error("email invalido", null));
             }
 
             const okPass = await bcrypt.compare(password, usuario.password);
 
+            // despues voy a tener que usar el usuario para jwt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
             if (!okPass) {
-                return res.status(401).send({ error: "contraseña invalida" });
+                return res.status(401).send(Response.error("contraseña invalida", null));
             }
 
-            return res.status(200).send({ message: "login correcto" });
+            return res.status(200).send(Response.success(null, "credenciales validas"));
         } catch (error) {
             console.error(error);
-            res.status(500).send({ message: "error al loguearse" });
+            res.status(500).send(Response.error("Error al loguearse", error));
         }
     }
 
@@ -132,7 +138,6 @@ class AdminController {
 
     // ============================= CREAR PRODUCTO =============================
 
-    // MEJORARLO (ESTA FLOJO)
     static async crearProducto(req, res) {
         try {
             const { marca, modelo, categoria, precio } = req.body;
@@ -151,16 +156,10 @@ class AdminController {
                 activo: true,
             });
 
-            return res.send({
-                message: "Producto creado con exito",
-                resultado: producto,
-            });
+            res.status(200).send(Response.success(producto, "Producto creado con exito"));
         } catch (error) {
             console.error(error);
-            return res.status(500).send({
-                message: "Error al crear producto",
-                error: error.message,
-            });
+            res.status(500).send(Response.error("Error al crear producto", error));
         }
     }
 
@@ -172,15 +171,15 @@ class AdminController {
 
             const producto = await Producto.findByPk(id);
             if (!producto) {
-                return res.status(404).send({ message: "Producto no encontrado" });
+                return res.status(404).send(Response.error("Producto no encontrado", error));
             }
 
             await producto.update({ activo: true });
 
-            return res.send({ message: "Producto activado", resultado: producto });
+            return res.send(Response.success(null, "Producto activado"));
         } catch (error) {
             console.error(error);
-            res.status(500).send({ message: "Error interno del servidor" });
+            res.status(500).send(Response.error("Error al activar producto", error));
         }
     }
 

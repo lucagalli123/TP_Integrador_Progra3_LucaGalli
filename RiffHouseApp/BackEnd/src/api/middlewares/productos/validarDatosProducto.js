@@ -3,6 +3,8 @@ import ApiResponse from "../../apiReponse.js";
 export function validarDatosProducto(req, res, next) {
     let { pag, limit, categoria } = req.query;
 
+    // ---------------- QUERY ----------------
+
     if (!pag || isNaN(parseInt(pag)) || parseInt(pag) < 1) {
         console.error(" Query 'pag' invalida:", pag);
         return res.status(400).json(ApiResponse.error("Error al cargar los productos. Intente nuevamente", null));

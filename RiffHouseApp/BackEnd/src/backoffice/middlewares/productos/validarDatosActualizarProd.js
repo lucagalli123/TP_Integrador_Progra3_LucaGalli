@@ -5,6 +5,7 @@ export function validarDatosActualizarProd(req, res, next) {
     const { marca, modelo, categoria, precio } = req.body;
 
     // ---------------- PARAMS ----------------
+
     if (!id) {
         console.error("Params 'id' no enviado");
         return res.status(400).json(Response.error("Error al actualizar producto", null));

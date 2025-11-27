@@ -3,6 +3,8 @@ import ApiResponse from "../../apiReponse.js";
 export function validarDatosCrearVenta(req, res, next) {
     const { cliente, fecha, total, productos } = req.body;
 
+    // ---------------- BODY ----------------
+
     if (!cliente || typeof cliente !== "string") {
         console.error(" Query 'cliente' invalida:", cliente);
         return res.status(400).json(ApiResponse.error("Error al procesar la venta. Intente nuevamente", null));

@@ -1,6 +1,6 @@
 import { $, limpiarError, listenersInputsLimpiarErrores, listenersInputsBlur, listenersInputsFocus, marcarError } from "./utils.js";
 
-// FUNCIONES
+// ============== FUNCIONES ==============
 
 function validarDatos(marca, modelo, categoria, precio, imagenFile) {
     let todoOk = true;
@@ -41,6 +41,8 @@ function validarDatos(marca, modelo, categoria, precio, imagenFile) {
 
 // ejecutar solo si se pudo obtener el producto y su id
 if (PRODUCT_ID !== null && PRODUCT_ID !== undefined) {
+    // ============== DOM elementos ==============
+
     const form = document.getElementById("editarForm");
     const btnCancelar = document.getElementById("btnCancelar");
 
@@ -67,6 +69,9 @@ if (PRODUCT_ID !== null && PRODUCT_ID !== undefined) {
         { input: inputImagen, errorText: errorImagen },
     ];
 
+    // ============== LISTENERS ==============
+
+    // listener form
     form.addEventListener("submit", async e => {
         e.preventDefault();
 
@@ -94,21 +99,21 @@ if (PRODUCT_ID !== null && PRODUCT_ID !== undefined) {
             const result = await response.json();
 
             if (!response.ok) {
-                alert(`ERROR ${response.status}, ${result.message}`);
+                alert(`ERROR ${response.status}\n${result.message}`);
             } else {
                 window.location.href = "/admin/dashboard";
+                // AGREGAR ALGUN MODAL QUE AVISE QUE SE ACTUALIZO EL PRODUCTO !!!!!!!!!!!!!!!!!!!!!!!!!
             }
         } catch (error) {
-            alert(error);
+            alert(`Ocurrio un error\n${error.name}`);
             console.error(error);
         }
     });
 
+    // listeners boton cancelar
     btnCancelar.addEventListener("click", () => {
         window.location.href = "/admin/dashboard";
     });
-
-    // ============== LISTENERS ==============
 
     // listeners de los inputs y mensajes de error (blur, focus, input)
     listenersInputsBlur(listaInputsErrors);

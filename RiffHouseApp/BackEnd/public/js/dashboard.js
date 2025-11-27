@@ -1,24 +1,35 @@
 import { $ } from "./utils.js";
 
+// ============== DOM elementos ==============
+
 const btnActivar = document.querySelectorAll(".btn-activar");
 const btnDesactivar = document.querySelectorAll(".btn-desactivar");
 const btnEditar = document.querySelectorAll(".btn-editar");
 
+// ============== FUNCIONES ==============
+
 // funcion para actualizar el estado del producto
 async function cambiarEstadoProducto(id, accion) {
     try {
-        await fetch(`/admin/productos/${id}/${accion}`, {
+        const response = await fetch(`/admin/productos/${id}/${accion}`, {
             method: "PATCH",
         });
 
+        const result = await response.json();
+
+        if (!response.ok) {
+            alert(`${response.status}\n${result.message}`);
+            return;
+        }
         window.location.reload();
     } catch (error) {
-        console.error("Error al cambiar estado del producto:", error);
+        console.error(`Ocurrio un error\n${error.name}`);
     }
 }
 
-// evento de los botones activar
-// ver temas de validaciones, manejo de errores, etc... |||||||||||||||||||||||||||||||||||||||||||||||
+// ============== LISTENERS ==============
+
+// evento de los botones activar (VER VALIDACIONES)
 btnActivar.forEach(btn => {
     btn.addEventListener("click", () => {
         const modal = $("modalConfirmar");
@@ -35,22 +46,18 @@ btnActivar.forEach(btn => {
         // cerrar con X
         btnClose.addEventListener("click", () => (modal.style.display = "none"));
 
-        // cancelar compra
+        // cancelar
         btnCancel.addEventListener("click", () => (modal.style.display = "none"));
 
+        // llamar a funcion de peticion (cambiarEstadoProducto)
         btnConfirm.onclick = async () => {
-            try {
-                const idProducto = btn.dataset.id;
-                cambiarEstadoProducto(idProducto, "activar");
-            } catch (error) {
-                console.log(error);
-            }
+            const idProducto = btn.dataset.id;
+            cambiarEstadoProducto(idProducto, "activar");
         };
     });
 });
 
-// evento de los botones desactivar
-// ver temas de validaciones, manejo de errores, etc... |||||||||||||||||||||||||||||||||||||||||||||||
+// evento de los botones desactivar (VER VALIDACIONES)
 btnDesactivar.forEach(btn => {
     btn.addEventListener("click", () => {
         const modal = $("modalConfirmar");
@@ -66,21 +73,18 @@ btnDesactivar.forEach(btn => {
         // cerrar con X
         btnClose.addEventListener("click", () => (modal.style.display = "none"));
 
-        // cancelar compra
+        // cancelar
         btnCancel.addEventListener("click", () => (modal.style.display = "none"));
 
-        btnConfirm.onclick = async () => {
-            try {
-                const idProducto = btn.dataset.id;
-                cambiarEstadoProducto(idProducto, "desactivar");
-            } catch (error) {
-                console.log(error); // <----- DESPUES TENGO QUE VER COMO MANEJO ESTE ERROR
-            }
+        // llamar a funcion de peticion (cambiarEstadoProducto)
+        btnConfirm.onclick = () => {
+            const idProducto = btn.dataset.id;
+            cambiarEstadoProducto(idProducto, "desactivar");
         };
     });
 });
 
-// analizar bien esto |||||||||||||||||||||||||||||||||||||||||
+// evento boton editar
 btnEditar.forEach(btn => {
     btn.addEventListener("click", () => {
         const idProducto = btn.dataset.id;
