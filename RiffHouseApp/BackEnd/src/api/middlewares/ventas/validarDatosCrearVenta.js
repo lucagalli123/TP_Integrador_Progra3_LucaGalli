@@ -1,11 +1,11 @@
 import ApiResponse from "../../apiReponse.js";
 
-export function validarDatosVenta(req, res, next) {
+export function validarDatosCrearVenta(req, res, next) {
     const { cliente, fecha, total, productos } = req.body;
 
     if (!cliente || typeof cliente !== "string") {
         console.error(" Query 'cliente' invalida:", cliente);
-        return res.status(400).json(ApiResponse.error("Error al procesar la venta. Intente nuevamente si?", null));
+        return res.status(400).json(ApiResponse.error("Error al procesar la venta. Intente nuevamente", null));
     }
 
     if (!fecha || isNaN(Date.parse(fecha))) {

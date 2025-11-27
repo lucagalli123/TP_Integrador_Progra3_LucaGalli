@@ -5,13 +5,13 @@ import { $ } from "./utils.js";
 let idVenta = JSON.parse(localStorage.getItem("idVenta"));
 console.log(idVenta);
 
-// funcion para obtener el ticket de la api del back
-async function obtenerTicket(id) {
+// funcion para obtener la venta de la api del back
+async function obtenerVenta(id) {
     try {
-        const response = await fetch(`${API_URL}/api/ventas/${id}`);
-        const resultado = await response.json();
+        const apiResponse = await fetch(`${API_URL}/api/ventas/${id}`);
+        const resultado = await apiResponse.json();
 
-        if (!response.ok) {
+        if (!apiResponse.ok) {
             throw new Error(resultado.message);
         }
 
@@ -19,6 +19,12 @@ async function obtenerTicket(id) {
     } catch (error) {
         throw error;
     }
+}
+
+function mostrarError(mensaje) {
+    const cont = $("errorContainer");
+    cont.textContent = mensaje;
+    cont.style.display = "block";
 }
 
 // recibe el tema(claro/oscuro) y el ticket descargado de la api
@@ -162,12 +168,15 @@ let API_URL = "";
 document.addEventListener("DOMContentLoaded", async () => {
     const config = await obtenerConfig();
     API_URL = config.API_URL;
+
     const temaGuardado = getTema() || "claro";
+
     try {
-        const ticketDescargado = await obtenerTicket(idVenta);
+        const ticketDescargado = await obtenerVenta(idVenta);
         aplicarTema(temaGuardado, ticketDescargado.resultado);
     } catch (error) {
-        console.error(error); // <----- VER DESPUES QUE HACER CON ESTE ERROR
+        console.error(error);
+        mostrarError("No se pudo cargar el ticket. Intente nuevamente mas tarde.");
     }
 });
 

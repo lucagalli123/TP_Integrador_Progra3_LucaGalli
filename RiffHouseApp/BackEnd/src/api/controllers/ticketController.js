@@ -8,7 +8,6 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// ver tema validaciones en middlewares |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 class TicketController {
     static async descargarTicket(req, res) {
         try {
@@ -23,13 +22,13 @@ class TicketController {
                 ],
             });
 
-            if (!venta) return res.status(404).send("Venta no encontrada");
+            if (!venta) {
+                return res.status(404).send(`Error: No se encontro la venta con ID ${id}`);
+            }
 
             const vista = path.join(__dirname, "..", "..", "backoffice", "views", "cliente", "ticket.ejs");
 
-            const html = await ejs.renderFile(vista, {
-                ticket: venta,
-            });
+            const html = await ejs.renderFile(vista, { ticket: venta });
 
             const browser = await puppeteer.launch({ headless: true });
             const page = await browser.newPage();
@@ -50,14 +49,15 @@ class TicketController {
             await browser.close();
 
             res.set({
-                "Content-Type": "Application/pdf",
+                "Content-Type": "application/pdf",
                 "Content-Disposition": `attachment; filename="ticket-nro-${id}.pdf"`,
             });
 
             res.send(pdfBuffer);
         } catch (error) {
-            console.log(error);
-            res.status(500).send("Error generando PDF");
+            console.error("Error al generar PDF:", error);
+
+            return res.status(500).send(`Error al generar el ticket: ${error.message}`);
         }
     }
 }

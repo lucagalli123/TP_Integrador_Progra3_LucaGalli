@@ -1,11 +1,12 @@
 import { Router } from "express";
 import VentasController from "../controllers/ventasController.js";
-import { validarDatosVenta } from "../middlewares/ventas/validarDatosVenta.js";
+import { validarDatosCrearVenta } from "../middlewares/ventas/validarDatosCrearVenta.js";
+import { validarDatosObtenerVenta } from "../middlewares/ventas/validarDatosObtenerVenta.js";
 
 const router = Router();
 
-router.post("/", validarDatosVenta, VentasController.crearVenta);
+router.post("/", validarDatosCrearVenta, VentasController.crearVenta);
 
-router.get("/:id", VentasController.getVentaPorId);
+router.get("/:id", validarDatosObtenerVenta, VentasController.getVentaPorId);
 
 export default router;

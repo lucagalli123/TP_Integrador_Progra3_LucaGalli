@@ -43,6 +43,7 @@ class VentasController {
         }
     }
 
+    // ver para que puede servir
     static async getVentaPorId(req, res) {
         try {
             const { id } = req.params;
@@ -62,7 +63,7 @@ class VentasController {
                 ],
             });
 
-            if (!venta) return res.status(404).send({ message: "No se encontro la venta que busca" });
+            if (!venta) return res.status(404).json(ApiResponse.error("No se encontro la venta que busca", null));
 
             res.status(200).send({ message: "Busqueda exitosa", resultado: venta });
         } catch (error) {
