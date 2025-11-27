@@ -18,13 +18,13 @@ let errorPrecio = $("errorPrecio");
 let inputImagen = $("inputImagen");
 let errorImagen = $("errorImagen");
 
-const listaInputsErrors = [
-    { input: $("inputMarca"), errorText: $("errorMarca") },
-    { input: $("inputModelo"), errorText: $("errorModelo") },
-    { input: $("inputCategoria"), errorText: $("errorCategoria") },
-    { input: $("inputModelo"), errorText: $("errorModelo") },
-    { input: $("inputModelo"), errorText: $("errorModelo") },
-];
+// const listaInputsErrors = [
+//     { input: $("inputMarca"), errorText: $("errorMarca") },
+//     { input: $("inputModelo"), errorText: $("errorModelo") },
+//     { input: $("inputCategoria"), errorText: $("errorCategoria") },
+//     { input: $("inputModelo"), errorText: $("errorModelo") },
+//     { input: $("inputModelo"), errorText: $("errorModelo") },
+// ];
 
 // function validarDatos(marca, modelo, categoria, precio, imagenFile) {
 //     let todoOk = true;
@@ -60,7 +60,7 @@ form.addEventListener("submit", async e => {
     const modelo = inputModelo.value;
     const categoria = inputCategoria.value;
     const precio = inputPrecio.value;
-    const imagenFile = inputImagen.files[0]; // <— IMPORTANTE
+    const imagenFile = inputImagen.files[0];
 
     // despues pasar a middleware...
     // if (!validarDatos(marca, modelo, categoria, precio, imagenFile)) return;

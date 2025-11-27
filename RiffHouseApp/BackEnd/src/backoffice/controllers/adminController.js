@@ -100,16 +100,22 @@ class AdminController {
 
     // CREAR PRODUCTO ________
 
+    // MEJORARLO (ESTA FLOJO)
     static async crearProducto(req, res) {
         try {
-            const body = req.body;
+            const { marca, modelo, categoria, precio } = req.body;
+
+            let imagen = "";
+            if (req.file) {
+                imagen = AdminController.#guardarArchivo(req.file, categoria);
+            }
 
             const producto = await Producto.create({
-                marca: body.marca,
-                modelo: body.modelo,
-                categoria: body.categoria,
-                imagen: body.imagen,
-                precio: parseFloat(body.precio),
+                marca: marca,
+                modelo: modelo,
+                categoria: categoria,
+                imagen: imagen,
+                precio: parseFloat(precio),
                 activo: true,
             });
 

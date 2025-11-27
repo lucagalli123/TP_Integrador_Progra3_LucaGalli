@@ -14,7 +14,7 @@ router.get("/alta", AdminController.renderAlta);
 
 router.post("/usuarios/login", validarDatosLogin, AdminController.login);
 
-router.post("/productos", AdminController.crearProducto);
+router.post("/productos", upload.single("imagen"), AdminController.crearProducto);
 
 router.patch("/productos/:id", upload.single("imagen"), AdminController.actualizarProducto);
 
