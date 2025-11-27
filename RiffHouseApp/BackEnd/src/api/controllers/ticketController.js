@@ -57,7 +57,7 @@ class TicketController {
         } catch (error) {
             console.error("Error al generar PDF:", error);
 
-            return res.status(500).send(`Error al generar el ticket: ${error.message}`);
+            return res.status(500).send(`Error al generar el ticket. Error: ${error.message}`);
         }
     }
 }

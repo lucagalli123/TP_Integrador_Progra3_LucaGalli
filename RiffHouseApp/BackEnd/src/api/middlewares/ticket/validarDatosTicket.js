@@ -5,12 +5,12 @@ export function validarDatosObtenerTicket(req, res, next) {
 
     if (!id) {
         console.error("Params 'id' no enviado");
-        return res.status(400).json(ApiResponse.error("Falta el parametro ID", null));
+        return res.status(400).send("Error al descargar ticket");
     }
 
     if (isNaN(Number(id))) {
         console.error("Params 'id' invalido:", id);
-        return res.status(400).json(ApiResponse.error("El ID debe ser numerico", null));
+        return res.status(400).send("Error al descargar ticket");
     }
 
     next();

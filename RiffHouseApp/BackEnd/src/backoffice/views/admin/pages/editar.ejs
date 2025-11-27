@@ -7,25 +7,32 @@
 
         <!-- main -->
         <main class="form-style">
+            <% if(message === "No se encontro el producto") { %>
+            <section><%= message%></section>
+            <% } else if (message === "Ocurrio un error al obtener el producto") { %>
+            <section><%= message%></section>
+            <% } else { %>
+
             <section>
                 <h2>Editar producto</h2>
                 <h5>Producto: <%= producto.marca %>, <%= producto.modelo %></h5>
 
                 <form id="editarForm" novalidate>
+                    <!-- input marca -->
                     <div>
                         <label>Marca:</label>
-                        <input class="input-normal" id="inputMarca" type="text" name="marca" placeholder="<%= producto.marca %>" />
-
+                        <input class="input-normal" id="inputMarca" type="text" name="marca" />
                         <p id="errorMarca" class="oculto errorEstilo">nada</p>
                     </div>
 
+                    <!-- input modelo -->
                     <div>
                         <label>Modelo:</label>
-                        <input class="input-normal" id="inputModelo" type="text" name="Modelo" placeholder="<%= producto.modelo %>" />
+                        <input class="input-normal" id="inputModelo" type="text" name="Modelo" />
                         <p id="errorModelo" class="oculto errorEstilo">nada</p>
                     </div>
 
-                    <!-- ver que onda -->
+                    <!-- input categoria -->
                     <div>
                         <label for="categoria">Categoria:</label>
                         <select name="categoria" id="inputCategoria" size="1">
@@ -39,28 +46,28 @@
                         <p id="errorCategoria" class="oculto errorEstilo">nada</p>
                     </div>
 
+                    <!-- input precio -->
                     <div>
                         <label>Precio:</label>
-                        <input class="input-normal" id="inputPrecio" type="number" name="precio" placeholder="<%= producto.precio %>" />
+                        <input class="input-normal" id="inputPrecio" type="number" name="precio" />
                         <p id="errorPrecio" class="oculto errorEstilo">nada</p>
                     </div>
 
-                    <!-- <div>
-                        <label>Imagen:</label>
-                        <input class="input-normal" id="inputImagen" type="image" name="imagen" required />
-                        <p id="errorImagen" class="oculto errorEstilo">nada</p>
-                    </div> -->
-
+                    <!-- input imagen -->
                     <div>
                         <label>Imagen:</label>
                         <input id="inputImagen" type="file" name="imagen" />
                         <p id="errorImagen" class="oculto errorEstilo">nada</p>
                     </div>
 
-                    <button id="btnGuardarCambios" type="submit">Guardar cambios</button>
+                    <!-- botones -->
+                    <div class="div-botones-form">
+                        <button id="btnGuardarCambios" type="submit">Guardar cambios</button>
+                        <button id="btnCancelar" type="button">Cancelar</button>
+                    </div>
                 </form>
-                <button id="btnCancelar">Cancelar</button>
             </section>
+            <% } %>
         </main>
 
         <!-- footer -->
@@ -68,7 +75,7 @@
 
         <!-- paso id desde EJS al JS -->
         <script>
-            const PRODUCT_ID = <%= producto.id %>;
+            const PRODUCT_ID = <%= producto ? producto.id : 'null' %>;
         </script>
 
         <script type="module" src="/js/editar.js"></script>

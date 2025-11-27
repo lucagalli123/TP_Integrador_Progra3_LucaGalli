@@ -2,10 +2,9 @@ import { Producto } from "../../models/producto.js";
 import { Usuario } from "../../models/usuario.js";
 import bcrypt from "bcrypt";
 import fs from "fs";
-const saltRounds = 10;
 
 class AdminController {
-    // RENDERS _________________________
+    // ============================= RENDERS =============================
 
     static async renderLogin(req, res) {
         res.render("admin/pages/login", {
@@ -15,12 +14,6 @@ class AdminController {
 
     static async renderDashboard(req, res) {
         try {
-            const { tipo } = req.query;
-
-            // if (tipo !== "admin") {
-            //     return res.status(400).json({ message: "Tipo invalido" });
-            // }
-
             const productos = await Producto.findAll();
 
             return res.render("admin/pages/dashboard", {
@@ -41,39 +34,41 @@ class AdminController {
             const producto = await Producto.findByPk(id);
 
             if (!producto) {
-                return res.status(404).send({ message: "Producto no encontrado" });
+                return res.render("admin/pages/editar", {
+                    tituloHead: "Riffhouse - Admin - Editar",
+                    producto,
+                    message: "No se encontro el producto",
+                });
             }
 
             return res.render("admin/pages/editar", {
                 tituloHead: "Riffhouse - Admin - Editar",
                 producto,
+                message: "Producto encontrado",
             });
         } catch (error) {
             console.error(error);
-            return res.status(500).send({ message: "Error al obtener el producto" });
+            const producto = null;
+            return res.status(500).render("admin/pages/editar", {
+                tituloHead: "Riffhouse - Admin - Editar",
+                producto,
+                message: "Ocurrio un error al obtener el producto",
+            });
         }
     }
 
     static async renderAlta(req, res) {
         try {
-            // const { id } = req.params;
-
-            // const producto = await Producto.findByPk(id);
-
-            // if (!producto) {
-            //     return res.status(404).send({ message: "Producto no encontrado" });
-            // }
-
             return res.render("admin/pages/alta", {
                 tituloHead: "Riffhouse - Admin - Alta",
             });
         } catch (error) {
             console.error(error);
-            return res.status(500).send({ message: "Error al obtener el producto" });
+            return res.status(500).send({ error: "Error al cargar la pagina" });
         }
     }
 
-    // LOGIN ______
+    // ============================= RENDERS =============================
 
     static async login(req, res) {
         try {
@@ -98,41 +93,7 @@ class AdminController {
         }
     }
 
-    // CREAR PRODUCTO ________
-
-    // MEJORARLO (ESTA FLOJO)
-    static async crearProducto(req, res) {
-        try {
-            const { marca, modelo, categoria, precio } = req.body;
-
-            let imagen = "";
-            if (req.file) {
-                imagen = AdminController.#guardarArchivo(req.file, categoria);
-            }
-
-            const producto = await Producto.create({
-                marca: marca,
-                modelo: modelo,
-                categoria: categoria,
-                imagen: imagen,
-                precio: parseFloat(precio),
-                activo: true,
-            });
-
-            return res.send({
-                message: "Producto creado con exito",
-                resultado: producto,
-            });
-        } catch (error) {
-            console.error(error);
-            return res.status(500).send({
-                message: "Error al crear producto",
-                error: error.message,
-            });
-        }
-    }
-
-    // ACTUALIZAR PRODUCTO _______________
+    // ============================= ACTUALIZAR PRODUCTO =============================
 
     static async actualizarProducto(req, res) {
         try {
@@ -171,7 +132,41 @@ class AdminController {
         }
     }
 
-    // ACTIVAR / DESACTIVAR ________
+    // ============================= CREAR PRODUCTO =============================
+
+    // MEJORARLO (ESTA FLOJO)
+    static async crearProducto(req, res) {
+        try {
+            const { marca, modelo, categoria, precio } = req.body;
+
+            let imagen = "";
+            if (req.file) {
+                imagen = AdminController.#guardarArchivo(req.file, categoria);
+            }
+
+            const producto = await Producto.create({
+                marca: marca,
+                modelo: modelo,
+                categoria: categoria,
+                imagen: imagen,
+                precio: parseFloat(precio),
+                activo: true,
+            });
+
+            return res.send({
+                message: "Producto creado con exito",
+                resultado: producto,
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).send({
+                message: "Error al crear producto",
+                error: error.message,
+            });
+        }
+    }
+
+    // ============================= ACTIVAR PRODUCTO =============================
 
     static async activarProducto(req, res) {
         try {
@@ -191,6 +186,7 @@ class AdminController {
         }
     }
 
+    // ============================= DESACTIVAR PRODUCTO =============================
     static async desactivarProducto(req, res) {
         try {
             const id = req.params.id;
@@ -209,14 +205,20 @@ class AdminController {
         }
     }
 
-    // GUARDAR ARCHIVOS - PRIVADO (para uso de actualizar producto)
+    // ============================= GUARDAR ARCHIVOS - PRIVADO (para uso de actualizar producto) =============================
 
     static #guardarArchivo(file, categoria) {
         let ext = "";
 
-        if (file.mimetype === "image/jpeg") ext = "jpeg";
-        if (file.mimetype === "image/png") ext = "png";
-        if (file.mimetype === "image/avif") ext = "avif";
+        if (file.mimetype === "image/jpeg" || file.mimetype === "image/pjpeg") ext = "jpeg";
+        else if (file.mimetype === "image/png") ext = "png";
+        else if (file.mimetype === "image/avif") ext = "avif";
+        else if (file.mimetype === "image/svg+xml") ext = "svg";
+        else if (file.mimetype === "image/webp") ext = "webp";
+        else if (file.mimetype === "image/bmp") ext = "bmp";
+        else if (file.mimetype === "image/tiff") ext = "tiff";
+        else if (file.mimetype === "image/x-icon") ext = "ico";
+        else if (file.mimetype === "image/heif" || file.mimetype === "image/heic") ext = "heic";
 
         const originalname = file.originalname.split(".")[0].replace(/\s/g, "-");
 

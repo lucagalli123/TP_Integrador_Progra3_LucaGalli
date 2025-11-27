@@ -27,6 +27,14 @@
                 </thead>
 
                 <tbody>
+                    <!-- si no hay productos para mostrar -->
+
+                    <% if(message === "No hay productos cargados") { %>
+                    <td colspan="6" style="text-align: center"><%=message%></td>
+                    <% } %>
+
+                    <!-- cargo tabla de productos -->
+
                     <% productos.forEach(p => { %>
                     <tr class="<%= p.activo ? 'green' : 'red' %>">
                         <td><%= p.id %></td>
@@ -54,6 +62,7 @@
                     <% }) %>
                 </tbody>
             </table>
+
             <div id="modalConfirmar" class="modal">
                 <div class="modal-container">
                     <span id="cerrarModal" class="cerrar-modal">&times;</span>

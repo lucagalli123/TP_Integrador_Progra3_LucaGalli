@@ -164,7 +164,7 @@ select {
     flex-direction: column;
     gap: 5px;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
 }
 
 /* boton puntual del form */
@@ -241,6 +241,12 @@ select {
 .errorEstilo {
     color: red;
     font-size: 8px;
+}
+
+/* ================================== dashboard ==================================== */
+
+#loginForm div input {
+    width: 90%;
 }
 
 /* ================================== dashboard ==================================== */
@@ -361,4 +367,21 @@ td {
 #btnNoConfirmar {
     background-color: #dc3545;
     color: #fff;
+}
+
+/* ================================== editar ==================================== */
+
+#editarForm div {
+    width: 100%;
+}
+
+.div-botones-form {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 10px !important;
+    margin-top: 10px !important;
+}
+
+.div-botones-form button {
+    flex: 1;
 }

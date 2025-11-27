@@ -26,32 +26,32 @@ const listaInputsErrors = [
     { input: inputImagen, errorText: errorImagen },
 ];
 
-// function validarDatos(marca, modelo, categoria, precio, imagenFile) {
-//     let todoOk = true;
+function validarDatos(marca, modelo, categoria, precio, imagenFile) {
+    let todoOk = true;
 
-//     if (!marca) {
-//         todoOk = false;
-//         marcarError(inputMarca, errorMarca, "*campo vacío");
-//     }
-//     if (!modelo) {
-//         todoOk = false;
-//         marcarError(inputModelo, errorModelo, "*campo vacío");
-//     }
-//     if (!categoria) {
-//         todoOk = false;
-//         marcarError(inputCategoria, errorCategoria, "*campo vacío");
-//     }
-//     if (!precio) {
-//         todoOk = false;
-//         marcarError(inputPrecio, errorPrecio, "*campo vacío");
-//     }
-//     if (!imagenFile) {
-//         todoOk = false;
-//         marcarError(inputImagen, errorImagen, "*suba una imagen");
-//     }
+    if (!marca) {
+        todoOk = false;
+        marcarError(inputMarca, errorMarca, "*campo vacio");
+    }
+    if (!modelo) {
+        todoOk = false;
+        marcarError(inputModelo, errorModelo, "*campo vacio");
+    }
+    if (!categoria) {
+        todoOk = false;
+        marcarError(inputCategoria, errorCategoria, "*campo vacio");
+    }
+    if (!precio) {
+        todoOk = false;
+        marcarError(inputPrecio, errorPrecio, "*campo vacio");
+    }
+    if (!imagenFile) {
+        todoOk = false;
+        marcarError(inputImagen, errorImagen, "*suba una imagen");
+    }
 
-//     return todoOk;
-// }
+    return todoOk;
+}
 
 form.addEventListener("submit", async e => {
     e.preventDefault();
@@ -62,8 +62,8 @@ form.addEventListener("submit", async e => {
     const precio = inputPrecio.value;
     const imagenFile = inputImagen.files[0];
 
-    // despues pasar a middleware...
-    // if (!validarDatos(marca, modelo, categoria, precio, imagenFile)) return;
+    // validaciones del front
+    if (!validarDatos(marca, modelo, categoria, precio, imagenFile)) return;
 
     const formData = new FormData();
     formData.append("marca", marca);
@@ -93,6 +93,6 @@ btnCancelar.addEventListener("click", () => {
 // LISTENERS ==============
 
 // listeners de los inputs y mensajes de error (blur, focus, input)
-// listenersInputsBlur(listaInputsErrors);
-// listenersInputsFocus(listaInputsErrors);
-// listenersInputsLimpiarErrores(listaInputsErrors);
+listenersInputsBlur(listaInputsErrors);
+listenersInputsFocus(listaInputsErrors);
+listenersInputsLimpiarErrores(listaInputsErrors);

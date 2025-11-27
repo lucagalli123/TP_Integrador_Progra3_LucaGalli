@@ -54,7 +54,6 @@ btnActivar.forEach(btn => {
 btnDesactivar.forEach(btn => {
     btn.addEventListener("click", () => {
         const modal = $("modalConfirmar");
-        // console.log(modal);
         const btnClose = $("cerrarModal");
         const btnConfirm = $("btnSiConfirmar");
         const btnCancel = $("btnNoConfirmar");

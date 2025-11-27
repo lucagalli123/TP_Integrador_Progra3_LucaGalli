@@ -68,7 +68,7 @@ class VentasController {
             res.status(200).send({ message: "Busqueda exitosa", resultado: venta });
         } catch (error) {
             console.error("Error: ", error.message);
-            return res.status(500).json(ApiResponse.error("Error al listar ventas", error));
+            return res.status(500).json(ApiResponse.error("Error al obtener venta", error));
         }
     }
 
