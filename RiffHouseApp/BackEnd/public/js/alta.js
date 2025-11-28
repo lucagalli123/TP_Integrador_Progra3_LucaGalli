@@ -97,8 +97,24 @@ form.addEventListener("submit", async e => {
         if (!response.ok) {
             alert(`ERROR ${response.status}\n${result.message}`);
         } else {
-            window.location.href = "/admin/dashboard";
-            // AGREGAR ALGUN MODAL QUE AVISE QUE SE CREO EL PRODUCTO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            // VER DE CREAR UNA FUNCION PARA ABRIR MODALES !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            const modal = $("modalProductoCreado");
+            const modalTitulo = $("modalTitulo");
+            const btnClose = $("cerrarModal");
+            const btnConfirm = $("btnSiConfirmar");
+
+            // mostrar modal
+            modal.style.display = "block";
+
+            modalTitulo.textContent = "¡Producto creado con exito!";
+
+            // volver al dahsboard
+            btnClose.addEventListener("click", () => (window.location.href = "/admin/dashboard"));
+
+            // volver al dahsboard
+            btnConfirm.onclick = async () => {
+                window.location.href = "/admin/dashboard";
+            };
         }
     } catch (error) {
         alert(`Ocurrio un error\n${error.name}`);

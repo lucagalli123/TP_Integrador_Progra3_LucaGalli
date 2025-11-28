@@ -243,7 +243,7 @@ select {
     font-size: 8px;
 }
 
-/* ================================== dashboard ==================================== */
+/* ================================== login ==================================== */
 
 #loginForm div input {
     width: 90%;
@@ -385,3 +385,70 @@ td {
 .div-botones-form button {
     flex: 1;
 }
+
+/*  ======================= alta =========================== */
+
+/* .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-container {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 10px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+}
+
+.cerrar-modal {
+    color: #aaa;
+    position: absolute;
+    top: -5px;
+    right: 6px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cerrar-modal:hover {
+    color: #000;
+}
+
+.modal-botones {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+.modal-botones button {
+    width: 70px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-botones button:hover {
+    opacity: 0.8;
+}
+
+#btnSiConfirmar {
+    background-color: #28a745;
+    color: #fff;
+}
+
+#btnNoConfirmar {
+    background-color: #dc3545;
+    color: #fff;
+} */
