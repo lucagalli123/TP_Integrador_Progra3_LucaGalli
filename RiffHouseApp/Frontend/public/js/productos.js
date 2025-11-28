@@ -42,27 +42,59 @@ async function renderProductos(tema) {
         const listaProductos = result.data.listaProductos;
 
         // le mando los productos a la variable global para guardar productos en el carrito
-        console.log(listaProductos);
         productosDataGlobal = listaProductos;
 
         listaProductos.forEach(p => {
             const div = document.createElement("div");
             div.classList.add(`producto-carta-${tema}`);
 
+            // imagen producto
             const img = document.createElement("img");
             img.src = p.imagen; // VER TEMA DE PUERTO EN .ENV !!!!!
             img.alt = `${p.marca} ${p.modelo}`;
 
+            // nombre producto
             const h3 = document.createElement("h3");
             h3.textContent = `${p.marca} ${p.modelo}`;
 
+            // precio producto
             const precio = document.createElement("p");
             precio.textContent = `$${p.precio}`;
 
+            // boton agregar/eliminar del carrito
             const btn = document.createElement("button");
-            btn.textContent = "Agregar al carrito";
             btn.style.width = "80%";
-            btn.addEventListener("click", () => agregarAlCarrito(p.id));
+
+            // color y texto del boton segun si el producto esta en el carrito o no
+            const enCarrito = carrito.some(item => item.id === p.id);
+            if (enCarrito) {
+                btn.textContent = "Eliminar del carrito";
+                btn.style.backgroundColor = "grey";
+            } else {
+                btn.textContent = "🛒 Agregar al carrito";
+                btn.style.backgroundColor = "#fd7b25";
+            }
+
+            // listener del boton agregar/eliminar del carrito
+            btn.addEventListener("click", () => {
+                const index = carrito.findIndex(item => item.id === p.id);
+
+                if (index === -1) {
+                    // agregar al carrito
+                    carrito.push({ ...p, cantidad: 1 });
+                    btn.textContent = "Eliminar del carrito";
+                    btn.style.backgroundColor = "grey";
+                    btn.style.color = "white";
+                } else {
+                    // eliminar del carrito
+                    carrito.splice(index, 1);
+                    btn.textContent = "🛒 Agregar al carrito";
+                    btn.style.backgroundColor = "#fd7b25";
+                    btn.style.color = "white";
+                }
+
+                localStorage.setItem("carrito", JSON.stringify(carrito));
+            });
 
             div.append(img, h3, precio, btn);
             cont.appendChild(div);
@@ -75,7 +107,7 @@ async function renderProductos(tema) {
         console.error("Error en fetch:", error);
 
         const textError = document.createElement("p");
-        textError.textContent = "Error de conexión. Intente nuevamente.";
+        textError.textContent = "Error de conexion. Intente nuevamente.";
         textError.style.textAlign = "center";
         cont.appendChild(textError);
     }
@@ -94,7 +126,6 @@ function agregarAlCarrito(idProducto) {
     }
 
     localStorage.setItem("carrito", JSON.stringify(carrito));
-    alert(`${producto.marca} ${producto.modelo} agregado al carrito`);
 }
 
 // ==================== EVENTOS ====================

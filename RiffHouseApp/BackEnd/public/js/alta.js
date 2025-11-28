@@ -112,6 +112,7 @@ form.addEventListener("submit", async e => {
             btnClose.addEventListener("click", () => (window.location.href = "/admin/dashboard"));
 
             // volver al dahsboard
+            btnConfirm.style.textAlign = "center";
             btnConfirm.onclick = async () => {
                 window.location.href = "/admin/dashboard";
             };
