@@ -10,7 +10,8 @@ import { validarDatosActualizarProd } from "../middlewares/productos/validarDato
 import { validarDatosCrearProd } from "../middlewares/productos/validarDatosCrearProd.js";
 import { validarDatosActivarProd } from "../middlewares/productos/validarDatosActivarProd.js";
 import { validarDatosDesactivarProd } from "../middlewares/productos/validarDatosDesactivarProd.js";
-import { validarDatosObtenerVenta } from "../middlewares/ventas/validarDatosObtenerVentas.js";
+import { validarDatosCrearUsuario } from "../middlewares/usuarios/validarDatosCrearUsuario.js";
+// import { validarDatosObtenerVenta } from "../middlewares/ventas/validarDatosObtenerVentas.js";
 
 // router
 const router = Router();
@@ -28,6 +29,8 @@ router.get("/alta", AdminController.renderAlta);
 // ========== RUTAS DE PETICIONES A DDBB ==========
 
 router.get("/ventas", AdminController.getVentas);
+
+router.post("/usuarios", validarDatosCrearUsuario, AdminController.crearUsuarioAdmin);
 
 router.post("/usuarios/login", validarDatosLogin, AdminController.login);
 

@@ -98,7 +98,7 @@ class AdminController {
             return res.status(200).send(Response.success(null, "credenciales validas"));
         } catch (error) {
             console.error(error);
-            res.status(500).send(Response.error("Error al loguearse", error));
+            return res.status(500).send(Response.error("Error al loguearse", error));
         }
     }
 
@@ -131,10 +131,10 @@ class AdminController {
                 imagen: nuevaImagen,
             });
 
-            res.status(200).send(Response.success(producto, "Producto actualizado correctamente"));
+            return res.status(200).send(Response.success(producto, "Producto actualizado correctamente"));
         } catch (error) {
             console.error(error);
-            res.status(500).send(Response.error("Error al actualizar producto", error));
+            return res.status(500).send(Response.error("Error al actualizar producto", error));
         }
     }
 
@@ -158,10 +158,10 @@ class AdminController {
                 activo: true,
             });
 
-            res.status(200).send(Response.success(producto, "Producto creado con exito"));
+            return res.status(200).send(Response.success(producto, "Producto creado con exito"));
         } catch (error) {
             console.error(error);
-            res.status(500).send(Response.error("Error al crear producto", error));
+            return res.status(500).send(Response.error("Error al crear producto", error));
         }
     }
 
@@ -181,7 +181,7 @@ class AdminController {
             return res.send(Response.success(producto, "Producto activado"));
         } catch (error) {
             console.error(error);
-            res.status(500).send(Response.error("Error al activar producto", error));
+            return res.status(500).send(Response.error("Error al activar producto", error));
         }
     }
 
@@ -201,7 +201,7 @@ class AdminController {
             return res.send(Response.success(producto, "Producto desactivado"));
         } catch (error) {
             console.error(error);
-            res.status(500).send(Response.error("Error al desactivar producto", error));
+            return res.status(500).send(Response.error("Error al desactivar producto", error));
         }
     }
 
@@ -225,12 +225,36 @@ class AdminController {
                 ],
             });
 
-            if (ventas.length === 0) res.status(200).send(Response.success(ventas, "No hay ventas"));
+            if (ventas.length === 0) return res.status(200).send(Response.success(ventas, "No hay ventas"));
 
-            res.status(200).send(Response.success(ventas, "Ventas obtenidas"));
+            return res.status(200).send(Response.success(ventas, "Ventas obtenidas"));
         } catch (error) {
             console.error(error);
             return res.status(500).send(Response.error("Error al listar ventas", error));
+        }
+    }
+
+    static async crearUsuarioAdmin(req, res) {
+        const saltRounds = 10;
+        try {
+            const { nombre, email, password } = req.body;
+
+            const usuarioBuscado = await Usuario.findOne({ where: { email } });
+            if (usuarioBuscado) return res.status(409).send(Response.error("Ya existe un usuario con ese email", null));
+
+            const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+            const usuarioData = {
+                nombre: nombre,
+                email: email,
+                password: hashedPassword,
+            };
+
+            const usuarioCreado = await Usuario.create(usuarioData);
+
+            return res.status(201).send(Response.success(usuarioCreado, "Usuario creado con exito"));
+        } catch (error) {
+            return res.status(500).send(Response.error("Error al crear usuario", error));
         }
     }
 

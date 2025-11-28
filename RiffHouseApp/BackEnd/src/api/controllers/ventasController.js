@@ -71,36 +71,6 @@ class VentasController {
             return res.status(500).json(ApiResponse.error("Error al obtener venta", error));
         }
     }
-
-    // ___________________ en deshuso por ahora ___________________
-
-    // validar datos...
-    // static async getVentas(req, res) {
-    //     try {
-    //         const ventas = await Venta.findAll({
-    //             attributes: ["cliente", "fecha", "total"],
-    //             include: [
-    //                 {
-    //                     model: VentaProducto,
-    //                     attributes: ["cantidad", "precioUnitario"],
-    //                     include: [
-    //                         {
-    //                             model: Producto,
-    //                             attributes: ["marca", "modelo", "categoria"],
-    //                         },
-    //                     ],
-    //                 },
-    //             ],
-    //         });
-
-    //         res.status(200).send({ message: "Busqueda exitosa", resultado: ventas });
-    //     } catch (error) {
-    //         console.error("Error al listar ventas:", error);
-    //         return res.status(500).send({ message: "Error al listar ventas", error: error.message });
-    //     }
-    // }
-
-    // ___________________ en deshuso por ahora ___________________
 }
 
 export default VentasController;

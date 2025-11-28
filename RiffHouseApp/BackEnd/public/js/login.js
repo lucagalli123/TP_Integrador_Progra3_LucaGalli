@@ -91,7 +91,7 @@ btnAccesoRapido.addEventListener("click", async () => {
     limpiarError(inputEmail, errorEmail);
     limpiarError(inputPassword, errorPassword);
     $("inputEmail").value = "moni@example.com";
-    $("inputPassword").value = "1234";
+    $("inputPassword").value = "12345678";
 });
 
 // listener boton ingresar como cliente

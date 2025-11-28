@@ -4,29 +4,24 @@ import bcrypt from "bcrypt";
 export const iniciarDB = async () => {
     console.log("Cargando datos de prueba...");
 
-    const saltRounds = 10;
-
-    // usuarios
+    // ===================== CREAR USUARIOS =====================
     const listaUsuarios = [
-        { nombre: "Moni", email: "moni@example.com", password: "1234" },
-        { nombre: "Carlos", email: "carlos@example.com", password: "abcd" },
-        { nombre: "Lucia", email: "lucia@example.com", password: "pass123" },
-        { nombre: "Juan", email: "jane@example.com", password: "4321" },
+        { nombre: "Moni", email: "moni@example.com", password: "12345678" },
+        { nombre: "Carlos", email: "carlos@example.com", password: "abcdefgh" },
     ];
 
-    const usuariosConHash = [];
-    for (const u of listaUsuarios) {
-        const hashedPassword = await bcrypt.hash(u.password, saltRounds);
-        usuariosConHash.push({
-            nombre: u.nombre,
-            email: u.email,
-            password: hashedPassword,
+    listaUsuarios.forEach(u => {
+        const { nombre, email, password } = u;
+        fetch("http://localhost:3001/admin/usuarios", {
+            method: "POST",
+            body: JSON.stringify({ nombre, email, password }),
+            headers: { "Content-Type": "application/json" },
         });
-    }
+    });
 
-    await Usuario.bulkCreate(usuariosConHash);
+    // ===================== CREAR PRODUCTOS =====================
 
-    // ==== PRODUCTOS ====
+    // DESPUES VER SI LOS CARGO CON FETCH O ASI HARDCODEADO SIN VALIDACIONES !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     const productos = await Producto.bulkCreate([
         {
             marca: "Fender",
