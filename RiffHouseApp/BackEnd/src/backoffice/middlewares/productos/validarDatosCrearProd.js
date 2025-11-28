@@ -6,23 +6,23 @@ export function validarDatosCrearProd(req, res, next) {
     // ---------------- BODY ----------------
 
     if (!marca || typeof marca !== "string" || marca.trim().length === 0) {
-        console.error("Marca invalida:", marca);
+        console.error("tipo de marca invalida: ", marca);
         return res.status(400).json(Response.error("Error al crear producto", null));
     }
 
     if (!modelo || typeof modelo !== "string" || modelo.trim().length === 0) {
-        console.error("Modelo invalido:", modelo);
+        console.error("tipo de modelo invalido: ", modelo);
         return res.status(400).json(Response.error("Error al crear producto", null));
     }
 
     const categoriasValidas = ["Guitarras", "Bajos"];
     if (!categoria || typeof categoria !== "string" || !categoriasValidas.includes(categoria)) {
-        console.error("Categoria invalida:", categoria);
+        console.error("tipo de categoria invalida: ", categoria);
         return res.status(400).json(Response.error("Error al crear producto", null));
     }
 
     if (precio === undefined || precio === null || isNaN(Number(precio)) || Number(precio) < 0) {
-        console.error("Precio invalido:", precio);
+        console.error("tipo de precio invalido: ", precio);
         return res.status(400).json(Response.error("Error al crear producto", null));
     }
 

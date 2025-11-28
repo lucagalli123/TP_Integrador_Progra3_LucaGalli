@@ -6,12 +6,12 @@ export function validarDatosActivarProd(req, res, next) {
     // ---------------- PARAMS ----------------
 
     if (!id) {
-        console.error("Params 'id' no enviado");
+        console.error("id no enviado: ", id);
         return res.status(400).json(Response.error("Error al activar producto", null));
     }
 
     if (isNaN(Number(id))) {
-        console.error("Params 'id' invalido:", id);
+        console.error("id invalido: ", id);
         return res.status(400).json(Response.error("Error al activar producto", null));
     }
 

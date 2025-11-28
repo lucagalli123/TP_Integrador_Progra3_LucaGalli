@@ -7,35 +7,35 @@ export function validarDatosActualizarProd(req, res, next) {
     // ---------------- PARAMS ----------------
 
     if (!id) {
-        console.error("Params 'id' no enviado");
+        console.error("id no enviado: ", id);
         return res.status(400).json(Response.error("Error al actualizar producto", null));
     }
 
     if (isNaN(Number(id))) {
-        console.error("Params 'id' invalido:", id);
+        console.error("id invalido: ", id);
         return res.status(400).json(Response.error("Error al actualizar producto", null));
     }
 
     // ---------------- BODY ----------------
 
     if (!marca || typeof marca !== "string" || marca.trim().length === 0) {
-        console.error("Marca invalida:", marca);
+        console.error("tipo de marca invalida: ", marca);
         return res.status(400).json(Response.error("Error al actualizar producto", null));
     }
 
     if (!modelo || typeof modelo !== "string" || modelo.trim().length === 0) {
-        console.error("Modelo invalido:", modelo);
+        console.error("tipo de modelo invalido: ", modelo);
         return res.status(400).json(Response.error("Error al actualizar producto", null));
     }
 
     const categoriasValidas = ["Guitarras", "Bajos"];
     if (!categoria || typeof categoria !== "string" || !categoriasValidas.includes(categoria)) {
-        console.error("Categoria invalida:", categoria);
+        console.error("tipo de categoria invalida: ", categoria);
         return res.status(400).json(Response.error("Error al actualizar producto", null));
     }
 
     if (precio === undefined || precio === null || isNaN(Number(precio)) || Number(precio) < 0) {
-        console.error("Precio invalido:", precio);
+        console.error("tipo de precio invalido: ", precio);
         return res.status(400).json(Response.error("Error al actualizar producto", null));
     }
 

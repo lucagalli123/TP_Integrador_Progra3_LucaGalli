@@ -1,5 +1,7 @@
 import { Producto } from "../../models/producto.js";
 import { Usuario } from "../../models/usuario.js";
+import { Venta } from "../../models/venta.js";
+import { VentaProducto } from "../../models/ventaProducto.js";
 import Response from "../response.js";
 import bcrypt from "bcrypt";
 import fs from "fs";
@@ -176,7 +178,7 @@ class AdminController {
 
             await producto.update({ activo: true });
 
-            return res.send(Response.success(null, "Producto activado"));
+            return res.send(Response.success(producto, "Producto activado"));
         } catch (error) {
             console.error(error);
             res.status(500).send(Response.error("Error al activar producto", error));
@@ -184,6 +186,7 @@ class AdminController {
     }
 
     // ============================= DESACTIVAR PRODUCTO =============================
+
     static async desactivarProducto(req, res) {
         try {
             const id = req.params.id;
@@ -195,10 +198,39 @@ class AdminController {
 
             await producto.update({ activo: false });
 
-            return res.send({ message: "Producto desactivado", resultado: producto });
+            return res.send(Response.success(producto, "Producto desactivado"));
         } catch (error) {
             console.error(error);
-            res.status(500).send({ message: "Error interno del servidor" });
+            res.status(500).send(Response.error("Error al desactivar producto", error));
+        }
+    }
+
+    // ============================= OBTENER TODAS LAS VENTAS =============================
+
+    static async getVentas(req, res) {
+        try {
+            const ventas = await Venta.findAll({
+                attributes: ["cliente", "fecha", "total"],
+                include: [
+                    {
+                        model: VentaProducto,
+                        attributes: ["cantidad", "precioUnitario"],
+                        include: [
+                            {
+                                model: Producto,
+                                attributes: ["marca", "modelo", "categoria"],
+                            },
+                        ],
+                    },
+                ],
+            });
+
+            if (ventas.length === 0) res.status(200).send(Response.success(ventas, "No hay ventas"));
+
+            res.status(200).send(Response.success(ventas, "Ventas obtenidas"));
+        } catch (error) {
+            console.error(error);
+            return res.status(500).send(Response.error("Error al listar ventas", error));
         }
     }
 
