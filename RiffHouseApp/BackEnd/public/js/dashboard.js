@@ -68,7 +68,7 @@ btnDesactivar.forEach(btn => {
         // mostrar modal
         modal.style.display = "block";
 
-        $("modalConsulta").textContent = "¿Esta seguro que desea desactivar este producto?";
+        $("modalConsulta").textContent = "¿Esta seguro que desea eliminar este producto?";
 
         // cerrar con X
         btnClose.addEventListener("click", () => (modal.style.display = "none"));
