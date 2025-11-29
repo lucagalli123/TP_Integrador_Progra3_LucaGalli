@@ -78,17 +78,8 @@ header select {
     font-size: 1rem;
 }
 
-nav a {
+header h2 {
     margin-right: 20px;
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.888);
-    font-family: "Rubik Wet Paint", system-ui;
-    font-weight: 400;
-    font-style: normal;
-}
-
-nav a:hover {
-    text-decoration: underline;
 }
 
 /* ______________ Main ______________*/

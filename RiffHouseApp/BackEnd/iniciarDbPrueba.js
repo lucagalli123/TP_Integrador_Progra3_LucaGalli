@@ -51,4 +51,5 @@ export const iniciarDB = async () => {
     ]);
 
     console.log("Datos de prueba cargados ✅");
+    console.log("======================================================================");
 };

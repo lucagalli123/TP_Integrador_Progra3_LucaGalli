@@ -3,7 +3,7 @@
     <%- include("../layouts/head", { tituloHead }) %>
     <body>
         <!-- header -->
-        <%- include("../layouts/header") %>
+        <%- include("../layouts/header", { nombreUser }) %>
 
         <!-- main -->
         <main class="form-style">
@@ -76,5 +76,6 @@
         <%- include("../layouts/footer") %>
 
         <script type="module" src="/js/alta.js"></script>
+        <script type="module" src="/js/cerrarSesion.js"></script>
     </body>
 </html>

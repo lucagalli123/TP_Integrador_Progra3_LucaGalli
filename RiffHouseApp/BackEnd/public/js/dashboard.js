@@ -1,3 +1,4 @@
+import { authFetch } from "./autFetch.js";
 import { $ } from "./utils.js";
 
 // ============== DOM elementos ==============
@@ -11,8 +12,9 @@ const btnEditar = document.querySelectorAll(".btn-editar");
 // funcion para actualizar el estado del producto
 async function cambiarEstadoProducto(id, accion) {
     try {
-        const response = await fetch(`/admin/productos/${id}/${accion}`, {
+        const response = await authFetch(`/admin/productos/${id}/${accion}`, {
             method: "PATCH",
+            credentials: "include",
         });
 
         const result = await response.json();

@@ -1,3 +1,4 @@
+import { authFetch } from "./autFetch.js";
 import { $, limpiarError, listenersInputsLimpiarErrores, listenersInputsBlur, listenersInputsFocus, marcarError } from "./utils.js";
 
 // ============== FUNCIONES ==============
@@ -91,9 +92,10 @@ if (PRODUCT_ID !== null && PRODUCT_ID !== undefined) {
         formData.append("imagen", imagenFile);
 
         try {
-            const response = await fetch(`/admin/productos/${PRODUCT_ID}`, {
+            const response = await authFetch(`/admin/productos/${PRODUCT_ID}`, {
                 method: "PATCH",
                 body: formData,
+                credentials: "include",
             });
 
             const result = await response.json();

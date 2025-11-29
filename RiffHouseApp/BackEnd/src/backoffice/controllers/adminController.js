@@ -19,10 +19,13 @@ class AdminController {
     // render dashboard (TERMINAR BIEN EL ERROR) !!!!!!!!!!!!!!!!!!!!!!!!!!!
     static async renderDashboard(req, res) {
         try {
+            const { nombre } = req.user;
+
             const productos = await Producto.findAll();
 
             return res.render("admin/pages/dashboard", {
                 tituloHead: "Riffhouse - Admin - Dashboard",
+                nombreUser: nombre,
                 productos,
                 message: productos.length === 0 ? "No hay productos cargados" : null,
             });
@@ -36,12 +39,14 @@ class AdminController {
     static async renderEditar(req, res) {
         try {
             const { id } = req.params;
+            const { nombre } = req.user;
 
             const producto = await Producto.findByPk(id);
 
             if (!producto) {
                 return res.render("admin/pages/editar", {
                     tituloHead: "Riffhouse - Admin - Editar",
+                    nombreUser: nombre,
                     producto,
                     message: "No se encontro el producto",
                 });
@@ -49,14 +54,17 @@ class AdminController {
 
             return res.render("admin/pages/editar", {
                 tituloHead: "Riffhouse - Admin - Editar",
+                nombreUser: nombre,
                 producto,
                 message: "Producto encontrado",
             });
         } catch (error) {
+            const { nombre } = req.user;
             console.error(error);
             const producto = null;
             return res.status(500).render("admin/pages/editar", {
                 tituloHead: "Riffhouse - Admin - Editar",
+                nombreUser: nombre,
                 producto,
                 message: "Ocurrio un error al obtener el producto",
             });
@@ -66,39 +74,14 @@ class AdminController {
     // render alta (TERMINAR EL ERROR) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     static async renderAlta(req, res) {
         try {
+            const { nombre } = req.user;
             return res.render("admin/pages/alta", {
                 tituloHead: "Riffhouse - Admin - Alta",
+                nombreUser: nombre,
             });
         } catch (error) {
             console.error(error);
             return res.status(500).send({ error: "Error al cargar la pagina" });
-        }
-    }
-
-    // ============================= LOGIN =============================
-
-    static async login(req, res) {
-        try {
-            let { email, password } = req.body;
-
-            const usuario = await Usuario.findOne({ where: { email } });
-
-            if (!usuario) {
-                return res.status(401).send(Response.error("email invalido", null));
-            }
-
-            const okPass = await bcrypt.compare(password, usuario.password);
-
-            // despues voy a tener que usar el usuario para jwt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-            if (!okPass) {
-                return res.status(401).send(Response.error("contraseña invalida", null));
-            }
-
-            return res.status(200).send(Response.success(null, "credenciales validas"));
-        } catch (error) {
-            console.error(error);
-            return res.status(500).send(Response.error("Error al loguearse", error));
         }
     }
 

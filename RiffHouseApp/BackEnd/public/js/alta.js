@@ -1,3 +1,4 @@
+import { authFetch } from "./autFetch.js";
 import { $, limpiarError, listenersInputsLimpiarErrores, listenersInputsBlur, listenersInputsFocus, marcarError } from "./utils.js";
 
 // ============== DOM elementos ==============
@@ -87,9 +88,10 @@ form.addEventListener("submit", async e => {
     formData.append("imagen", imagenFile);
 
     try {
-        const response = await fetch(`/admin/productos/`, {
+        const response = await authFetch(`/admin/productos/`, {
             method: "POST",
             body: formData,
+            credentials: "include",
         });
 
         const result = await response.json();

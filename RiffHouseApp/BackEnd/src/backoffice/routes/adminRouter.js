@@ -11,6 +11,8 @@ import { validarDatosCrearProd } from "../middlewares/productos/validarDatosCrea
 import { validarDatosActivarProd } from "../middlewares/productos/validarDatosActivarProd.js";
 import { validarDatosDesactivarProd } from "../middlewares/productos/validarDatosDesactivarProd.js";
 import { validarDatosCrearUsuario } from "../middlewares/usuarios/validarDatosCrearUsuario.js";
+import { verificarTokenApi } from "../middlewares/auth/verificarTokenApi.js";
+import { verificarTokenRender } from "../middlewares/auth/verificarTokenRenders.js";
 // import { validarDatosObtenerVenta } from "../middlewares/ventas/validarDatosObtenerVentas.js";
 
 // router
@@ -20,26 +22,26 @@ const router = Router();
 
 router.get("/login", AdminController.renderLogin);
 
-router.get("/dashboard", AdminController.renderDashboard);
+router.get("/dashboard", verificarTokenRender, AdminController.renderDashboard);
 
-router.get("/editar/:id", AdminController.renderEditar);
+router.get("/editar/:id", verificarTokenRender, AdminController.renderEditar);
 
-router.get("/alta", AdminController.renderAlta);
+router.get("/alta", verificarTokenRender, AdminController.renderAlta);
 
-// ========== RUTAS DE PETICIONES A DDBB ==========
+// ========== RUTAS DE CRUD (APIS) ==========
 
-router.get("/ventas", AdminController.getVentas);
+router.get("/ventas", verificarTokenApi, AdminController.getVentas);
 
 router.post("/usuarios", validarDatosCrearUsuario, AdminController.crearUsuarioAdmin);
 
-router.post("/usuarios/login", validarDatosLogin, AdminController.login);
+// router.post("/usuarios/login", verificarToken, validarDatosLogin, AdminController.login);
 
-router.post("/productos", upload.single("imagen"), validarDatosCrearProd, AdminController.crearProducto);
+router.post("/productos", verificarTokenApi, upload.single("imagen"), validarDatosCrearProd, AdminController.crearProducto);
 
-router.patch("/productos/:id", upload.single("imagen"), validarDatosActualizarProd, AdminController.actualizarProducto);
+router.patch("/productos/:id", verificarTokenApi, upload.single("imagen"), validarDatosActualizarProd, AdminController.actualizarProducto);
 
-router.patch("/productos/:id/activar", validarDatosActivarProd, AdminController.activarProducto);
+router.patch("/productos/:id/activar", verificarTokenApi, validarDatosActivarProd, AdminController.activarProducto);
 
-router.patch("/productos/:id/desactivar", validarDatosDesactivarProd, AdminController.desactivarProducto);
+router.patch("/productos/:id/desactivar", verificarTokenApi, validarDatosDesactivarProd, AdminController.desactivarProducto);
 
 export default router;
