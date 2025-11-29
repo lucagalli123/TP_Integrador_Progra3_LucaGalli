@@ -3,7 +3,7 @@ import { $, limpiarError, listenersInputsLimpiarErrores, listenersInputsBlur, li
 
 // ============== DOM elementos ==============
 
-const form = document.getElementById("altaForm");
+const form = document.getElementById("form");
 const btnCancelar = document.getElementById("btnCancelar");
 
 let inputMarca = $("inputMarca");
@@ -42,7 +42,7 @@ function validarDatos(marca, modelo, categoria, precio, imagenFile) {
         todoOk = false;
         marcarError(inputModelo, errorModelo, "*campo vacio");
     }
-    if (!categoria) {
+    if (!categoria || categoria === "Seleccione una opcion") {
         todoOk = false;
         marcarError(inputCategoria, errorCategoria, "*campo vacio");
     }
@@ -74,6 +74,7 @@ form.addEventListener("submit", async e => {
     const marca = inputMarca.value;
     const modelo = inputModelo.value;
     const categoria = inputCategoria.value;
+    console.log(categoria);
     const precio = inputPrecio.value;
     const imagenFile = inputImagen.files[0];
 

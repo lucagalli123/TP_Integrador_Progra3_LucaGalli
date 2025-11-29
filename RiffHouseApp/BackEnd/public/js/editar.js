@@ -44,7 +44,7 @@ function validarDatos(marca, modelo, categoria, precio, imagenFile) {
 if (PRODUCT_ID !== null && PRODUCT_ID !== undefined) {
     // ============== DOM elementos ==============
 
-    const form = document.getElementById("editarForm");
+    const form = document.getElementById("form");
     const btnCancelar = document.getElementById("btnCancelar");
 
     let inputMarca = $("inputMarca");

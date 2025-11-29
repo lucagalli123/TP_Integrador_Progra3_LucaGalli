@@ -15,8 +15,10 @@
     </head>
     <body>
         <header>
-            <img src="/img/logo/logo.png" alt="Logo" class="logo" />
-            <h1>RiffHouse</h1>
+            <div class="div-logo-riffhouse">
+                <img src="/img/logo/logo.png" alt="Logo" class="logo" />
+                <h1>RiffHouse</h1>
+            </div>
             <div class="div-selector-tema">
                 <label for="tema">Tema:</label>
                 <select id="tema">
@@ -28,8 +30,10 @@
 
         <main id="main" class="claro">
             <h2 id="titulo">Bienvenido al Autoservicio de Guitarras y Bajos</h2>
-            <input type="text" id="nombreCliente" placeholder="Ingrese su nombre" required />
-            <button id="btnContinuar">Continuar</button>
+            <form id="formIngreso" class="form-ingreso" novalidate>
+                <input type="text" class="inputNombreClienteNormal" id="nombreCliente" placeholder="Ingrese su nombre" required />
+                <button id="btnContinuar" type="submit">Continuar</button>
+            </form>
             <button id="btnPantallaAdmin">Ingresar como administrador</button>
         </main>
 

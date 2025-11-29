@@ -63,9 +63,9 @@ class AuthController {
             });
 
             // PRUEBA
-            console.log("nuevo token $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-            console.log(newAccess);
-            console.log(decoded);
+            // console.log("nuevo token $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+            // console.log(newAccess);
+            // console.log(decoded);
 
             return res.status(200).send(Response.success({ accessToken: newAccess }, "nuevo access token"));
         } catch (error) {

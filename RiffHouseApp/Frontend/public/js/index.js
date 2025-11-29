@@ -1,6 +1,6 @@
-import { $ } from "./utils.js";
+import { $, limpiarError, marcarError } from "./utils.js";
 import { getTema, setTema, cambiarTemaTitulo, cambiarTemaMain } from "./temas.js";
-import { obtenerConfig } from "./variablesEntorno.js";
+import { obtenerApiUrl } from "./variablesEntorno.js";
 
 // aplicar cambio de tema general
 function aplicarTema(tema) {
@@ -22,17 +22,23 @@ function aplicarTema(tema) {
 // aplicar tema al cargar la pagina...
 let API_URL = "";
 document.addEventListener("DOMContentLoaded", async () => {
-    const config = await obtenerConfig();
-    API_URL = config.API_URL;
+    // obtengo la url de la api
+    const response = await obtenerApiUrl();
+    API_URL = response.API_URL;
+
     const temaGuardado = getTema() || "claro";
     aplicarTema(temaGuardado);
 });
 
 // boton continuar
-$("btnContinuar").addEventListener("click", () => {
+$("formIngreso").addEventListener("submit", e => {
+    e.preventDefault();
     const nombre = $("nombreCliente").value.trim();
     if (!nombre) {
-        alert("Por favor, ingrese su nombre.");
+        marcarError($("nombreCliente"), "inputNombreClienteError");
+        setTimeout(() => {
+            limpiarError($("nombreCliente"), "inputNombreClienteNormal");
+        }, 1000);
         return;
     }
     localStorage.setItem("nombreCliente", nombre);

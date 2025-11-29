@@ -1,5 +1,5 @@
 import { getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./temas.js";
-import { obtenerConfig } from "./variablesEntorno.js";
+import { obtenerApiUrl } from "./variablesEntorno.js";
 import { $ } from "./utils.js";
 
 // leer carrito desde el localStorage
@@ -34,14 +34,11 @@ function renderCarrito(tema) {
     $("detalleCompra").innerHTML = "";
 
     if (carrito.length === 0) {
+        const contVacio = $("carritoContainerVacio");
         const p = document.createElement("p");
         p.textContent = "El carrito esta vacio.";
         tema === "claro" ? (p.style.color = "black") : (p.style.color = "white");
-        p.style.position = "absolute";
-        p.style.top = "50%";
-        p.style.left = "50%";
-        p.style.transform = "translate(-50%, -50%)";
-        cont.appendChild(p);
+        contVacio.appendChild(p);
     } else {
         carrito.forEach((item, index) => {
             const div = document.createElement("div");
@@ -192,8 +189,10 @@ $("btnSalir").addEventListener("click", () => {
 
 let API_URL = "";
 document.addEventListener("DOMContentLoaded", async () => {
-    const config = await obtenerConfig();
-    API_URL = config.API_URL;
+    // obtengo la url de la api
+    const response = await obtenerApiUrl();
+    API_URL = response.API_URL;
+
     const temaGuardado = getTema() || "claro";
     aplicarTema(temaGuardado);
 });

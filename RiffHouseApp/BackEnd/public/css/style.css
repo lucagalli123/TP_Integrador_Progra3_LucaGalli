@@ -5,10 +5,15 @@
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
 body {
     background-color: #f7f7f7;
     color: #333;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -30,13 +35,31 @@ button:hover {
 }
 
 /*______________ Header ______________*/
+
+/* header general */
 header {
     background-color: #393939;
     color: #fff;
     padding: 1rem;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+header .div-logo {
+    display: flex;
+    flex: 1;
+}
+
+header .usuario-info {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    /* align-self: flex-end; */
+}
+header .usuario-info p {
+    margin-top: 3px;
 }
 
 header img.logo {
@@ -44,42 +67,46 @@ header img.logo {
 }
 
 header h1 {
-    flex: 1;
+    /* flex: 1; */
     font-family: "Nosifer", sans-serif;
     font-weight: 400;
     font-style: normal;
     margin-left: 1rem;
-    margin-right: 1rem;
+    margin-right: 1.2rem;
+    margin-top: 3px;
     background: linear-gradient(to top, #bd1d07, #e5e531);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
 }
-
-header .div-selector-tema {
-    margin-right: 80px;
-    margin-left: 15px;
+header div h2 {
+    margin-top: 11px;
 }
 
-header select {
-    width: auto;
-    border: none;
+#btnCerrarSesion {
+    padding: 3px 8px;
+    border-radius: 5px;
+}
+
+#btnCerrarSesion:hover {
+    background-color: rgb(190, 190, 190);
+}
+
+/* header del login */
+.header-login {
     background-color: #393939;
-    color: white;
-    cursor: pointer;
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
-header label {
-    font-size: 1rem;
-}
-
-header select {
-    font-size: 1rem;
-}
-
-header h2 {
-    margin-right: 20px;
+header .div-logo-login {
+    display: flex;
+    justify-content: center;
 }
 
 /* ______________ Main ______________*/
@@ -106,20 +133,27 @@ footer {
 
 /* ======================================== FORMULARIOS GENERALES =============================================== */
 
+#form div {
+    width: 100%;
+}
+
 input {
     border: 1px solid transparent;
     border-bottom-width: 2px;
-    padding: 8px;
+    /* padding: 8px; */
     box-sizing: border-box;
-}
-
-input[type="file"]:hover {
-    cursor: pointer;
 }
 
 select {
     cursor: pointer;
 }
+
+/* .form-style {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} */
 
 .form-style section {
     background-color: rgb(222, 217, 217);
@@ -130,6 +164,16 @@ select {
     padding: 20px;
     border-radius: 5px;
     gap: 10px;
+    /* width: 500px; */
+}
+
+.form-style section form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    justify-content: center;
+    align-items: stretch;
+    width: 400px;
 }
 
 /* botones generales del form */
@@ -150,17 +194,15 @@ select {
 }
 
 /* form */
-.form-style form {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    justify-content: center;
-    align-items: stretch;
-}
 
 /* boton puntual del form */
 .form-style form button {
     margin-top: 15px;
+    text-decoration: solid;
+}
+
+.form-style form label {
+    font-weight: 500;
 }
 
 /* inputs del form */
@@ -190,17 +232,17 @@ select {
     border-radius: 5px;
 }
 
-/* Estado FOCUS */
+/* estado FOCUS */
 .input-focus {
     border-bottom-color: black;
 }
 
-/* Estado BLUR */
+/* estado BLUR */
 .input-blur {
     border-bottom-color: transparent;
 }
 
-/* Animación */
+/* animacion */
 @keyframes vibrar {
     0% {
         transform: translateX(0);
@@ -233,19 +275,31 @@ select {
     color: red;
     font-size: 8px;
 }
-
 /* ================================== login ==================================== */
 
-#loginForm div input {
-    width: 90%;
+#btnIngresarComoCliente {
+    margin-top: 50px;
+    width: 238px;
+    background-color: #d2d2d2;
+}
+
+.form-style-login section form {
+    width: 250px;
 }
 
 /* ================================== dashboard ==================================== */
 
-/* .dashboard {
-    max-height: 100%;
-    overflow-y: auto;
-} */
+.dashboard {
+    background-color: #c2c1c1;
+    /* padding: 20px; */
+    border-radius: 5px;
+}
+
+.dashboard h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    /* text-decoration: underline; */
+}
 
 .div-alta {
     display: flex;
@@ -262,18 +316,36 @@ select {
     text-decoration: none;
 }
 
+.btn-alta:hover {
+    background-color: #459a48;
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.05);
+    /* transition: transform 0.2s, box-shadow 0.2s; */
+    /* rgb(54, 150, 58) */
+}
+
 /* tabla */
+
+.tabla-container {
+    overflow-x: auto;
+    width: 100%;
+}
 
 .tabla-productos {
     border-collapse: collapse;
     border: 2px solid black;
     background-color: rgb(255, 255, 255);
+    width: 100%;
+    min-width: 500px;
+    /* width: 100%;
+    max-width: 100%;
+    table-layout: fixed; */
 }
 
 th,
 td {
     border: 2px solid black;
     padding: 6px 15px;
+    word-wrap: break-word;
 }
 
 .td-acciones {
@@ -283,6 +355,11 @@ td {
 }
 
 .td-acciones button {
+    flex: 1;
+}
+
+.td-acciones button:hover {
+    background-color: rgb(199, 199, 199);
     flex: 1;
 }
 
@@ -362,10 +439,6 @@ td {
 
 /* ================================== editar ==================================== */
 
-#editarForm div {
-    width: 100%;
-}
-
 .div-botones-form {
     display: flex !important;
     flex-direction: row !important;
@@ -375,71 +448,110 @@ td {
 
 .div-botones-form button {
     flex: 1;
+    padding: 7px 0px;
 }
 
-/*  ======================= alta =========================== */
+/* ========================================= MEDIA QUERIES ====================================================== */
 
-/* .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.7);
+@media (max-width: 850px) {
+    header .usuario-info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .form-style section form {
+        width: 250px;
+    }
 }
 
-.modal-container {
-    background-color: #fff;
-    margin: 15% auto;
-    padding: 10px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-    position: relative;
+@media (max-width: 700px) {
+    header {
+        padding: 0.6rem;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+    header .usuario-info {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    /* header del login */
+
+    header .div-logo-login {
+        scale: 0.7;
+        display: flex;
+        justify-content: center;
+    }
 }
 
-.cerrar-modal {
-    color: #aaa;
-    position: absolute;
-    top: -5px;
-    right: 6px;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
+@media (max-width: 560px) {
+    header .div-logo {
+        flex: auto;
+        scale: 0.8;
+    }
 }
 
-.cerrar-modal:hover {
-    color: #000;
+@media (max-width: 460px) {
+    header .div-logo {
+        flex: auto;
+        scale: 0.75;
+    }
 }
 
-.modal-botones {
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 20px;
+@media (max-width: 420px) {
+    header {
+        padding: 0.5rem;
+        justify-content: center;
+        text-align: center;
+    }
+
+    header .div-logo {
+        flex: auto;
+        scale: 0.7;
+    }
+
+    .btn-alta {
+        padding: 6px 11px;
+        font-size: 13px;
+    }
 }
 
-.modal-botones button {
-    width: 70px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+@media (max-width: 380px) {
+    header {
+        padding: 0.5rem;
+        justify-content: center;
+        text-align: center;
+    }
 
-.modal-botones button:hover {
-    opacity: 0.8;
-}
+    header .div-logo {
+        flex: auto;
+        scale: 0.6;
+        gap: 1px;
+    }
 
-#btnSiConfirmar {
-    background-color: #28a745;
-    color: #fff;
-}
+    header .usuario-info {
+        scale: 0.7;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
 
-#btnNoConfirmar {
-    background-color: #dc3545;
-    color: #fff;
-} */
+    header h1 {
+        margin-right: 0px;
+    }
+
+    header div h2 {
+        scale: 0.8;
+        margin-top: 11px;
+    }
+    /* header del login */
+
+    header .div-logo-login {
+        scale: 0.6;
+        display: flex;
+        justify-content: center;
+    }
+}

@@ -8,60 +8,61 @@
 
         <!-- main -->
         <main class="dashboard">
-            <h1>Listado de Productos</h1>
+            <h2>Listado de Productos</h2>
 
             <div class="div-alta">
                 <a href="/admin/alta" class="btn-alta">+ Agregar Producto</a>
             </div>
+            <div class="tabla-container">
+                <table id="tablaProductos" class="tabla-productos">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Producto</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Activo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
 
-            <table id="tablaProductos" class="tabla-productos">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Producto</th>
-                        <th>Categoría</th>
-                        <th>Precio</th>
-                        <th>Activo</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
+                    <tbody>
+                        <!-- si no hay productos para mostrar -->
 
-                <tbody>
-                    <!-- si no hay productos para mostrar -->
+                        <% if(message === "No hay productos cargados") { %>
+                        <td colspan="6" style="text-align: center"><%=message%></td>
+                        <% } %>
 
-                    <% if(message === "No hay productos cargados") { %>
-                    <td colspan="6" style="text-align: center"><%=message%></td>
-                    <% } %>
+                        <!-- cargo tabla de productos -->
 
-                    <!-- cargo tabla de productos -->
+                        <% productos.forEach(p => { %>
+                        <tr class="<%= p.activo ? 'green' : 'red' %>">
+                            <td><%= p.id %></td>
 
-                    <% productos.forEach(p => { %>
-                    <tr class="<%= p.activo ? 'green' : 'red' %>">
-                        <td><%= p.id %></td>
+                            <td><%= p.marca %>, <%= p.modelo %></td>
 
-                        <td><%= p.marca %>, <%= p.modelo %></td>
+                            <td><%= p.categoria %></td>
 
-                        <td><%= p.categoria %></td>
+                            <td>$<%= p.precio %></td>
 
-                        <td>$<%= p.precio %></td>
+                            <td><%= p.activo ? "Si" : "No" %></td>
 
-                        <td><%= p.activo ? "Si" : "No" %></td>
+                            <td class="td-acciones" class="acciones">
+                                <!-- activar/desactivar -->
+                                <% if (p.activo) { %>
+                                <button id="btnDesactivar" data-id="<%= p.id %>" class="btn-desactivar">Eliminar</button>
+                                <% } else { %>
+                                <button id="btnActivar" data-id="<%= p.id %>" class="btn-activar">Activar</button>
+                                <% } %>
 
-                        <td class="td-acciones" class="acciones">
-                            <!-- activar/desactivar -->
-                            <% if (p.activo) { %>
-                            <button id="btnDesactivar" data-id="<%= p.id %>" class="btn-desactivar">Eliminar</button>
-                            <% } else { %>
-                            <button id="btnActivar" data-id="<%= p.id %>" class="btn-activar">Activar</button>
-                            <% } %>
-
-                            <!-- editar ( ver el tema del id y como pasarlo) -->
-                            <button id="btnEditar" data-id="<%= p.id %>" class="btn-editar">Editar</button>
-                        </td>
-                    </tr>
-                    <% }) %>
-                </tbody>
-            </table>
+                                <!-- editar ( ver el tema del id y como pasarlo) -->
+                                <button id="btnEditar" data-id="<%= p.id %>" class="btn-editar">Editar</button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
 
             <div id="modalConfirmar" class="modal">
                 <div class="modal-container">

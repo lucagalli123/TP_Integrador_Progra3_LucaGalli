@@ -1,5 +1,5 @@
 import { $ } from "./utils.js";
-import { obtenerConfig } from "./variablesEntorno.js";
+import { obtenerApiUrl } from "./variablesEntorno.js";
 import { getTema, setTema, cambiarTemaMain } from "./temas.js";
 
 // ==================== VARIABLES ====================
@@ -20,7 +20,7 @@ async function renderProductos(tema) {
 
     try {
         // peticion a la api
-        const apiResponse = await fetch(`${API_URL}/api/productos?categoria=${categoriaActual}&pag=${pagActual}&limit=${prodPorPagina}`); // VER TEMA DE PUERTO EN .ENV
+        const apiResponse = await fetch(`${API_URL}/api/productos?categoria=${categoriaActual}&pag=${pagActual}&limit=${prodPorPagina}`);
         const result = await apiResponse.json();
 
         if (!apiResponse.ok) {
@@ -132,8 +132,10 @@ function agregarAlCarrito(idProducto) {
 
 let API_URL = "";
 document.addEventListener("DOMContentLoaded", async () => {
-    const config = await obtenerConfig();
-    API_URL = config.API_URL;
+    // obtengo la url de la api
+    const response = await obtenerApiUrl();
+    API_URL = response.API_URL;
+
     const temaGuardado = getTema() || "claro";
     cambiarTemaMain(temaGuardado);
     await renderProductos(temaGuardado);

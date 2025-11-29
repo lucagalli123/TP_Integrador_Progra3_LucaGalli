@@ -1,8 +1,10 @@
+import { obtenerUrlFront } from "./variablesEtorno.js";
 import { $, limpiarError, listenersInputsLimpiarErrores, listenersInputsBlur, listenersInputsFocus, marcarError } from "./utils.js";
+// import { obtenerUrlFront } from "./variablesEtorno.js";
 
 // ============== DOM elementos ==============
 
-const form = document.getElementById("loginForm");
+const form = document.getElementById("form");
 const btnAccesoRapido = document.getElementById("btnAccesoRapido");
 
 let inputEmail = $("inputEmail");
@@ -94,7 +96,12 @@ btnAccesoRapido.addEventListener("click", async () => {
     $("inputPassword").value = "12345678";
 });
 
+let URL_FRONT = "";
 // listener boton ingresar como cliente
-$("btnIngresarComoCliente").addEventListener("click", () => {
-    window.location.href = `http://localhost:3000/`;
+$("btnIngresarComoCliente").addEventListener("click", async () => {
+    // obtengo la url del front
+    const response = await obtenerUrlFront();
+    URL_FRONT = response.URL_FRONT;
+
+    window.location.href = `${URL_FRONT}`;
 });

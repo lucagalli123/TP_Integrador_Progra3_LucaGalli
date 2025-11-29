@@ -1,5 +1,5 @@
 import { getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./temas.js";
-import { obtenerConfig } from "./variablesEntorno.js";
+import { obtenerApiUrl } from "./variablesEntorno.js";
 import { $ } from "./utils.js";
 
 let idVenta = JSON.parse(localStorage.getItem("idVenta"));
@@ -156,7 +156,7 @@ function aplicarTema(tema, ticket) {
         temaSelect.addEventListener("change", () => {
             const nuevoTema = temaSelect.value;
             setTema(nuevoTema);
-            aplicarTema(nuevoTema);
+            aplicarTema(nuevoTema, ticket);
         });
     }
 }
@@ -166,8 +166,9 @@ function aplicarTema(tema, ticket) {
 // aplica configuraciones cuando carga el DOM
 let API_URL = "";
 document.addEventListener("DOMContentLoaded", async () => {
-    const config = await obtenerConfig();
-    API_URL = config.API_URL;
+    // obtengo la url de la api
+    const response = await obtenerApiUrl();
+    API_URL = response.API_URL;
 
     const temaGuardado = getTema() || "claro";
 

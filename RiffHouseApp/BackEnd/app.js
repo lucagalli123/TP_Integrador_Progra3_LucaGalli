@@ -1,7 +1,7 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import { sequelize } from "./src/database/index.js";
-import { PUERTO } from "./variablesEntorno.js";
+import { PUERTO, URL_FRONT } from "./variablesEntorno.js";
 import { iniciarDB } from "./iniciarDbPrueba.js";
 import path from "node:path";
 import { fileURLToPath } from "url";
@@ -61,6 +61,11 @@ app.use("/auth", authRoutes);
 // ================================= RUTA ADMIN =================================
 
 app.use("/admin", adminRouter);
+
+// para enviar variable de entorno URL_FRONT al navegador
+app.get("/variablesEntorno", (req, res) => {
+    res.json({ URL_FRONT });
+});
 
 // ================================= INICIO SERVIDOR =================================
 
