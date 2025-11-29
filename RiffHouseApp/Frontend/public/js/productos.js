@@ -33,8 +33,9 @@ async function renderProductos(tema) {
 
         if (result.message === "No hay productos activos") {
             const textError = document.createElement("p");
-            textError.textContent = "No hay productos disponibles. Intente mas tarde";
+            tema === "claro" ? (textError.style.color = "black") : (textError.style.color = "white");
             textError.style.textAlign = "center";
+            textError.textContent = "No hay productos disponibles. Intente mas tarde";
             cont.appendChild(textError);
             return;
         }
