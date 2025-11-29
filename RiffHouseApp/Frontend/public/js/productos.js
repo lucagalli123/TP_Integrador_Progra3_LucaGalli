@@ -42,7 +42,7 @@ async function renderProductos(tema) {
         const listaProductos = result.data.listaProductos;
 
         // le mando los productos a la variable global para guardar productos en el carrito
-        productosDataGlobal = listaProductos;
+        productosDataGlobal = result.data;
 
         listaProductos.forEach(p => {
             const div = document.createElement("div");
@@ -114,19 +114,19 @@ async function renderProductos(tema) {
 }
 
 // agrega un producto al carrito y guarda en localStorage
-function agregarAlCarrito(idProducto) {
-    const producto = productosDataGlobal.find(p => p.id === idProducto);
-    if (!producto) return;
+// function agregarAlCarrito(idProducto) {
+//     const producto = productosDataGlobal.find(p => p.id === idProducto);
+//     if (!producto) return;
 
-    const index = carrito.findIndex(item => item.id === idProducto);
-    if (index !== -1) {
-        carrito[index].cantidad++;
-    } else {
-        carrito.push({ ...producto, cantidad: 1 });
-    }
+//     const index = carrito.findIndex(item => item.id === idProducto);
+//     if (index !== -1) {
+//         carrito[index].cantidad++;
+//     } else {
+//         carrito.push({ ...producto, cantidad: 1 });
+//     }
 
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-}
+//     localStorage.setItem("carrito", JSON.stringify(carrito));
+// }
 
 // ==================== EVENTOS ====================
 
@@ -151,29 +151,29 @@ document.addEventListener("DOMContentLoaded", async () => {
             await renderProductos(nuevoTema);
         });
     }
+});
 
-    // botones categorias
-    $("btnGuitarras").addEventListener("click", async () => {
-        categoriaActual = "guitarras";
-        pagActual = 1;
-        await renderProductos(getTema());
-    });
+// botones categorias
+$("btnGuitarras").addEventListener("click", async () => {
+    categoriaActual = "guitarras";
+    pagActual = 1;
+    await renderProductos(getTema());
+});
 
-    $("btnBajos").addEventListener("click", async () => {
-        categoriaActual = "bajos";
-        pagActual = 1;
-        await renderProductos(getTema());
-    });
+$("btnBajos").addEventListener("click", async () => {
+    categoriaActual = "bajos";
+    pagActual = 1;
+    await renderProductos(getTema());
+});
 
-    // botones paginacion
-    $("pagAnterior").addEventListener("click", async () => {
-        if (pagActual > 1) pagActual--;
-        await renderProductos(getTema());
-    });
+// botones paginacion
+$("pagAnterior").addEventListener("click", async () => {
+    if (pagActual > 1) pagActual--;
+    await renderProductos(getTema());
+});
 
-    $("pagSiguiente").addEventListener("click", async () => {
-        const maxPag = productosDataGlobal.paginas;
-        if (pagActual < maxPag) pagActual++;
-        await renderProductos(getTema());
-    });
+$("pagSiguiente").addEventListener("click", async () => {
+    const maxPag = productosDataGlobal.paginas;
+    if (pagActual < maxPag) pagActual++;
+    await renderProductos(getTema());
 });
