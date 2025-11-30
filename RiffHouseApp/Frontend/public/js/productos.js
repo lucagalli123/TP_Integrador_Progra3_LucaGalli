@@ -1,8 +1,8 @@
-import { $ } from "./utils.js";
+import { $, getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./utils.js";
 import { obtenerApiUrl } from "./variablesEntorno.js";
-import { getTema, setTema, cambiarTemaMain } from "./temas.js";
 
-// ==================== VARIABLES ====================
+// =============================== VARIABLES ===============================
+
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 //
 let productosDataGlobal = [];
@@ -11,7 +11,7 @@ let categoriaActual = "guitarras";
 let pagActual = 1;
 const prodPorPagina = 6;
 
-// ==================== FUNCIONES ====================
+// =============================== FUNCIONES ===============================
 
 // renderiza los productos de la pag
 async function renderProductos(tema) {
@@ -20,7 +20,7 @@ async function renderProductos(tema) {
 
     try {
         // peticion a la api
-        const apiResponse = await fetch(`${API_URL}/api/productos?categoria=${categoriaActual}&pag=${pagActual}&limit=${prodPorPagina}`);
+        const apiResponse = await fetch(`${API_URL}/api/productos?tipo=paginados&categoria=${categoriaActual}&pag=${pagActual}&limit=${prodPorPagina}`);
         const result = await apiResponse.json();
 
         if (!apiResponse.ok) {
@@ -55,8 +55,16 @@ async function renderProductos(tema) {
             img.alt = `${p.marca} ${p.modelo}`;
 
             // nombre producto
-            const h3 = document.createElement("h3");
-            h3.textContent = `${p.marca} ${p.modelo}`;
+            const marca = document.createElement("h3");
+            const modelo = document.createElement("h3");
+            const marcaModelo = document.createElement("div");
+            marcaModelo.classList.add("div-marca-modelo");
+            //
+            marca.textContent = `${p.marca},`;
+            modelo.textContent = p.modelo;
+            //
+            marcaModelo.appendChild(marca);
+            marcaModelo.appendChild(modelo);
 
             // precio producto
             const precio = document.createElement("p");
@@ -97,7 +105,7 @@ async function renderProductos(tema) {
                 localStorage.setItem("carrito", JSON.stringify(carrito));
             });
 
-            div.append(img, h3, precio, btn);
+            div.append(img, marcaModelo, precio, btn);
             cont.appendChild(div);
         });
 
@@ -114,22 +122,7 @@ async function renderProductos(tema) {
     }
 }
 
-// agrega un producto al carrito y guarda en localStorage
-// function agregarAlCarrito(idProducto) {
-//     const producto = productosDataGlobal.find(p => p.id === idProducto);
-//     if (!producto) return;
-
-//     const index = carrito.findIndex(item => item.id === idProducto);
-//     if (index !== -1) {
-//         carrito[index].cantidad++;
-//     } else {
-//         carrito.push({ ...producto, cantidad: 1 });
-//     }
-
-//     localStorage.setItem("carrito", JSON.stringify(carrito));
-// }
-
-// ==================== EVENTOS ====================
+// =============================== EVENTOS ===============================
 
 let API_URL = "";
 document.addEventListener("DOMContentLoaded", async () => {
@@ -142,7 +135,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await renderProductos(temaGuardado);
 
     // listener de cambio de tema
-    const temaSelect = $("tema");
+    const temaSelect = $("temaSelect");
     if (temaSelect) {
         temaSelect.value = temaGuardado;
         temaSelect.addEventListener("change", async () => {
@@ -169,12 +162,16 @@ $("btnBajos").addEventListener("click", async () => {
 
 // botones paginacion
 $("pagAnterior").addEventListener("click", async () => {
-    if (pagActual > 1) pagActual--;
-    await renderProductos(getTema());
+    if (pagActual > 1) {
+        pagActual--;
+        await renderProductos(getTema());
+    }
 });
 
 $("pagSiguiente").addEventListener("click", async () => {
-    const maxPag = productosDataGlobal.paginas;
-    if (pagActual < maxPag) pagActual++;
-    await renderProductos(getTema());
+    const maxPag = productosDataGlobal.totalPaginas;
+    if (pagActual < maxPag) {
+        pagActual++;
+        await renderProductos(getTema());
+    }
 });

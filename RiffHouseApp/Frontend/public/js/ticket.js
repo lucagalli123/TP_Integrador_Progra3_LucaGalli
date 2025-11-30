@@ -1,9 +1,13 @@
-import { getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./temas.js";
 import { obtenerApiUrl } from "./variablesEntorno.js";
-import { $ } from "./utils.js";
+import { $, getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./utils.js";
 
+// obtengo la venta del localStorage
 let idVenta = JSON.parse(localStorage.getItem("idVenta"));
-console.log(idVenta);
+
+// variable
+let API_URL = "";
+
+// =============================== FUNCIONES ===============================
 
 // funcion para obtener la venta de la api del back
 async function obtenerVenta(id) {
@@ -28,7 +32,7 @@ function mostrarError(mensaje) {
 }
 
 // recibe el tema(claro/oscuro) y el ticket descargado de la api
-function cargarPagina(tema, ticket) {
+function renderTicket(tema, ticket) {
     const cont = $("ticketContainer");
     cont.innerHTML = "";
 
@@ -146,25 +150,24 @@ function cargarPagina(tema, ticket) {
 }
 
 // recibe: el tema (claro/oscuro) y el ticket descargado de la api
-function aplicarTema(tema, ticket) {
+function cargarPagina(tema, ticket) {
     cambiarTemaMain(tema);
-    cargarPagina(tema, ticket);
+    renderTicket(tema, ticket);
     cambiarTemaTitulo(tema);
-    const temaSelect = $("tema");
+    const temaSelect = $("temaSelect");
     if (temaSelect) {
         temaSelect.value = tema;
         temaSelect.addEventListener("change", () => {
             const nuevoTema = temaSelect.value;
             setTema(nuevoTema);
-            aplicarTema(nuevoTema, ticket);
+            cargarPagina(nuevoTema, ticket);
         });
     }
 }
 
-// ================ LISTENERS =================
+// =============================== LISTENERS ===============================
 
 // aplica configuraciones cuando carga el DOM
-let API_URL = "";
 document.addEventListener("DOMContentLoaded", async () => {
     // obtengo la url de la api
     const response = await obtenerApiUrl();
@@ -174,7 +177,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         const ticketDescargado = await obtenerVenta(idVenta);
-        aplicarTema(temaGuardado, ticketDescargado.resultado);
+        cargarPagina(temaGuardado, ticketDescargado.resultado);
     } catch (error) {
         console.error(error);
         mostrarError("No se pudo cargar el ticket. Intente nuevamente mas tarde.");

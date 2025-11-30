@@ -319,6 +319,12 @@ main h2 {
     font-size: 1rem;
 }
 
+.div-marca-modelo {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
 /* producto-carta (oscuro)________________ */
 .producto-carta-oscuro {
     display: flex;

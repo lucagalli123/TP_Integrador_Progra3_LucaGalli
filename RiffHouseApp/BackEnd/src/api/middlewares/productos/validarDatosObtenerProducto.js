@@ -1,0 +1,19 @@
+import ApiResponse from "../../apiReponse.js";
+
+export function validarDatosObtenerProducto(req, res, next) {
+    const { id } = req.params;
+
+    // ---------------- BODY ----------------
+
+    if (!id) {
+        console.error("Params 'id' no enviado");
+        return res.status(400).send("Error al obtener producto");
+    }
+
+    if (isNaN(Number(id))) {
+        console.error("Params 'id' invalido:", id);
+        return res.status(400).send("Error al obtener producto");
+    }
+
+    next();
+}

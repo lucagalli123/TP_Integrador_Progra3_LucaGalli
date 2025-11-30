@@ -1,23 +1,24 @@
-import { $, limpiarError, marcarError } from "./utils.js";
-import { getTema, setTema, cambiarTemaTitulo, cambiarTemaMain } from "./temas.js";
+import { $, getTema, setTema, cambiarTemaMain, cambiarTemaTitulo, marcarError, limpiarError } from "./utils.js";
 import { obtenerApiUrl } from "./variablesEntorno.js";
 
+// =============================== FUNCIONES ===============================
+
 // aplicar cambio de tema general
-function aplicarTema(tema) {
+function cargarPagina(tema) {
     cambiarTemaMain(tema);
     cambiarTemaTitulo(tema);
-    const temaSelect = $("tema");
+    const temaSelect = $("temaSelect");
     if (temaSelect) {
         temaSelect.value = tema;
         temaSelect.addEventListener("change", () => {
             const nuevoTema = temaSelect.value;
             setTema(nuevoTema);
-            aplicarTema(nuevoTema);
+            cargarPagina(nuevoTema);
         });
     }
 }
 
-// LISTENERS ===============================================================
+// =============================== LISTENERS ===============================
 
 // aplicar tema al cargar la pagina...
 let API_URL = "";
@@ -27,7 +28,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     API_URL = response.API_URL;
 
     const temaGuardado = getTema() || "claro";
-    aplicarTema(temaGuardado);
+    cargarPagina(temaGuardado);
 });
 
 // boton continuar

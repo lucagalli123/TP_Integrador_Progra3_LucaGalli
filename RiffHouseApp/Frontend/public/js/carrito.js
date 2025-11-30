@@ -1,11 +1,44 @@
-import { getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./temas.js";
+// import { getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./temas.js";
 import { obtenerApiUrl } from "./variablesEntorno.js";
-import { $ } from "./utils.js";
+import { $, getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./utils.js";
 
-// leer carrito desde el localStorage
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let carrito = [];
+let API_URL = "";
 
-// peticion al back para crear venta
+// ============================== FUNCIONES ==============================
+
+// cargar carrito
+function cargarCarrito() {
+    try {
+        const data = JSON.parse(localStorage.getItem("carrito"));
+        return data;
+    } catch {
+        return [];
+    }
+}
+
+// guardar carrito
+function guardarCarrito(carrito) {
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+// obtener productos activos
+async function obtenerProductosActivos() {
+    const apiResponse = await fetch(`${API_URL}/api/productos?tipo=sinPaginar`);
+    const data = await apiResponse.json();
+    if (apiResponse.ok) {
+        return data.data;
+    } else {
+        return [];
+    }
+}
+
+// limpiar productos inactivos del carrito
+function limpiarCarrito(carrito, prodActivos) {
+    return carrito.filter(item => prodActivos.some(prod => prod.id === item.id && prod.activo === true));
+}
+
+// crear venta
 async function crearVenta(ventaData) {
     try {
         const apiResponse = await fetch(`${API_URL}/api/ventas`, {
@@ -26,7 +59,7 @@ async function crearVenta(ventaData) {
     }
 }
 
-// carga el carrito
+// rendder carrito
 function renderCarrito(tema) {
     const cont = $("carritoContainer");
     cont.innerHTML = "";
@@ -35,8 +68,9 @@ function renderCarrito(tema) {
 
     if (carrito.length === 0) {
         const contVacio = $("carritoContainerVacio");
+        contVacio.innerHTML = "";
         const p = document.createElement("p");
-        p.textContent = "El carrito esta vacio.";
+        p.textContent = "El carrito está vacío.";
         tema === "claro" ? (p.style.color = "black") : (p.style.color = "white");
         contVacio.appendChild(p);
     } else {
@@ -44,7 +78,7 @@ function renderCarrito(tema) {
             const div = document.createElement("div");
             div.classList.add(`producto-carta-${tema}`);
 
-            // imagen
+            // Imagen
             const img = document.createElement("img");
             img.src = item.imagen;
             img.alt = item.marca + " " + item.modelo;
@@ -76,22 +110,21 @@ function renderCarrito(tema) {
             cantidad.appendChild(spanCantidad);
             cantidad.appendChild(btnMas);
 
-            // boton eliminar
+            // btn eliminar
             const btnEliminar = document.createElement("button");
             btnEliminar.textContent = "Eliminar";
             btnEliminar.style.width = "80%";
             btnEliminar.addEventListener("click", () => eliminarProducto(index));
 
-            // agregar todo al div
+            // agregar elementos al div
             div.appendChild(img);
             div.appendChild(h3);
             div.appendChild(precio);
             div.appendChild(cantidad);
             div.appendChild(btnEliminar);
-
-            // agregar div al contenedor
             cont.appendChild(div);
 
+            // detalle
             const prodDetalle = document.createElement("p");
             prodDetalle.textContent = `Producto: ${item.marca + " " + item.modelo}, cantidad: ${item.cantidad}`;
             prodDetalle.classList.add("detalle-productos-compra");
@@ -101,47 +134,47 @@ function renderCarrito(tema) {
             total += item.precio * item.cantidad;
         });
     }
-
-    // mostrar total
+    // total
     const totalCompra = $("totalCompra");
     totalCompra.textContent = `Total: $${total}`;
 }
 
-function aplicarTema(tema) {
+// aplicar tema
+function cargarPagina(tema) {
     cambiarTemaMain(tema);
-    renderCarrito(tema);
     cambiarTemaTitulo(tema);
-    tema === "claro" ? ($("detalleTotal").style.backgroundColor = "#ffffffff") : ($("detalleTotal").style.backgroundColor = "#222");
-    tema === "claro" ? ($("totalCompra").style.color = "#222") : ($("totalCompra").style.color = "#ffffffff");
-    const temaSelect = $("tema");
+    renderCarrito(tema);
+    const temaSelect = $("temaSelect");
     if (temaSelect) {
         temaSelect.value = tema;
         temaSelect.addEventListener("change", () => {
             const nuevoTema = temaSelect.value;
             setTema(nuevoTema);
-            aplicarTema(nuevoTema);
+            cargarPagina(nuevoTema);
         });
     }
+    tema === "claro" ? ($("detalleTotal").style.backgroundColor = "#fff") : ($("detalleTotal").style.backgroundColor = "#222");
+    tema === "claro" ? ($("totalCompra").style.color = "#222") : ($("totalCompra").style.color = "#fff");
 }
 
-// modificar cantidad de productos del carrito y recarga pagina
+// modificar cantidad
 function modificarCantidad(index, cambio) {
     carrito[index].cantidad += cambio;
     if (carrito[index].cantidad <= 0) {
         carrito.splice(index, 1);
     }
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-    aplicarTema(getTema());
+    guardarCarrito(carrito);
+    cargarPagina(getTema());
 }
 
-// elimina un producto del carrito y recarga pagina
+// eliminar producto
 function eliminarProducto(index) {
     carrito.splice(index, 1);
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-    aplicarTema(getTema());
+    guardarCarrito(carrito);
+    cargarPagina(getTema());
 }
 
-// LISTENERS ======================================================
+// ============================== LISTENERS ==============================
 
 $("btnFinalizar").addEventListener("click", () => {
     if (carrito.length === 0) {
@@ -150,18 +183,13 @@ $("btnFinalizar").addEventListener("click", () => {
     }
 
     const modal = $("modalCompraConfirm");
-    // console.log(modal);
     const btnClose = $("cerrarModal");
     const btnConfirm = $("confirmCompra");
     const btnCancel = $("cancelCompra");
 
-    // mostrar modal
     modal.style.display = "block";
 
-    // cerrar con X
     btnClose.addEventListener("click", () => (modal.style.display = "none"));
-
-    // cancelar compra
     btnCancel.addEventListener("click", () => (modal.style.display = "none"));
 
     btnConfirm.onclick = async () => {
@@ -171,6 +199,7 @@ $("btnFinalizar").addEventListener("click", () => {
             fecha: new Date(),
             total: carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0),
         };
+
         try {
             const result = await crearVenta(data);
             localStorage.setItem("idVenta", JSON.stringify(result.data.venta.id));
@@ -182,17 +211,32 @@ $("btnFinalizar").addEventListener("click", () => {
     };
 });
 
-// boton salir (link <a>)
+// btn salir
 $("btnSalir").addEventListener("click", () => {
     localStorage.removeItem("carrito");
 });
 
-let API_URL = "";
 document.addEventListener("DOMContentLoaded", async () => {
     // obtengo la url de la api
     const response = await obtenerApiUrl();
     API_URL = response.API_URL;
 
-    const temaGuardado = getTema() || "claro";
-    aplicarTema(temaGuardado);
+    // cargar carrito
+    carrito = cargarCarrito();
+
+    // obtener productos activos
+    const activos = await obtenerProductosActivos();
+
+    // limpiar carrito
+    const carritoLimpio = limpiarCarrito(carrito, activos);
+
+    // guardar si cambio
+    if (carritoLimpio.length !== carrito.length) {
+        carrito = carritoLimpio;
+        guardarCarrito(carrito);
+    }
+
+    // cargar pagina
+    const tema = getTema() || "claro";
+    cargarPagina(tema);
 });
