@@ -56,22 +56,22 @@ header .usuario-info {
     display: flex;
     flex-direction: row;
     gap: 10px;
-    /* align-self: flex-end; */
 }
 
 header .div-usuario-info {
-    background-color: rgb(192, 192, 192);
+    background-color: rgb(255, 255, 255);
     color: black;
     display: flex;
     flex-direction: row;
-    gap: 4px;
-    /* background-color: rgb(255, 255, 255); */
+    gap: 3px;
     border-radius: 5px;
-    padding: 3px 8px;
+    padding: 2px 8px;
+    font-size: 14px;
+    border: solid 1px black;
 }
 
-header .usuario-info p {
-    /* margin-top: 3px; */
+header .div-usuario-info p {
+    margin-top: 1px;
 }
 
 header img.logo {
@@ -97,13 +97,13 @@ header div h2 {
 }
 
 #btnCerrarSesion {
-    background-color: rgb(206, 206, 206);
+    background-color: rgb(255, 255, 255);
     padding: 3px 8px;
     border-radius: 5px;
 }
 
 #btnCerrarSesion:hover {
-    background-color: rgb(132, 132, 132);
+    background-color: rgb(255, 107, 107);
 }
 
 /* header del login */
@@ -157,16 +157,23 @@ input {
     box-sizing: border-box;
 }
 
+#inputImagen {
+    margin-left: -6.5px;
+    padding: 5px;
+}
+
+/* input#file-upload-button {
+    background-color: red;
+} */
+
+#inputCategoria {
+    padding: 5px;
+    border: none;
+}
+
 select {
     cursor: pointer;
 }
-
-/* .form-style {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-} */
 
 .form-style section {
     background-color: rgb(222, 217, 217);
@@ -177,7 +184,6 @@ select {
     padding: 20px;
     border-radius: 5px;
     gap: 10px;
-    /* width: 500px; */
 }
 
 .form-style section form {
@@ -202,8 +208,12 @@ select {
 
 /* titulo del form */
 .form-style section h2 {
-    margin-bottom: 10px;
+    margin-bottom: 1px;
     text-align: center;
+}
+
+.form-style section h5 {
+    margin-bottom: 15px;
 }
 
 /* form */
@@ -304,14 +314,12 @@ select {
 
 .dashboard {
     background-color: #c2c1c1;
-    /* padding: 20px; */
     border-radius: 5px;
 }
 
 .dashboard h2 {
     text-align: center;
     margin-bottom: 20px;
-    /* text-decoration: underline; */
 }
 
 .div-alta {
@@ -335,14 +343,11 @@ select {
     color: white;
     border-radius: 4px;
     text-decoration: none;
-    /* margin-right: 7.5%; */
 }
 
 .btn-alta:hover {
     background-color: #459a48;
     box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.05);
-    /* transition: transform 0.2s, box-shadow 0.2s; */
-    /* rgb(54, 150, 58) */
 }
 
 /* tabla */
@@ -381,6 +386,7 @@ td {
 
 .td-acciones button {
     flex: 1;
+    border-radius: 3px;
 }
 
 .td-acciones button:hover {
@@ -477,12 +483,6 @@ td {
 }
 
 /* ========================================= MEDIA QUERIES ====================================================== */
-
-/* @media (max-width: 1088px) {
-    .btn-alta {
-        margin-right: 0px;
-    }
-} */
 
 @media (max-width: 850px) {
     header .usuario-info {
