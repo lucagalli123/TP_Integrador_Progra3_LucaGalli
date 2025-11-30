@@ -51,6 +51,7 @@ async function renderProductos(tema) {
 
             // imagen producto
             const img = document.createElement("img");
+            img.classList.add("producto");
             img.src = p.imagen; // VER TEMA DE PUERTO EN .ENV !!!!!
             img.alt = `${p.marca} ${p.modelo}`;
 
@@ -74,14 +75,28 @@ async function renderProductos(tema) {
             const btn = document.createElement("button");
             btn.style.width = "80%";
 
+            // icono basura (eliminar del carrito)
+            const iconoBasura = document.createElement("img");
+            iconoBasura.classList.add("icono-basura");
+            iconoBasura.setAttribute("src", "/img/logo/eliminar-del-carrito.png");
+            // iconoBasura.textContent = "🗑️❌";
+
             // color y texto del boton segun si el producto esta en el carrito o no
             const enCarrito = carrito.some(item => item.id === p.id);
             if (enCarrito) {
-                btn.textContent = "Eliminar del carrito";
-                btn.style.backgroundColor = "grey";
+                iconoBasura.style.display = "block";
+                btn.textContent = "Agregado al carrito";
+
+                //
+                btn.classList.remove("btn-normal");
+                btn.classList.add("btn-agregado");
             } else {
+                iconoBasura.style.display = "none";
                 btn.textContent = "🛒 Agregar al carrito";
-                btn.style.backgroundColor = "#fd7b25";
+
+                //
+                btn.classList.remove("btn-agregado");
+                btn.classList.add("btn-normal");
             }
 
             // listener del boton agregar/eliminar del carrito
@@ -91,21 +106,27 @@ async function renderProductos(tema) {
                 if (index === -1) {
                     // agregar al carrito
                     carrito.push({ ...p, cantidad: 1 });
-                    btn.textContent = "Eliminar del carrito";
-                    btn.style.backgroundColor = "grey";
-                    btn.style.color = "white";
-                } else {
-                    // eliminar del carrito
-                    carrito.splice(index, 1);
-                    btn.textContent = "🛒 Agregar al carrito";
-                    btn.style.backgroundColor = "#fd7b25";
-                    btn.style.color = "white";
+                    iconoBasura.style.display = "block";
+                    btn.textContent = "Agregado al carrito";
+                    btn.classList.remove("btn-normal");
+                    btn.classList.add("btn-agregado");
                 }
 
                 localStorage.setItem("carrito", JSON.stringify(carrito));
             });
 
-            div.append(img, marcaModelo, precio, btn);
+            iconoBasura.addEventListener("click", () => {
+                const index = carrito.findIndex(item => item.id === p.id);
+                // eliminar del carrito
+                carrito.splice(index, 1);
+                localStorage.setItem("carrito", JSON.stringify(carrito));
+                iconoBasura.style.display = "none";
+                btn.textContent = "🛒 Agregar al carrito";
+                btn.classList.remove("btn-agregado");
+                btn.classList.add("btn-normal");
+            });
+
+            div.append(img, marcaModelo, precio, btn, iconoBasura);
             cont.appendChild(div);
         });
 

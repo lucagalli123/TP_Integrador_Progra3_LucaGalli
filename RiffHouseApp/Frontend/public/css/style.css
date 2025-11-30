@@ -275,6 +275,7 @@ main h2 {
 
 /* producto-carta (claro)________________ */
 .producto-carta-claro {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -292,7 +293,7 @@ main h2 {
     box-shadow: 0px 7px 12px rgba(0, 0, 0, 0.6);
 }
 
-.producto-carta-claro img {
+.producto-carta-claro img.producto {
     flex: 1;
     width: 100%;
     height: auto;
@@ -325,8 +326,26 @@ main h2 {
     gap: 4px;
 }
 
+.icono-basura {
+    color: #000000;
+    position: absolute;
+    top: -234px;
+    right: -236px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+
+    transform: scale(0.05);
+    transition: transform 0.2s;
+}
+
+.icono-basura:hover {
+    transform: scale(0.06);
+}
+
 /* producto-carta (oscuro)________________ */
 .producto-carta-oscuro {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -344,7 +363,7 @@ main h2 {
     box-shadow: 0px 7px 12px rgba(246, 159, 71, 0.6);
 }
 
-.producto-carta-oscuro img {
+.producto-carta-oscuro img.producto {
     flex: 1;
     width: 100%;
     height: auto;
@@ -371,7 +390,7 @@ main h2 {
     margin-top: 0.5rem;
     padding: 0.5rem 1rem;
     font-size: 1rem;
-    color: black;
+    color: white;
 }
 
 /*______________ botones categorias ______________*/
@@ -393,6 +412,24 @@ main h2 {
 .categorias button:hover {
     background-color: #000000;
     transform: scale(1.05);
+}
+
+/* botones de agregar-quitar del carrito */
+.btn-agregado {
+    background-color: #787878ff;
+    pointer-events: none;
+}
+
+.btn-agregado:hover {
+    background-color: #787878ff;
+}
+
+.btn-normal {
+    background-color: #fd7b25;
+}
+
+.btn-normal:hover {
+    background-color: #d75702;
 }
 
 /*______________ botones paginacion ______________ */

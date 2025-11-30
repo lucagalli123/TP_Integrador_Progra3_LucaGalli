@@ -80,6 +80,7 @@ function renderCarrito(tema) {
 
             // Imagen
             const img = document.createElement("img");
+            img.classList.add("producto");
             img.src = item.imagen;
             img.alt = item.marca + " " + item.modelo;
 
