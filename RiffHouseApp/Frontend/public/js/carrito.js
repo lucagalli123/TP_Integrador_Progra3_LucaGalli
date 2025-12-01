@@ -1,4 +1,3 @@
-// import { getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./temas.js";
 import { obtenerApiUrl } from "./variablesEntorno.js";
 import { $, getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./utils.js";
 
@@ -70,7 +69,7 @@ function renderCarrito(tema) {
         const contVacio = $("carritoContainerVacio");
         contVacio.innerHTML = "";
         const p = document.createElement("p");
-        p.textContent = "El carrito está vacío.";
+        p.textContent = "El carrito esta vacio.";
         tema === "claro" ? (p.style.color = "black") : (p.style.color = "white");
         contVacio.appendChild(p);
     } else {
@@ -78,7 +77,7 @@ function renderCarrito(tema) {
             const div = document.createElement("div");
             div.classList.add(`producto-carta-${tema}`);
 
-            // Imagen
+            // imagen
             const img = document.createElement("img");
             img.classList.add("producto");
             img.src = item.imagen;

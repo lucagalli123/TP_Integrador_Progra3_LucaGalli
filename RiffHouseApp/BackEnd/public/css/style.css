@@ -79,7 +79,6 @@ header img.logo {
 }
 
 header h1 {
-    /* flex: 1; */
     font-family: "Nosifer", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -153,7 +152,6 @@ footer {
 input {
     border: 1px solid transparent;
     border-bottom-width: 2px;
-    /* padding: 8px; */
     box-sizing: border-box;
 }
 
@@ -161,10 +159,6 @@ input {
     margin-left: -6.5px;
     padding: 5px;
 }
-
-/* input#file-upload-button {
-    background-color: red;
-} */
 
 #inputCategoria {
     padding: 5px;
@@ -216,7 +210,7 @@ select {
     margin-bottom: 15px;
 }
 
-/* form */
+/* _____ form _____ */
 
 /* boton puntual del form */
 .form-style form button {
@@ -350,7 +344,7 @@ select {
     box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* tabla */
+/* _______ tabla ______*/
 
 .tabla-container {
     display: flex;

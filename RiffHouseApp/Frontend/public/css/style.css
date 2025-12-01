@@ -176,13 +176,6 @@ input {
     align-items: center;
 }
 
-/* .p-carrito-vacio {
-    position: "absolute";
-    top: "55%";
-    left: "50%";
-    transform: "translate(-50%, -50%)";
-} */
-
 /* ______________ Footer ______________*/
 footer {
     background-color: #222;
@@ -209,7 +202,6 @@ main h2 {
     animation: vibrar 0.2s ease;
     outline: 1px;
     border: solid 1.5px red;
-    /* border-bottom-color: red; */
     border-radius: 5px;
 }
 
@@ -604,7 +596,6 @@ main h2 {
     margin-bottom: 8px;
     font-size: 15px;
     color: #333;
-    /* font-weight: bold; */
 }
 
 /* tabla ticket productos */
@@ -725,11 +716,6 @@ main h2 {
         margin-bottom: 1.5rem;
     }
 
-    /* header .div-tema-nav {
-        display: flex;
-        flex-direction: row;
-    } */
-
     header .div-selector-tema {
         display: flex;
         align-items: center;
@@ -768,10 +754,6 @@ main h2 {
         text-align: center;
         margin-bottom: 1.5rem;
     }
-
-    /* .div-producto-card {
-        scale: 0.2;
-    } */
 
     .producto-card {
         width: 250px;

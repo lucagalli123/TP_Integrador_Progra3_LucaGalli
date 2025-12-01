@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { Usuario } from "../../models/usuario.js";
 import Response from "../response.js";
+import { JWT_SECRET, JWT_REFRESH_SECRET } from "../../../variablesEntorno.js";
 
 class AuthController {
     static async login(req, res) {
@@ -17,17 +18,17 @@ class AuthController {
             if (!okPass) return res.status(401).send(Response.error("contraseña invalida", null));
 
             // creo el ACCESS TOKEN -> { data, token, opciones (expiracion, algoritmo)}
-            const accessToken = jwt.sign({ id: user.id, nombre: user.nombre, email: user.email }, process.env.JWT_SECRET, { expiresIn: "20s", algorithm: "HS256" });
+            const accessToken = jwt.sign({ id: user.id, nombre: user.nombre, email: user.email }, JWT_SECRET, { expiresIn: "10m", algorithm: "HS256" });
 
             // envio la cookie  con el access token al navegador
             res.cookie("accessToken", accessToken, {
                 httpOnly: true,
                 sameSite: "lax",
-                maxAge: 20 * 1000, // 20 segundos
+                maxAge: 10 * 60 * 1000,
             });
 
             // creo el REFRESH TOKEN -> { data, token, opciones (expiracion, algoritmo)}
-            const refreshToken = jwt.sign({ id: user.id, nombre: user.nombre, email: user.email }, process.env.JWT_REFRESH_SECRET, { expiresIn: "7d", algorithm: "HS256" });
+            const refreshToken = jwt.sign({ id: user.id, nombre: user.nombre, email: user.email }, JWT_REFRESH_SECRET, { expiresIn: "7d", algorithm: "HS256" });
 
             res.cookie("refreshToken", refreshToken, {
                 httpOnly: true,
@@ -48,18 +49,18 @@ class AuthController {
             if (!tokenFromCookie) return res.status(401).send(Response.error("No hay refresh token", null));
 
             // lo decodifica
-            const decoded = jwt.verify(tokenFromCookie, process.env.JWT_REFRESH_SECRET);
+            const decoded = jwt.verify(tokenFromCookie, JWT_REFRESH_SECRET);
 
             // nuevo access token
-            const newAccess = jwt.sign({ id: decoded.id, nombre: decoded.nombre, email: decoded.email }, process.env.JWT_SECRET, {
-                expiresIn: "20s",
+            const newAccess = jwt.sign({ id: decoded.id, nombre: decoded.nombre, email: decoded.email }, JWT_SECRET, {
+                expiresIn: "10m",
             });
 
             // enviamos en cookie
             res.cookie("accessToken", newAccess, {
                 httpOnly: true,
                 sameSite: "lax",
-                maxAge: 20 * 1000,
+                maxAge: 10 * 60 * 1000,
             });
 
             // PRUEBA

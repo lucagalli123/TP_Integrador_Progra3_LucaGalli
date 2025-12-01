@@ -84,7 +84,7 @@ function renderTicket(tema, ticket) {
         const thead = document.createElement("thead");
 
         const encabezadoFila = document.createElement("tr");
-        const columnas = ["Artículo", "Cantidad", "Precio Unitario", "Total"];
+        const columnas = ["Articulo", "Cantidad", "Precio Unitario", "Total"];
         columnas.forEach(col => {
             const th = document.createElement("th");
             th.textContent = col;

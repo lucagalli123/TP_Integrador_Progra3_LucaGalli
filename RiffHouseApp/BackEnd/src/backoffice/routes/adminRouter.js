@@ -28,7 +28,7 @@ router.get("/editar/:id", verificarTokenRender, AdminController.renderEditar);
 
 router.get("/alta", verificarTokenRender, AdminController.renderAlta);
 
-// ========== RUTAS DE CRUD (APIS) ==========
+// ========== RUTAS DE CRUD (API) ==========
 
 router.get("/ventas", verificarTokenApi, AdminController.getVentas);
 

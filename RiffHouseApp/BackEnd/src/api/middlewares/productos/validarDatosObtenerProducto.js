@@ -7,12 +7,12 @@ export function validarDatosObtenerProducto(req, res, next) {
 
     if (!id) {
         console.error("Params 'id' no enviado");
-        return res.status(400).send("Error al obtener producto");
+        return res.status(400).send(ApiResponse.error("Error al obtener producto", null));
     }
 
     if (isNaN(Number(id))) {
         console.error("Params 'id' invalido:", id);
-        return res.status(400).send("Error al obtener producto");
+        return res.status(400).send(ApiResponse.error("Error al obtener producto", null));
     }
 
     next();

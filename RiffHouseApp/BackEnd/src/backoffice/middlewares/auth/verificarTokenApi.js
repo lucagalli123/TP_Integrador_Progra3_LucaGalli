@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { JWT_SECRET } from "../../../../variablesEntorno.js";
 
 export async function verificarTokenApi(req, res, next) {
     // recupero el access token de la req.cookies
@@ -14,7 +15,7 @@ export async function verificarTokenApi(req, res, next) {
         //   iat: 1764357635,  // issued at (timestamp)
         //   exp: 1764357655   // expiration (timestamp)
         // }
-        const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
+        const decoded = jwt.verify(accessToken, JWT_SECRET);
         req.user = decoded;
         next();
     } catch (err) {

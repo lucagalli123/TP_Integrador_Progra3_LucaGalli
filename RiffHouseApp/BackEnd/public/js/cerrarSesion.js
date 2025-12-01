@@ -11,6 +11,6 @@ $("btnCerrarSesion").addEventListener("click", async () => {
 
         window.location.href = "/admin/login";
     } catch (error) {
-        console.error("Error al cerrar sesión", error);
+        console.error("Error al cerrar sesion", error);
     }
 });

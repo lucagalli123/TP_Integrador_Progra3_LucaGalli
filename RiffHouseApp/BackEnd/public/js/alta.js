@@ -100,7 +100,6 @@ form.addEventListener("submit", async e => {
         if (!response.ok) {
             alert(`ERROR ${response.status}\n${result.message}`);
         } else {
-            // VER DE CREAR UNA FUNCION PARA ABRIR MODALES !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             const modal = $("modalProductoCreado");
             const modalTitulo = $("modalTitulo");
             const btnClose = $("cerrarModal");

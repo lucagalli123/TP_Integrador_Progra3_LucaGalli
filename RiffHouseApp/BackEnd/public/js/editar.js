@@ -103,7 +103,6 @@ if (PRODUCT_ID !== null && PRODUCT_ID !== undefined) {
             if (!response.ok) {
                 alert(`ERROR ${response.status}\n${result.message}`);
             } else {
-                // VER DE CREAR UNA FUNCION PARA ABRIR MODALES !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 const modal = $("modalProductoActualizado");
                 const modalTitulo = $("modalTitulo");
                 const btnClose = $("cerrarModal");

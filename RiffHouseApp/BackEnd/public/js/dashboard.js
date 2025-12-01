@@ -31,7 +31,7 @@ async function cambiarEstadoProducto(id, accion) {
 
 // ============== LISTENERS ==============
 
-// evento de los botones activar (VER VALIDACIONES)
+// evento de los botones activar
 btnActivar.forEach(btn => {
     btn.addEventListener("click", () => {
         const modal = $("modalConfirmar");

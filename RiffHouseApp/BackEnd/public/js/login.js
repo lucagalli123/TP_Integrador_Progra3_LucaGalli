@@ -1,6 +1,5 @@
 import { obtenerUrlFront } from "./variablesEtorno.js";
 import { $, limpiarError, listenersInputsLimpiarErrores, listenersInputsBlur, listenersInputsFocus, marcarError } from "./utils.js";
-// import { obtenerUrlFront } from "./variablesEtorno.js";
 
 // ============== DOM elementos ==============
 

@@ -16,7 +16,7 @@ class AdminController {
         });
     }
 
-    // render dashboard (TERMINAR BIEN EL ERROR) !!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // render dashboard (TERMINAR BIEN EL ERROR) !!!!!!!!!!!!!!!!!!!!!!!!!!! (con un render)
     static async renderDashboard(req, res) {
         try {
             const { nombre } = req.user;
@@ -71,7 +71,7 @@ class AdminController {
         }
     }
 
-    // render alta (TERMINAR EL ERROR) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // render alta (TERMINAR EL ERROR) !!!!!!!!!!!!!!!!!!!!!!!!!!!!! (con un render)
     static async renderAlta(req, res) {
         try {
             const { nombre } = req.user;
@@ -81,7 +81,7 @@ class AdminController {
             });
         } catch (error) {
             console.error(error);
-            return res.status(500).send({ error: "Error al cargar la pagina" });
+            return res.status(500).send(Response.error("Error al cargar la pagina", error));
         }
     }
 
