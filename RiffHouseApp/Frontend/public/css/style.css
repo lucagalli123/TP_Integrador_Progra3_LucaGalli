@@ -21,10 +21,18 @@ body {
     flex-direction: column;
 }
 
+main.claro .linea {
+    background-color: #bdbdbd;
+}
+
+main.oscuro .linea {
+    background-color: #373737;
+}
+
 .linea {
     flex: 1;
     height: 2px;
-    background-color: #636363;
+    /* background-color: #373737; */
 }
 
 /*______________ Header ______________*/
@@ -48,6 +56,7 @@ header {
 }
 
 .header-oscuro select {
+    background-color: black;
     color: white;
 }
 
@@ -71,10 +80,6 @@ header {
 
 .header-claro .div-selector-tema {
     color: black;
-}
-
-.header-claro h1 {
-    /* -webkit-text-stroke: 0.5px black; */
 }
 
 /* --- */
@@ -471,13 +476,13 @@ main.oscuro .paginacion button {
 
 main.claro .categorias button:hover,
 main.claro .paginacion button:hover {
-    background-color: rgba(93, 93, 93, 0.5);
+    background-color: rgba(116, 116, 116, 0.5);
     transform: scale(1.05);
 }
 
 main.oscuro .categorias button:hover,
 main.oscuro .paginacion button:hover {
-    background-color: rgba(107, 107, 107, 0.4);
+    background-color: rgba(136, 136, 136, 0.4);
     transform: scale(1.05);
 }
 
@@ -530,6 +535,7 @@ main.oscuro .paginacion button:hover {
 /* ============================ PAGINA CARRITO ============================ */
 
 .detalle-total {
+    border: solid 1px rgb(76, 76, 76);
     font-size: 1.2rem;
     font-weight: bold;
     margin-top: 1rem;
@@ -733,6 +739,7 @@ main.claro .producto-card:hover {
 
 #btnPantallaAdmin {
     background-color: #fd7b25;
+    /* background-color: rgb(246, 115, 33, 0.8); */
     width: 350px;
     scale: 0.7;
     margin-top: 100px;

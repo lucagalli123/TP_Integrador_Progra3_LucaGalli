@@ -155,7 +155,7 @@ function cargarPagina(tema) {
             cargarPagina(nuevoTema);
         });
     }
-    tema === "claro" ? ($("detalleTotal").style.backgroundColor = "#fff") : ($("detalleTotal").style.backgroundColor = "#222");
+    tema === "claro" ? ($("detalleTotal").style.backgroundColor = "#ffffffff") : ($("detalleTotal").style.backgroundColor = "#222");
     tema === "claro" ? ($("totalCompra").style.color = "#222") : ($("totalCompra").style.color = "#fff");
 }
 
