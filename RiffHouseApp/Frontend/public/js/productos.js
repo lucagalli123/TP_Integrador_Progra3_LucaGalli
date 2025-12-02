@@ -1,4 +1,4 @@
-import { $, getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./utils.js";
+import { $, getTema, setTema, cambiarTemaMain, cambiarTemaTitulo, cambiarTemaHeader, cambiarTemaFooter } from "./utils.js";
 import { obtenerApiUrl } from "./variablesEntorno.js";
 
 // =============================== VARIABLES ===============================
@@ -153,6 +153,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const temaGuardado = getTema() || "claro";
     cambiarTemaMain(temaGuardado);
+    cambiarTemaHeader(temaGuardado);
+    cambiarTemaFooter(temaGuardado);
     await renderProductos(temaGuardado);
 
     // listener de cambio de tema
@@ -163,6 +165,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             const nuevoTema = temaSelect.value;
             setTema(nuevoTema);
             cambiarTemaMain(nuevoTema);
+            cambiarTemaHeader(nuevoTema);
+            cambiarTemaFooter(nuevoTema);
             await renderProductos(nuevoTema);
         });
     }

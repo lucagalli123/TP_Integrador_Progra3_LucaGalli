@@ -1,5 +1,5 @@
 import { obtenerApiUrl } from "./variablesEntorno.js";
-import { $, getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./utils.js";
+import { $, getTema, setTema, cambiarTemaMain, cambiarTemaTitulo, cambiarTemaHeader, cambiarTemaFooter } from "./utils.js";
 
 let carrito = [];
 let API_URL = "";
@@ -10,7 +10,7 @@ let API_URL = "";
 function cargarCarrito() {
     try {
         const data = JSON.parse(localStorage.getItem("carrito"));
-        return data;
+        return data || [];
     } catch {
         return [];
     }
@@ -141,8 +141,10 @@ function renderCarrito(tema) {
 
 // aplicar tema
 function cargarPagina(tema) {
+    cambiarTemaHeader(tema);
     cambiarTemaMain(tema);
     cambiarTemaTitulo(tema);
+    cambiarTemaFooter(tema);
     renderCarrito(tema);
     const temaSelect = $("temaSelect");
     if (temaSelect) {

@@ -33,3 +33,17 @@ export function cambiarTemaTitulo(tema) {
     if (!titulo) return;
     titulo.style.color = tema === "oscuro" ? "white" : "black";
 }
+
+export function cambiarTemaHeader(tema) {
+    const header = $("header");
+    if (!header) return;
+    header.classList.toggle("header-oscuro", tema === "oscuro");
+    header.classList.toggle("header-claro", tema === "claro");
+}
+
+export function cambiarTemaFooter(tema) {
+    const footer = $("footer");
+    if (!footer) return;
+    footer.classList.toggle("footer-oscuro", tema === "oscuro");
+    footer.classList.toggle("footer-claro", tema === "claro");
+}

@@ -23,13 +23,13 @@ body {
 
 .linea {
     flex: 1;
-    height: 5px;
-    background-color: #cacaca;
+    height: 2px;
+    background-color: #636363;
 }
 
 /*______________ Header ______________*/
 header {
-    background-color: #222;
+    /* background-color: #a1a1a1; */
     color: #fff;
     padding: 1rem;
     display: flex;
@@ -37,6 +37,47 @@ header {
     justify-content: flex-start;
 }
 
+/* _____ temas _____  */
+/* oscuro */
+.header-oscuro {
+    background: linear-gradient(to top, #2f2f2f 1%, #272626 2%, #151515 3%, #000000 90%);
+}
+
+.header-oscuro nav a {
+    color: rgb(255, 255, 255);
+}
+
+.header-oscuro select {
+    color: white;
+}
+
+/* claro */
+.header-claro {
+    background: linear-gradient(to top, #aeaeae 1%, #c9c8c8 2%, #e6e6e6 3%, #ffffff 90%);
+    /* background-color: white; */
+}
+
+.header-claro nav a {
+    color: black;
+}
+
+.header-claro .div-tema-nav {
+    color: black;
+}
+
+.header-claro select {
+    background-color: white;
+}
+
+.header-claro .div-selector-tema {
+    color: black;
+}
+
+.header-claro h1 {
+    /* -webkit-text-stroke: 0.5px black; */
+}
+
+/* --- */
 .div-logo-riffhouse {
     display: flex;
     flex-direction: row;
@@ -85,7 +126,7 @@ header select {
     width: auto;
     border: none;
     background-color: #302f2f;
-    color: white;
+    /* color: white; */
     cursor: pointer;
 }
 
@@ -107,7 +148,7 @@ nav {
 nav a {
     margin-left: 20px;
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.888);
+    /* color: rgba(255, 255, 255, 0.888); */
     font-family: "Rubik Wet Paint", system-ui;
     font-weight: 400;
     font-style: normal;
@@ -119,7 +160,9 @@ nav a:hover {
 
 /* ______________ Main (Claro) ______________*/
 main.claro {
-    background-color: #dfdfdf;
+    background-image: url("../img/logo/pared-de-ladrillo-blanca.jpg");
+    background-size: cover;
+    /* background-color: #dfdfdf; */
     width: 100%;
     flex: 1;
     padding: 1rem;
@@ -132,7 +175,8 @@ main.claro {
 
 /* ______________ Main (Oscuro) ______________*/
 main.oscuro {
-    background-color: #3a3a3a;
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("../img/logo/fondo-ladrillos-negros.jpg");
+    background-size: cover;
     width: 100%;
     flex: 1;
     padding: 1rem;
@@ -178,10 +222,20 @@ input {
 
 /* ______________ Footer ______________*/
 footer {
-    background-color: #222;
     color: #fff;
     text-align: center;
     padding: 1rem;
+}
+.footer-oscuro {
+    background: linear-gradient(to bottom, #2f2f2f 2%, #272626 3%, #151515 4%, #000000 90%);
+}
+
+.footer-claro {
+    background: linear-gradient(to bottom, #aeaeae 2%, #c9c8c8 3%, #e6e6e6 4%, #ffffff 90%);
+}
+
+.footer-claro p {
+    color: black;
 }
 
 /* ============================ PAG INDEX ============================ */
@@ -267,12 +321,13 @@ main h2 {
 
 /* producto-carta (claro)________________ */
 .producto-carta-claro {
+    border: solid 0.5px rgb(155, 155, 155);
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background: linear-gradient(to top, #eddab9, #ffffff);
+    background: radial-gradient(ellipse at center 20%, rgba(98, 95, 92, 0.6) 0%, rgba(204, 201, 200, 0.7) 40%, rgba(255, 255, 255, 0.8) 70%);
     border-radius: 10px;
     padding: 1rem;
     text-align: center;
@@ -337,12 +392,13 @@ main h2 {
 
 /* producto-carta (oscuro)________________ */
 .producto-carta-oscuro {
+    border: solid 0.5px rgb(49, 49, 49);
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background: linear-gradient(to top, #000000, #6e6e6e);
+    background: radial-gradient(ellipse at center 20%, rgba(90, 0, 0, 0.8) 0%, rgba(40, 0, 0, 0.7) 30%, rgba(0, 0, 0, 0.9) 70%);
     border-radius: 10px;
     padding: 1rem;
     text-align: center;
@@ -398,13 +454,37 @@ main h2 {
 
 .categorias button {
     width: 120px;
-    background-color: #5f5f5f;
+    /* background-color: rgb(87, 87, 87, 0.75); */
 }
 
-.categorias button:hover {
-    background-color: #000000;
+main.claro .categorias button,
+main.claro .paginacion button {
+    background-color: rgba(147, 147, 147, 0.5);
+    color: black;
+}
+
+main.oscuro .categorias button,
+main.oscuro .paginacion button {
+    background-color: rgb(87, 87, 87, 0.4);
+    color: white;
+}
+
+main.claro .categorias button:hover,
+main.claro .paginacion button:hover {
+    background-color: rgba(93, 93, 93, 0.5);
     transform: scale(1.05);
 }
+
+main.oscuro .categorias button:hover,
+main.oscuro .paginacion button:hover {
+    background-color: rgba(107, 107, 107, 0.4);
+    transform: scale(1.05);
+}
+
+/* .categorias button:hover {
+    background-color: #000000;
+    transform: scale(1.05);
+} */
 
 /* botones de agregar-quitar del carrito */
 .btn-agregado {
@@ -436,8 +516,9 @@ main h2 {
 }
 
 .paginacion button {
-    background-color: #5f5f5f;
+    background-color: rgb(87, 87, 87, 0.75);
     padding: 0.5rem 1rem;
+    width: 100px;
 }
 
 .paginacion button:hover {
@@ -570,13 +651,22 @@ main h2 {
 
 /* ============================ PAGINA TICKET  ============================ */
 
+main.oscuro .producto-card:hover {
+    /* box-shadow: 0 2px 4px rgba(234, 160, 75, 0.1); */
+    box-shadow: 0px 7px 12px rgba(246, 159, 71, 0.6);
+}
+
+main.claro .producto-card:hover {
+    box-shadow: 0px 7px 12px rgba(0, 0, 0, 0.6);
+}
+
 .producto-card {
     background-color: #f8f8f8;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 15px;
     margin: 10px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     overflow-x: auto;
 }
@@ -642,14 +732,14 @@ main h2 {
 /* ____________ boton ingresar como admin __________ */
 
 #btnPantallaAdmin {
-    background-color: #222;
+    background-color: #fd7b25;
     width: 350px;
     scale: 0.7;
     margin-top: 100px;
 }
 
 #btnPantallaAdmin:hover {
-    background-color: #000000;
+    background-color: #d75702;
 }
 
 /* ================================================================= */

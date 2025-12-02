@@ -1,5 +1,5 @@
 import { obtenerApiUrl } from "./variablesEntorno.js";
-import { $, getTema, setTema, cambiarTemaMain, cambiarTemaTitulo } from "./utils.js";
+import { $, getTema, setTema, cambiarTemaMain, cambiarTemaTitulo, cambiarTemaHeader, cambiarTemaFooter } from "./utils.js";
 
 // obtengo la venta del localStorage
 let idVenta = JSON.parse(localStorage.getItem("idVenta"));
@@ -152,8 +152,10 @@ function renderTicket(tema, ticket) {
 // recibe: el tema (claro/oscuro) y el ticket descargado de la api
 function cargarPagina(tema, ticket) {
     cambiarTemaMain(tema);
-    renderTicket(tema, ticket);
+    cambiarTemaHeader(tema);
     cambiarTemaTitulo(tema);
+    cambiarTemaFooter(tema);
+    renderTicket(tema, ticket);
     const temaSelect = $("temaSelect");
     if (temaSelect) {
         temaSelect.value = tema;

@@ -1,12 +1,14 @@
-import { $, getTema, setTema, cambiarTemaMain, cambiarTemaTitulo, marcarError, limpiarError } from "./utils.js";
+import { $, getTema, setTema, cambiarTemaHeader, cambiarTemaMain, cambiarTemaTitulo, marcarError, limpiarError, cambiarTemaFooter } from "./utils.js";
 import { obtenerApiUrl } from "./variablesEntorno.js";
 
 // =============================== FUNCIONES ===============================
 
 // aplicar cambio de tema general
 function cargarPagina(tema) {
+    cambiarTemaHeader(tema);
     cambiarTemaMain(tema);
     cambiarTemaTitulo(tema);
+    cambiarTemaFooter(tema);
     const temaSelect = $("temaSelect");
     if (temaSelect) {
         temaSelect.value = tema;
