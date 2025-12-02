@@ -252,11 +252,32 @@ main h2 {
     max-width: 400px;
 }
 
+main.oscuro .inputNombreClienteNormal {
+    background-color: rgb(115, 114, 114, 0.2);
+    border: solid 1.5px rgb(59, 59, 59);
+    color: white;
+}
+
+main.claro .inputNombreClienteNormal {
+    background-color: rgb(215, 214, 214, 0.5);
+    border: solid 1.5px rgb(159, 159, 159);
+}
+
 .inputNombreClienteNormal {
     max-width: 300px;
 }
 
-.inputNombreClienteError {
+main.oscuro .inputNombreClienteError {
+    background-color: rgb(115, 114, 114, 0.2);
+    max-width: 300px;
+    animation: vibrar 0.2s ease;
+    outline: 1px;
+    border: solid 1.5px red;
+    border-radius: 5px;
+}
+
+main.claro .inputNombreClienteError {
+    background-color: rgb(215, 214, 214, 0.5);
     max-width: 300px;
     animation: vibrar 0.2s ease;
     outline: 1px;
