@@ -285,6 +285,19 @@ main.claro .inputNombreClienteError {
     border-radius: 5px;
 }
 
+.vibrar-palabra {
+    color: red;
+    max-width: 300px;
+    animation: vibrar 0.2s ease;
+    outline: 1px;
+
+    border-radius: 5px;
+}
+
+.no-vibrar-palabra {
+    color: black;
+}
+
 /* animacion */
 @keyframes vibrar {
     0% {

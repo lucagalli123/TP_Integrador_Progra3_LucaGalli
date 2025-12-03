@@ -1,5 +1,5 @@
 import { obtenerApiUrl } from "./variablesEntorno.js";
-import { $, getTema, setTema, cambiarTemaMain, cambiarTemaTitulo, cambiarTemaHeader, cambiarTemaFooter } from "./utils.js";
+import { $, getTema, setTema, cambiarTemaMain, cambiarTemaTitulo, cambiarTemaHeader, cambiarTemaFooter, marcarError, limpiarError } from "./utils.js";
 
 let carrito = [];
 let API_URL = "";
@@ -69,6 +69,7 @@ function renderCarrito(tema) {
         const contVacio = $("carritoContainerVacio");
         contVacio.innerHTML = "";
         const p = document.createElement("p");
+        p.setAttribute("id", "carritoVacioTexto");
         p.textContent = "El carrito esta vacio.";
         tema === "claro" ? (p.style.color = "black") : (p.style.color = "white");
         contVacio.appendChild(p);
@@ -180,7 +181,10 @@ function eliminarProducto(index) {
 
 $("btnFinalizar").addEventListener("click", () => {
     if (carrito.length === 0) {
-        alert("El carrito esta vacio.");
+        marcarError($("carritoVacioTexto"), "vibrar-palabra");
+        setTimeout(() => {
+            limpiarError($("carritoVacioTexto"), "no-vibrar-palabra");
+        }, 500);
         return;
     }
 
