@@ -43,8 +43,8 @@ button:hover {
 
 /* header general */
 header {
-    /* background-color: #393939; */
-    /* color: #fff; */
+    background-image: url("../img/logo/textura-de-la-pared-del-grunge.jpg");
+    background-size: cover;
     padding: 1rem;
     display: flex;
     align-items: center;
@@ -144,6 +144,10 @@ header div h2 {
     justify-content: space-between;
     gap: 10px;
 }
+.header-login select {
+    margin-right: 20px;
+}
+
 #headerLogin.oscuro {
     background-color: black;
 }
@@ -171,14 +175,12 @@ header div h2 {
 
 /* ______________ Main ______________*/
 main {
-    background-color: #b9b9b9;
+    background-color: rgb(196, 196, 196);
     width: 100%;
     flex: 1;
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    /* justify-content: center;
-    align-items: center; */
     justify-content: flex-start;
     align-items: stretch;
 }
@@ -242,7 +244,7 @@ select.claro {
 } */
 
 .form-style section {
-    /* background-color: rgb(222, 217, 217); */
+    background-color: rgb(216, 216, 216);
     display: flex;
     flex-direction: column;
     justify-content: center;

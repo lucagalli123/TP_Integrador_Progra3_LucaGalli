@@ -14,3 +14,9 @@ $("btnCerrarSesion").addEventListener("click", async () => {
         console.error("Error al cerrar sesion", error);
     }
 });
+
+$("usuarioMenu").addEventListener("mouseleave", () => {
+    setTimeout(() => {
+        $("usuarioMenu").classList.add("oculto");
+    }, 300);
+});
