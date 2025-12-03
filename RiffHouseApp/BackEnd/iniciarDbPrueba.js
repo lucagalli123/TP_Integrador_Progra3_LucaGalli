@@ -22,11 +22,10 @@ export const iniciarDB = async () => {
 
     // ===================== CREAR PRODUCTOS =====================
 
-    // DESPUES VER SI LOS CARGO CON FETCH O ASI HARDCODEADO SIN VALIDACIONES !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     const productos = await Producto.bulkCreate([
         { marca: "Dean", modelo: "RazorBack", categoria: "Guitarras", precio: 1200.0, activo: true, imagen: `${URL}/uploads/guitarras/Guitar-Dean-RazorBack.avif` },
         { marca: "Dean", modelo: "Usa Flat", categoria: "Guitarras", precio: 1500.0, activo: true, imagen: `${URL}/uploads/guitarras/Guitar-Dean-UsaFlat.avif` },
-        { marca: "Fender", modelo: "Classic Jaguar", categoria: "Guitarras", precio: 1100.0, activo: true, imagen: `${URL}/uploads/guitarras/Guitar-Fender-ClassicJaguar.avif` }, // RiffHouseApp\BackEnd\public\uploads\guitarras\Guitar-Fender-ClassicJaguar.avif
+        { marca: "Fender", modelo: "Classic Jaguar", categoria: "Guitarras", precio: 1100.0, activo: true, imagen: `${URL}/uploads/guitarras/Guitar-Fender-ClassicJaguar.avif` },
         {
             marca: "Fender",
             modelo: "Classic Stratocaster",

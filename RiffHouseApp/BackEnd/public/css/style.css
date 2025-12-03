@@ -120,6 +120,15 @@ header div h2 {
     margin-top: 11px;
 }
 
+#headerLogin.oscuro {
+    background-color: black;
+    display: flex;
+}
+
+#headerLogin.claro {
+    background-color: white;
+    color: black;
+}
 /* header del login */
 .header-login {
     display: flex;
@@ -136,15 +145,6 @@ header div h2 {
     margin-right: 20px;
 }
 
-#headerLogin.oscuro {
-    background-color: black;
-}
-
-#headerLogin.claro {
-    background-color: white;
-    color: black;
-}
-
 .div-logos {
     display: flex;
     flex-direction: row;
@@ -154,26 +154,6 @@ header div h2 {
     flex-direction: row;
     gap: 5px;
     /* flex: 1; */
-}
-
-/* ______________ Main ______________*/
-main {
-    background-color: rgb(226, 226, 226);
-    width: 100%;
-    flex: 1;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-}
-
-/* ______________ Footer ______________*/
-footer {
-    /* background-color: #454545; */
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
 }
 
 .footer-oscuro {
@@ -190,173 +170,12 @@ footer {
     color: black;
 }
 
-/* ======================================== FORMULARIOS GENERALES =============================================== */
-
-#form div {
-    width: 100%;
-}
-
-input {
-    border: 1px solid transparent;
-    border-bottom-width: 2px;
-    box-sizing: border-box;
-}
-
-#inputImagen {
-    margin-left: -6.5px;
-    padding: 5px;
-}
-
-#inputCategoria {
-    padding: 5px;
-    border: none;
-}
-
-select {
-    cursor: pointer;
-}
-
-.form-style section {
-    /* background-color: rgb(216, 216, 216); */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    border-radius: 5px;
-    gap: 10px;
-}
-
-.form-style section.oscuro {
-    background-color: rgb(154, 154, 154);
-}
-
-.form-style section.claro {
-    background-color: rgb(222, 217, 217);
-}
-
-.form-style section form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    justify-content: center;
-    align-items: stretch;
-    width: 400px;
-}
-
-/* botones generales del form */
-.form-style section button {
-    width: 100px;
-}
-
-/* botones generales del form (hover) */
-.form-style section button:hover {
-    width: 100px;
-    background-color: rgb(173, 173, 173);
-}
-
-/* titulo del form */
-.form-style section h2 {
-    margin-bottom: 1px;
-    text-align: center;
-}
-
-.form-style section h5 {
-    margin-bottom: 15px;
-}
-
-/* _____ form _____ */
-
-/* boton puntual del form */
-.form-style form button {
-    margin-top: 15px;
-    text-decoration: solid;
-}
-
-.form-style form label {
-    font-weight: 500;
-}
-
-/* inputs del form */
-.form-style form input {
-    padding: 5px;
-}
-
-/* divs del form */
-.form-style form div {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.9rem;
-    gap: 4px;
-}
-
-/* inputs con error */
-
-.input-normal {
-    border-bottom-color: transparent;
-    outline: none;
-}
-
-.input-error {
-    animation: vibrar 0.2s ease;
-    outline: 1px;
-    border-bottom-color: red;
-    border-radius: 5px;
-}
-
-/* estado FOCUS */
-.input-focus {
-    border-bottom-color: black;
-}
-
-/* estado BLUR */
-.input-blur {
-    border-bottom-color: transparent;
-}
-
-/* animacion */
-@keyframes vibrar {
-    0% {
-        transform: translateX(0);
-    }
-    25% {
-        transform: translateX(-4px);
-    }
-    50% {
-        transform: translateX(4px);
-    }
-    75% {
-        transform: translateX(-4px);
-    }
-    100% {
-        transform: translateX(0);
-    }
-}
-
-/* error oculto */
-
-.oculto {
-    visibility: hidden;
-}
-
-.visible {
-    visibility: visible;
-}
-
-.errorEstilo {
-    color: red;
-    font-size: 8px;
-}
 /* ================================== login ==================================== */
 
 #btnIngresarComoCliente {
     margin-top: 50px;
     width: 238px;
     background-color: #d2d2d2;
-}
-
-.form-style-login section form {
-    width: 250px;
 }
 
 #loginMain.claro {
@@ -393,7 +212,11 @@ select {
     color: white;
     border: solid 1px grey;
 }
+
 /*  */
+.form-style-login section form {
+    width: 250px;
+}
 
 /* ================================== dashboard ==================================== */
 
@@ -437,6 +260,7 @@ select {
 
 .btn-alta {
     padding: 10px 15px;
+
     background-color: #4caf50;
     color: white;
     border-radius: 4px;
@@ -708,6 +532,183 @@ td {
     background-color: rgb(35, 35, 35);
     color: white;
     border: solid 1px grey;
+}
+/* ======================================== FORMULARIOS GENERALES =============================================== */
+
+#form div {
+    width: 100%;
+}
+
+input {
+    border: 1px solid transparent;
+    border-bottom-width: 2px;
+    box-sizing: border-box;
+}
+
+#inputImagen {
+    margin-left: -6.5px;
+    padding: 5px;
+}
+
+#inputCategoria {
+    padding: 5px;
+    border: none;
+}
+
+select {
+    cursor: pointer;
+}
+
+.form-style section {
+    /* background-color: rgb(216, 216, 216); */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 5px;
+    gap: 10px;
+}
+
+.form-style section.oscuro {
+    background-color: rgb(154, 154, 154);
+}
+
+.form-style section.claro {
+    background-color: rgb(222, 217, 217);
+}
+
+.form-style section form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    justify-content: center;
+    align-items: stretch;
+    width: 400px;
+}
+
+/* botones generales del form */
+.form-style section button {
+    width: 100px;
+}
+
+/* botones generales del form (hover) */
+.form-style section button:hover {
+    width: 100px;
+    background-color: rgb(173, 173, 173);
+}
+
+/* titulo del form */
+.form-style section h2 {
+    margin-bottom: 1px;
+    text-align: center;
+}
+
+.form-style section h5 {
+    margin-bottom: 15px;
+}
+
+/* _____ form _____ */
+
+/* boton puntual del form */
+.form-style form button {
+    margin-top: 15px;
+    text-decoration: solid;
+}
+
+.form-style form label {
+    font-weight: 500;
+}
+
+/* inputs del form */
+.form-style form input {
+    padding: 5px;
+}
+
+/* divs del form */
+.form-style form div {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    gap: 4px;
+}
+
+/* inputs con error */
+
+.input-normal {
+    border-bottom-color: transparent;
+    outline: none;
+}
+
+.input-error {
+    animation: vibrar 0.2s ease;
+    outline: 1px;
+    border-bottom-color: red;
+    border-radius: 5px;
+}
+
+/* estado FOCUS */
+.input-focus {
+    border-bottom-color: black;
+}
+
+/* estado BLUR */
+.input-blur {
+    border-bottom-color: transparent;
+}
+
+/* animacion */
+@keyframes vibrar {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-4px);
+    }
+    50% {
+        transform: translateX(4px);
+    }
+    75% {
+        transform: translateX(-4px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* error oculto */
+
+.oculto {
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.errorEstilo {
+    color: red;
+    font-size: 8px;
+}
+
+/* ______________ Main ______________*/
+main {
+    /* background-color: rgb(226, 226, 226); */
+    width: 100%;
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+/* ______________ Footer ______________*/
+footer {
+    /* background-color: #454545; */
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
 }
 /* ========================================= MEDIA QUERIES ====================================================== */
 

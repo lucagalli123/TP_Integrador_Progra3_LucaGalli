@@ -36,7 +36,9 @@ async function renderProductos(tema) {
             tema === "claro" ? (textError.style.color = "black") : (textError.style.color = "white");
             textError.style.textAlign = "center";
             textError.textContent = "No hay productos disponibles. Intente mas tarde";
+            cont.style.display = "flex";
             cont.appendChild(textError);
+            $("main").style.justifyContent = "space-between";
             return;
         }
 
