@@ -12,7 +12,7 @@ body {
 }
 
 body {
-    background-color: #f7f7f7;
+    /* background-color: #f7f7f7; */
     color: #333;
     display: flex;
     flex-direction: column;
@@ -29,8 +29,13 @@ button:focus {
     padding: 2px;
 }
 
+button {
+    background-color: rgb(207, 207, 207);
+}
+
 button:hover {
     cursor: pointer;
+    background-color: rgb(103, 100, 100);
     /* outline: none; */
 }
 
@@ -38,13 +43,35 @@ button:hover {
 
 /* header general */
 header {
-    background-color: #393939;
-    color: #fff;
+    /* background-color: #393939; */
+    /* color: #fff; */
     padding: 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
+}
+
+#divTemaUsuario {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-right: 20px;
+}
+
+.header-oscuro {
+    background-image: url("../img/logo/fondo-de-textura-grunge-oscuro-con-aranazos-y-manchas.jpg");
+    background-size: cover;
+    /* background-color: black; */
+    color: white;
+}
+
+.header-claro {
+    /* background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("../img/logo/fondo-blanco-header.jpg"); */
+    background-image: url("../img/logo/textura-de-la-pared-del-grunge.jpg");
+    background-size: cover;
+    /* background-color: white; */
+    color: black;
 }
 
 header .div-logo {
@@ -95,7 +122,7 @@ header div h2 {
     margin-top: 11px;
 }
 
-#btnCerrarSesion {
+/* #btnCerrarSesion {
     background-color: rgb(255, 255, 255);
     padding: 3px 8px;
     border-radius: 5px;
@@ -103,23 +130,44 @@ header div h2 {
 
 #btnCerrarSesion:hover {
     background-color: rgb(255, 107, 107);
-}
+} */
 
 /* header del login */
 .header-login {
-    background-color: #393939;
-    color: #fff;
+    display: flex;
+    flex-direction: row;
+    /* background-color: #393939; */
+    /* color: #fff; */
     padding: 1rem;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 10px;
 }
+#headerLogin.oscuro {
+    background-color: black;
+}
 
-header .div-logo-login {
+#headerLogin.claro {
+    background-color: white;
+    color: black;
+}
+
+.div-logos {
+    display: flex;
+    flex-direction: row;
+}
+.div-selector-tema {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    /* flex: 1; */
+}
+
+/* header .div-logo-login {
     display: flex;
     justify-content: center;
-}
+} */
 
 /* ______________ Main ______________*/
 main {
@@ -137,10 +185,24 @@ main {
 
 /* ______________ Footer ______________*/
 footer {
-    background-color: #454545;
+    /* background-color: #454545; */
     color: #fff;
     text-align: center;
     padding: 1rem;
+}
+
+.footer-oscuro {
+    background-image: url("../img/logo/fondo-de-textura-grunge-oscuro-con-aranazos-y-manchas.jpg");
+    background-size: cover;
+    /* background-color: black; */
+    color: white;
+}
+
+.footer-claro {
+    background-image: url("../img/logo/textura-de-la-pared-del-grunge.jpg");
+    background-size: cover;
+    /* background-color: white; */
+    color: black;
 }
 
 /* ======================================== FORMULARIOS GENERALES =============================================== */
@@ -169,8 +231,18 @@ select {
     cursor: pointer;
 }
 
+/* select.oscuro {
+    background-color: rgb(0, 0, 0, 0.1);
+    color: white;
+}
+
+select.claro {
+    background-color: rgba(254, 254, 254, 0.1);
+    color: black;
+} */
+
 .form-style section {
-    background-color: rgb(222, 217, 217);
+    /* background-color: rgb(222, 217, 217); */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -178,6 +250,14 @@ select {
     padding: 20px;
     border-radius: 5px;
     gap: 10px;
+}
+
+.form-style section.oscuro {
+    background-color: rgb(154, 154, 154);
+}
+
+.form-style section.claro {
+    background-color: rgb(222, 217, 217);
 }
 
 .form-style section form {
@@ -197,7 +277,7 @@ select {
 /* botones generales del form (hover) */
 .form-style section button:hover {
     width: 100px;
-    background-color: rgb(214, 214, 214);
+    background-color: rgb(173, 173, 173);
 }
 
 /* titulo del form */
@@ -304,10 +384,59 @@ select {
     width: 250px;
 }
 
+#loginMain.claro {
+    background-color: rgb(196, 196, 196);
+}
+
+#loginMain.claro section {
+    background-color: rgb(218, 218, 218);
+}
+
+#loginMain.oscuro {
+    background-color: rgb(0, 0, 0);
+}
+
+#loginMain.oscuro section {
+    background-color: rgb(35, 35, 35);
+    color: white;
+}
+
+#loginMain.oscuro p {
+    /* background-color: rgb(35, 35, 35); */
+    color: rgb(255, 93, 93);
+}
+
+#loginMain.oscuro section form input {
+    background-color: rgb(35, 35, 35);
+    color: white;
+    border: solid 1px grey;
+    border-radius: 3px;
+}
+
+#loginMain.oscuro section form select {
+    background-color: rgb(35, 35, 35);
+    color: white;
+    border: solid 1px grey;
+}
+/*  */
+
 /* ================================== dashboard ==================================== */
 
+.dashboard.claro {
+    border-top: solid 2px black;
+    border-bottom: solid 2px black;
+    background-color: rgb(216, 216, 216);
+}
+
+.dashboard.oscuro {
+    border-top: solid 2px black;
+    border-bottom: solid 2px black;
+    background-color: rgb(42, 42, 42);
+    border-radius: 0%;
+}
+
 .dashboard {
-    background-color: #c2c1c1;
+    /* background-color: #c2c1c1; */
     border-radius: 5px;
 }
 
@@ -363,6 +492,77 @@ select {
     min-width: 500px;
     max-width: 970px;
     margin-bottom: 40px;
+}
+
+.tabla-productos-claro {
+    background-color: rgb(218, 218, 218);
+}
+
+.tabla-productos-oscuro {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border: solid 1px rgb(139, 139, 139);
+}
+
+.tabla-productos-oscuro th {
+    /* background-color: rgb(0, 0, 0); */
+    /* color: white; */
+    border: solid 1px rgb(139, 139, 139);
+}
+
+.tabla-productos-oscuro button {
+    background-color: rgb(54, 54, 54);
+    color: rgb(159, 159, 159);
+}
+
+.tabla-productos-oscuro button:hover {
+    background-color: rgb(73, 73, 73) !important;
+    color: rgb(150, 150, 150);
+}
+/* #thead-oscuro tr th {
+}
+
+#thead-claro tr th {
+} */
+
+/* #tbody-oscuro tr td {
+    background-color: black;
+    color: white;
+}
+
+#tbody-claro tr td {
+    background-color: white;
+    color: black;
+} */
+
+.trProd.claro-activo {
+    background-color: rgb(173, 219, 176);
+    color: rgb(0, 0, 0);
+}
+
+.trProd.claro-inactivo {
+    background-color: rgb(218, 186, 186);
+    color: black;
+}
+
+.trProd.oscuro-activo {
+    background-color: rgba(46, 46, 46, 0.5);
+    border: 1px solid white;
+    color: rgb(111, 255, 111);
+}
+
+.trProd.oscuro-inactivo {
+    background-color: rgba(46, 46, 46, 0.5);
+    border: 1px solid white;
+    color: rgb(255, 97, 97);
+}
+
+.trProd.oscuro-activo td {
+    border: 1px solid rgb(139, 139, 139);
+}
+
+.trProd.oscuro-inactivo td {
+    border: 1px solid rgb(139, 139, 139);
 }
 
 th,
@@ -464,10 +664,47 @@ td {
 
 /* ================================== editar ==================================== */
 
+#editarMain.claro {
+    background-color: rgb(196, 196, 196);
+}
+
+#editarMain.oscuro {
+    background-color: rgb(0, 0, 0);
+}
+
+#editarMain.claro section {
+    background-color: rgb(218, 218, 218);
+}
+
+#editarMain.oscuro section {
+    background-color: rgb(35, 35, 35);
+    color: white;
+}
+
+#editarMain.oscuro p {
+    /* background-color: rgb(35, 35, 35); */
+    color: rgb(255, 93, 93);
+}
+
+#editarMain.oscuro section form input {
+    background-color: rgb(35, 35, 35);
+    color: white;
+    border: solid 1px grey;
+    border-radius: 3px;
+}
+
+#editarMain.oscuro section form select {
+    background-color: rgb(35, 35, 35);
+    color: white;
+    border: solid 1px grey;
+}
+
+/*  */
+
 .div-botones-form {
     display: flex !important;
     flex-direction: row !important;
-    gap: 10px !important;
+    gap: 15px !important;
     margin-top: 10px !important;
 }
 
@@ -476,9 +713,50 @@ td {
     padding: 7px 0px;
 }
 
+/* ================================== alta ==================================== */
+
+#altaMain.claro {
+    background-color: rgb(196, 196, 196);
+}
+
+#altaMain.claro section {
+    background-color: rgb(218, 218, 218);
+}
+
+#altaMain.oscuro {
+    background-color: rgb(0, 0, 0);
+}
+
+#altaMain.oscuro section {
+    background-color: rgb(35, 35, 35);
+    color: white;
+}
+
+#altaMain.oscuro p {
+    /* background-color: rgb(35, 35, 35); */
+    color: rgb(255, 93, 93);
+}
+
+#altaMain.oscuro section form input {
+    background-color: rgb(35, 35, 35);
+    color: white;
+    border: solid 1px grey;
+    border-radius: 3px;
+}
+
+#altaMain.oscuro section form select {
+    background-color: rgb(35, 35, 35);
+    color: white;
+    border: solid 1px grey;
+}
 /* ========================================= MEDIA QUERIES ====================================================== */
 
 @media (max-width: 850px) {
+    header {
+        display: flex;
+        flex-direction: column;
+    }
+
     header .usuario-info {
         display: flex;
         flex-direction: column;
@@ -487,6 +765,18 @@ td {
 
     .form-style section form {
         width: 250px;
+    }
+    #divTemaUsuario {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        gap: 15px;
+        margin-right: 20px;
+    }
+
+    .div-selector-tema {
+        margin-left: 20px;
     }
 }
 
@@ -505,32 +795,50 @@ td {
 
     /* header del login */
 
-    header .div-logo-login {
+    .header-login {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .div-selector-tema {
+        align-self: flex-start;
+    }
+
+    /* header .div-logo-login {
         scale: 0.7;
         display: flex;
         justify-content: center;
-    }
+    } */
 }
 
 @media (max-width: 560px) {
+    header .div-logos {
+        flex: auto;
+        scale: 0.8;
+    }
+
+    header .div-logo {
+        scale: 0.9;
+    }
+}
+
+@media (max-width: 470px) {
     header .div-logo {
         flex: auto;
         scale: 0.8;
     }
 }
 
-@media (max-width: 460px) {
-    header .div-logo {
-        flex: auto;
-        scale: 0.75;
-    }
-}
-
-@media (max-width: 420px) {
+@media (max-width: 425px) {
     header {
         padding: 0.5rem;
         justify-content: center;
         text-align: center;
+    }
+
+    header .div-logos {
+        flex: auto;
+        scale: 0.7;
     }
 
     header .div-logo {
@@ -553,7 +861,7 @@ td {
 
     header .div-logo {
         flex: auto;
-        scale: 0.6;
+        scale: 0.65;
         gap: 1px;
     }
 
@@ -574,9 +882,75 @@ td {
     }
     /* header del login */
 
-    header .div-logo-login {
+    /* header .div-logo-login {
         scale: 0.6;
         display: flex;
         justify-content: center;
-    }
+    } */
+}
+
+/* _______________________________________________________ */
+
+.usuario-select {
+    display: flex;
+    flex-direction: row;
+
+    position: relative;
+    /* width: 150px; */
+    cursor: pointer;
+}
+
+.usuario-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px;
+    /* border: 1px solid #777; */
+    /* border-radius: 4px; */
+    font-size: 13px;
+    background-color: rgb(255, 255, 255);
+    color: black;
+}
+
+.usuario-header img {
+    width: 18px;
+    height: 18px;
+}
+
+.usuario-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border: 1px solid #777;
+    background: white;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    margin-right: 15px;
+}
+
+.usuario-menu:hover {
+    background-color: rgb(255, 0, 0, 0.3);
+}
+
+.usuario-menu span {
+    padding: 2px;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(250, 250, 250, 0);
+}
+
+.oculto {
+    visibility: hidden;
+}
+
+.cerrar-sesion-oscuro {
+    background-color: black;
+    color: white;
+}
+
+.cerrar-sesion-claro {
+    color: black;
 }

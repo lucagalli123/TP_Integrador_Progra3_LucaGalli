@@ -1,5 +1,29 @@
 import { obtenerUrlFront } from "./variablesEtorno.js";
-import { $, limpiarError, listenersInputsLimpiarErrores, listenersInputsBlur, listenersInputsFocus, marcarError } from "./utils.js";
+import {
+    $,
+    limpiarError,
+    listenersInputsLimpiarErrores,
+    listenersInputsBlur,
+    listenersInputsFocus,
+    marcarError,
+    getTema,
+    cambiarTemaFooter,
+    cambiarTemaTitulo,
+    cambiarTemaHeader,
+    cambiarTemaMain,
+} from "./utils.js";
+
+// ================ tema =================
+
+const tema = getTema() || "claro";
+
+const temaSelect = $("temaSelect");
+temaSelect.value = tema;
+
+cambiarTemaHeader("headerLogin", tema);
+cambiarTemaTitulo("titulo", tema);
+cambiarTemaMain("loginMain", tema);
+cambiarTemaFooter("footer", tema);
 
 // ============== DOM elementos ==============
 
@@ -103,4 +127,15 @@ $("btnIngresarComoCliente").addEventListener("click", async () => {
     URL_FRONT = response.URL_FRONT;
 
     window.location.href = `${URL_FRONT}`;
+});
+
+// tema
+temaSelect.addEventListener("change", () => {
+    const tema = temaSelect.value;
+    localStorage.setItem("tema", tema);
+    cambiarTemaHeader("headerLogin");
+    cambiarTemaTitulo("titulo");
+    cambiarTemaMain("loginMain");
+    cambiarTemaFooter("footer");
+    window.location.reload();
 });

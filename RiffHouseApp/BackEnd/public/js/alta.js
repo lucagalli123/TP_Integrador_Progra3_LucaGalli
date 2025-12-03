@@ -1,33 +1,17 @@
 import { authFetch } from "./autFetch.js";
-import { $, limpiarError, listenersInputsLimpiarErrores, listenersInputsBlur, listenersInputsFocus, marcarError } from "./utils.js";
-
-// ============== DOM elementos ==============
-
-const form = document.getElementById("form");
-const btnCancelar = document.getElementById("btnCancelar");
-
-let inputMarca = $("inputMarca");
-let errorMarca = $("errorMarca");
-
-let inputModelo = $("inputModelo");
-let errorModelo = $("errorModelo");
-
-let inputCategoria = $("inputCategoria");
-let errorCategoria = $("errorCategoria");
-
-let inputPrecio = $("inputPrecio");
-let errorPrecio = $("errorPrecio");
-
-let inputImagen = $("inputImagen");
-let errorImagen = $("errorImagen");
-
-const listaInputsErrors = [
-    { input: inputMarca, errorText: errorMarca },
-    { input: inputModelo, errorText: errorModelo },
-    { input: inputCategoria, errorText: errorCategoria },
-    { input: inputPrecio, errorText: errorPrecio },
-    { input: inputImagen, errorText: errorImagen },
-];
+import {
+    $,
+    limpiarError,
+    listenersInputsLimpiarErrores,
+    listenersInputsBlur,
+    listenersInputsFocus,
+    marcarError,
+    getTema,
+    cambiarTemaFooter,
+    cambiarTemaTitulo,
+    cambiarTemaHeader,
+    cambiarTemaMain,
+} from "./utils.js";
 
 // ============== FUNCIONES ==============
 
@@ -66,70 +50,131 @@ function validarDatos(marca, modelo, categoria, precio, imagenFile) {
     return todoOk;
 }
 
-// ============== LISTENERS ==============
+document.addEventListener("DOMContentLoaded", () => {
+    // import { cerrarSesion } from "./cerrarSesion.js";
 
-form.addEventListener("submit", async e => {
-    e.preventDefault();
+    const tema = getTema() || "claro";
 
-    const marca = inputMarca.value;
-    const modelo = inputModelo.value;
-    const categoria = inputCategoria.value;
-    console.log(categoria);
-    const precio = inputPrecio.value;
-    const imagenFile = inputImagen.files[0];
+    const temaSelect = $("temaSelect");
+    temaSelect.value = tema;
 
-    // validaciones del front
-    if (!validarDatos(marca, modelo, categoria, precio, imagenFile)) return;
+    cambiarTemaHeader("header", tema);
+    cambiarTemaTitulo("titulo", tema);
+    cambiarTemaMain("altaMain", tema);
+    cambiarTemaFooter("footer", tema);
+    // cambiarTemaForm("altaMain", tema);
 
-    const formData = new FormData();
-    formData.append("marca", marca);
-    formData.append("modelo", modelo);
-    formData.append("categoria", categoria);
-    formData.append("precio", precio);
-    formData.append("imagen", imagenFile);
+    const usuarioHeader = $("usuarioHeader");
+    const usuarioMenu = $("usuarioMenu");
 
-    try {
-        const response = await authFetch(`/admin/productos/`, {
-            method: "POST",
-            body: formData,
-            credentials: "include",
-        });
+    tema === "claro" ? usuarioMenu.classList.add("cerrar-sesion-claro") : usuarioMenu.classList.add("cerrar-sesion-oscuro");
 
-        const result = await response.json();
+    // ============== DOM elementos ==============
 
-        if (!response.ok) {
-            alert(`ERROR ${response.status}\n${result.message}`);
-        } else {
-            const modal = $("modalProductoCreado");
-            const modalTitulo = $("modalTitulo");
-            const btnClose = $("cerrarModal");
-            const btnConfirm = $("btnSiConfirmar");
+    const form = document.getElementById("form");
+    const btnCancelar = document.getElementById("btnCancelar");
 
-            // mostrar modal
-            modal.style.display = "block";
+    let inputMarca = $("inputMarca");
+    let errorMarca = $("errorMarca");
 
-            modalTitulo.textContent = "¡Producto creado con exito!";
+    let inputModelo = $("inputModelo");
+    let errorModelo = $("errorModelo");
 
-            // volver al dahsboard
-            btnClose.addEventListener("click", () => (window.location.href = "/admin/dashboard"));
+    let inputCategoria = $("inputCategoria");
+    let errorCategoria = $("errorCategoria");
 
-            // volver al dahsboard
-            btnConfirm.style.textAlign = "center";
-            btnConfirm.onclick = async () => {
-                window.location.href = "/admin/dashboard";
-            };
+    let inputPrecio = $("inputPrecio");
+    let errorPrecio = $("errorPrecio");
+
+    let inputImagen = $("inputImagen");
+    let errorImagen = $("errorImagen");
+
+    const listaInputsErrors = [
+        { input: inputMarca, errorText: errorMarca },
+        { input: inputModelo, errorText: errorModelo },
+        { input: inputCategoria, errorText: errorCategoria },
+        { input: inputPrecio, errorText: errorPrecio },
+        { input: inputImagen, errorText: errorImagen },
+    ];
+    form.addEventListener("submit", async e => {
+        e.preventDefault();
+
+        const marca = inputMarca.value;
+        const modelo = inputModelo.value;
+        const categoria = inputCategoria.value;
+        const precio = inputPrecio.value;
+        const imagenFile = inputImagen.files[0];
+
+        // validaciones del front
+        if (!validarDatos(marca, modelo, categoria, precio, imagenFile)) return;
+
+        const formData = new FormData();
+        formData.append("marca", marca);
+        formData.append("modelo", modelo);
+        formData.append("categoria", categoria);
+        formData.append("precio", precio);
+        formData.append("imagen", imagenFile);
+
+        try {
+            const response = await authFetch(`/admin/productos/`, {
+                method: "POST",
+                body: formData,
+                credentials: "include",
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                alert(`ERROR ${response.status}\n${result.message}`);
+            } else {
+                const modal = $("modalProductoCreado");
+                const modalTitulo = $("modalTitulo");
+                const btnClose = $("cerrarModal");
+                const btnConfirm = $("btnSiConfirmar");
+
+                // mostrar modal
+                modal.style.display = "block";
+
+                modalTitulo.textContent = "¡Producto creado con exito!";
+
+                // volver al dahsboard
+                btnClose.addEventListener("click", () => (window.location.href = "/admin/dashboard"));
+
+                // volver al dahsboard
+                btnConfirm.style.textAlign = "center";
+                btnConfirm.onclick = async () => {
+                    window.location.href = "/admin/dashboard";
+                };
+            }
+        } catch (error) {
+            alert(`Ocurrio un error\n${error.name}`);
+            console.error(error);
         }
-    } catch (error) {
-        alert(`Ocurrio un error\n${error.name}`);
-        console.error(error);
-    }
+    });
+
+    btnCancelar.addEventListener("click", () => {
+        window.location.href = "/admin/dashboard";
+    });
+
+    // listeners de los inputs y mensajes de error (blur, focus, input)
+    listenersInputsBlur(listaInputsErrors);
+    listenersInputsFocus(listaInputsErrors);
+    listenersInputsLimpiarErrores(listaInputsErrors);
+
+    // tema
+    temaSelect.addEventListener("change", () => {
+        const tema = temaSelect.value;
+        localStorage.setItem("tema", tema);
+        cambiarTemaHeader("header");
+        cambiarTemaTitulo("titulo");
+        cambiarTemaMain("altaMain");
+        cambiarTemaFooter("footer");
+        window.location.reload();
+    });
+
+    usuarioHeader.addEventListener("click", () => {
+        usuarioMenu.classList.toggle("oculto");
+    });
 });
 
-btnCancelar.addEventListener("click", () => {
-    window.location.href = "/admin/dashboard";
-});
-
-// listeners de los inputs y mensajes de error (blur, focus, input)
-listenersInputsBlur(listaInputsErrors);
-listenersInputsFocus(listaInputsErrors);
-listenersInputsLimpiarErrores(listaInputsErrors);
+// ============== LISTENERS ==============

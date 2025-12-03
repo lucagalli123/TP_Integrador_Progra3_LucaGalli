@@ -3,16 +3,23 @@
     <%- include("../layouts/head", { tituloHead }) %>
     <body>
         <!-- header -->
-        <header class="header-login">
-            <div class="div-logo-login">
+        <header id="headerLogin" class="header-login">
+            <div class="div-logos">
                 <img src="/img/logo/logo.png" alt="Logo" class="logo" />
                 <h1>RiffHouse</h1>
                 <h2>Administracion</h2>
             </div>
+            <div class="div-selector-tema">
+                <label for="temaSelect">Tema:</label>
+                <select id="temaSelect">
+                    <option value="claro">Claro</option>
+                    <option value="oscuro">Oscuro</option>
+                </select>
+            </div>
         </header>
 
         <!-- main -->
-        <main class="form-style form-style-login">
+        <main id="loginMain" class="form-style form-style-login">
             <section>
                 <h2>Iniciar sesión</h2>
 

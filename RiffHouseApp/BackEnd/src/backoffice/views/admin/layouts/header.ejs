@@ -1,17 +1,35 @@
-<header>
+<header id="header">
     <div class="div-logo">
         <img src="/img/logo/logo.png" alt="Logo" class="logo" />
         <h1>RiffHouse</h1>
         <h2>Administracion</h2>
     </div>
 
-    <div class="usuario-info">
-        <div class="div-usuario-info">
-            <img src="/img/logo/userIcon.png" style="width: 18px; height: 18px; margin-top: 2px; margin-right: 2px" alt="" />
-            <p><%=nombreUser%></p>
+    <div id="divTemaUsuario">
+        <div class="div-selector-tema">
+            <label for="temaSelect">Tema:</label>
+            <select id="temaSelect">
+                <option value="claro">Claro</option>
+                <option value="oscuro">Oscuro</option>
+            </select>
         </div>
-        <button id="btnCerrarSesion">Cerrar Sesion</button>
+
+        <div class="usuario-select">
+            <div id="usuarioHeader" class="usuario-header">
+                <img src="/img/logo/userIcon.png" />
+                <span><%=nombreUser%></span>
+                <span>▼</span>
+            </div>
+
+            <div id="usuarioMenu" class="usuario-menu oculto">
+                <span id="btnCerrarSesion">Cerrar Sesion</span>
+            </div>
+        </div>
     </div>
 
-    <div class="div-selector-tema"></div>
+    <!-- <div class="usuario-info">
+        <button id="btnCerrarSesion">Cerrar Sesion</button>
+    </div> -->
+
+    <!-- <div class="div-selector-tema"></div> -->
 </header>

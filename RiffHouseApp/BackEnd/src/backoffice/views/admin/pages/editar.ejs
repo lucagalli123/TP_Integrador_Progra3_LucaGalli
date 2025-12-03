@@ -6,7 +6,7 @@
         <%- include("../layouts/header", { nombreUser }) %>
 
         <!-- main -->
-        <main class="form-style">
+        <main id="editarMain" class="form-style">
             <% if(message === "No se encontro el producto") { %>
             <section><%= message%></section>
             <% } else if (message === "Ocurrio un error al obtener el producto") { %>

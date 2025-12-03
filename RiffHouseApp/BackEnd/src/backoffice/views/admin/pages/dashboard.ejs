@@ -7,8 +7,8 @@
         <%- include("../layouts/header", { nombreUser }) %>
 
         <!-- main -->
-        <main class="dashboard">
-            <h2>Listado de Productos</h2>
+        <main id="dashboard" class="dashboard">
+            <h2 id="titulo">Listado de Productos</h2>
 
             <div class="div-alta">
                 <a href="/admin/alta" class="btn-alta">+ Agregar Producto</a>
@@ -36,7 +36,7 @@
                         <!-- cargo tabla de productos -->
 
                         <% productos.forEach(p => { %>
-                        <tr class="<%= p.activo ? 'green' : 'red' %>">
+                        <tr class="trProd <%= p.activo ? 'green' : 'red' %>">
                             <td><%= p.id %></td>
 
                             <td><%= p.marca %>, <%= p.modelo %></td>
@@ -79,6 +79,10 @@
         <!-- footer -->
         <%- include("../layouts/footer") %>
 
+        <!-- <script>
+            const tema = localStorage.getItem("tema") || "claro";
+            document.documentElement.setAttribute("data-tema", tema);
+        </script> -->
         <script type="module" src="/js/dashboard.js"></script>
         <script type="module" src="/js/cerrarSesion.js"></script>
     </body>

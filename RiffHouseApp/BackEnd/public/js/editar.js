@@ -1,7 +1,44 @@
 import { authFetch } from "./autFetch.js";
-import { $, limpiarError, listenersInputsLimpiarErrores, listenersInputsBlur, listenersInputsFocus, marcarError } from "./utils.js";
+import {
+    $,
+    limpiarError,
+    listenersInputsLimpiarErrores,
+    listenersInputsBlur,
+    listenersInputsFocus,
+    marcarError,
+    getTema,
+    cambiarTemaFooter,
+    cambiarTemaTitulo,
+    cambiarTemaHeader,
+    cambiarTemaMain,
+} from "./utils.js";
 
-// ============== FUNCIONES ==============
+// ==================== TEMA ====================
+
+const tema = getTema() || "claro";
+
+document.documentElement.setAttribute("data-tema", tema);
+
+const temaSelect = $("temaSelect");
+temaSelect.value = tema;
+
+cambiarTemaHeader("header", tema);
+cambiarTemaTitulo("titulo", tema);
+cambiarTemaMain("editarMain", tema);
+cambiarTemaFooter("footer", tema);
+
+const usuarioHeader = $("usuarioHeader");
+const usuarioMenu = $("usuarioMenu");
+
+if (tema === "claro") {
+    usuarioMenu.classList.add("cerrar-sesion-claro");
+    usuarioMenu.classList.remove("cerrar-sesion-oscuro");
+} else {
+    usuarioMenu.classList.add("cerrar-sesion-oscuro");
+    usuarioMenu.classList.remove("cerrar-sesion-claro");
+}
+
+// ==================== VALIDACIONES ====================
 
 function validarDatos(marca, modelo, categoria, precio, imagenFile) {
     let todoOk = true;
@@ -18,6 +55,7 @@ function validarDatos(marca, modelo, categoria, precio, imagenFile) {
         todoOk = false;
         marcarError(inputCategoria, errorCategoria, "*campo vacio");
     }
+
     const precioNum = Number(precio);
     if (!precio || isNaN(precioNum)) {
         todoOk = false;
@@ -38,14 +76,11 @@ function validarDatos(marca, modelo, categoria, precio, imagenFile) {
     return todoOk;
 }
 
-// script
+// ==================== FORMULARIO ====================
 
-// ejecutar solo si se pudo obtener el producto y su id
 if (PRODUCT_ID !== null && PRODUCT_ID !== undefined) {
-    // ============== DOM elementos ==============
-
-    const form = document.getElementById("form");
-    const btnCancelar = document.getElementById("btnCancelar");
+    const form = $("form");
+    const btnCancelar = $("btnCancelar");
 
     let inputMarca = $("inputMarca");
     let errorMarca = $("errorMarca");
@@ -70,9 +105,6 @@ if (PRODUCT_ID !== null && PRODUCT_ID !== undefined) {
         { input: inputImagen, errorText: errorImagen },
     ];
 
-    // ============== LISTENERS ==============
-
-    // listener form
     form.addEventListener("submit", async e => {
         e.preventDefault();
 
@@ -108,18 +140,11 @@ if (PRODUCT_ID !== null && PRODUCT_ID !== undefined) {
                 const btnClose = $("cerrarModal");
                 const btnConfirm = $("btnSiConfirmar");
 
-                // mostrar modal
                 modal.style.display = "block";
-
                 modalTitulo.textContent = "¡Producto actualizado con exito!";
 
-                // volver al dahsboard
-                btnClose.addEventListener("click", () => (window.location.href = "/admin/dashboard"));
-
-                // volver al dahsboard
-                btnConfirm.onclick = async () => {
-                    window.location.href = "/admin/dashboard";
-                };
+                btnClose.onclick = () => (window.location.href = "/admin/dashboard");
+                btnConfirm.onclick = () => (window.location.href = "/admin/dashboard");
             }
         } catch (error) {
             alert(`Ocurrio un error\n${error.name}`);
@@ -127,13 +152,28 @@ if (PRODUCT_ID !== null && PRODUCT_ID !== undefined) {
         }
     });
 
-    // listeners boton cancelar
-    btnCancelar.addEventListener("click", () => {
+    // cancelar
+    btnCancelar.onclick = () => {
         window.location.href = "/admin/dashboard";
-    });
+    };
 
-    // listeners de los inputs y mensajes de error (blur, focus, input)
+    // listeners inputs
     listenersInputsBlur(listaInputsErrors);
     listenersInputsFocus(listaInputsErrors);
     listenersInputsLimpiarErrores(listaInputsErrors);
 }
+
+// ================ LISTENERs ======================
+
+temaSelect.addEventListener("change", () => {
+    const temaNuevo = temaSelect.value;
+
+    localStorage.setItem("tema", temaNuevo);
+    document.documentElement.setAttribute("data-tema", temaNuevo);
+
+    window.location.reload();
+});
+
+usuarioHeader.addEventListener("click", () => {
+    usuarioMenu.classList.toggle("oculto");
+});

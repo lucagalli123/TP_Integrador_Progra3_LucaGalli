@@ -7,7 +7,7 @@ export const iniciarDB = async () => {
 
     // ===================== CREAR USUARIOS =====================
     const listaUsuarios = [
-        { nombre: "Moni", email: "moni@example.com", password: "12345678" },
+        { nombre: "Monicaooo", email: "moni@example.com", password: "12345678" },
         { nombre: "Carlos", email: "carlos@example.com", password: "abcdefgh" },
     ];
 
