@@ -12,8 +12,6 @@ body {
 }
 
 body {
-    /* background-color: #f7f7f7; */
-    color: #333;
     display: flex;
     flex-direction: column;
 }
@@ -122,16 +120,6 @@ header div h2 {
     margin-top: 11px;
 }
 
-/* #btnCerrarSesion {
-    background-color: rgb(255, 255, 255);
-    padding: 3px 8px;
-    border-radius: 5px;
-}
-
-#btnCerrarSesion:hover {
-    background-color: rgb(255, 107, 107);
-} */
-
 /* header del login */
 .header-login {
     display: flex;
@@ -168,14 +156,9 @@ header div h2 {
     /* flex: 1; */
 }
 
-/* header .div-logo-login {
-    display: flex;
-    justify-content: center;
-} */
-
 /* ______________ Main ______________*/
 main {
-    background-color: rgb(196, 196, 196);
+    background-color: rgb(226, 226, 226);
     width: 100%;
     flex: 1;
     padding: 1rem;
@@ -233,18 +216,8 @@ select {
     cursor: pointer;
 }
 
-/* select.oscuro {
-    background-color: rgb(0, 0, 0, 0.1);
-    color: white;
-}
-
-select.claro {
-    background-color: rgba(254, 254, 254, 0.1);
-    color: black;
-} */
-
 .form-style section {
-    background-color: rgb(216, 216, 216);
+    /* background-color: rgb(216, 216, 216); */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -521,21 +494,6 @@ select.claro {
     background-color: rgb(73, 73, 73) !important;
     color: rgb(150, 150, 150);
 }
-/* #thead-oscuro tr th {
-}
-
-#thead-claro tr th {
-} */
-
-/* #tbody-oscuro tr td {
-    background-color: black;
-    color: white;
-}
-
-#tbody-claro tr td {
-    background-color: white;
-    color: black;
-} */
 
 .trProd.claro-activo {
     background-color: rgb(173, 219, 176);
@@ -805,12 +763,6 @@ td {
     .div-selector-tema {
         align-self: flex-start;
     }
-
-    /* header .div-logo-login {
-        scale: 0.7;
-        display: flex;
-        justify-content: center;
-    } */
 }
 
 @media (max-width: 560px) {
