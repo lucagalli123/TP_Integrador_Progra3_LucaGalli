@@ -163,13 +163,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // tema
     temaSelect.addEventListener("change", () => {
-        const tema = temaSelect.value;
-        localStorage.setItem("tema", tema);
-        cambiarTemaHeader("header");
-        cambiarTemaTitulo("titulo");
-        cambiarTemaMain("altaMain");
-        cambiarTemaFooter("footer");
-        window.location.reload();
+        const nuevaTema = temaSelect.value;
+        localStorage.setItem("tema", nuevaTema);
+        cambiarTemaHeader("header", nuevaTema);
+        cambiarTemaTitulo("titulo", nuevaTema);
+        cambiarTemaMain("altaMain", nuevaTema);
+        cambiarTemaFooter("footer", nuevaTema);
+
+        nuevaTema === "claro" ? usuarioMenu.classList.add("cerrar-sesion-claro") : usuarioMenu.classList.add("cerrar-sesion-oscuro");
     });
 
     usuarioHeader.addEventListener("click", () => {

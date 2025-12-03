@@ -132,12 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // tema
     temaSelect.addEventListener("change", () => {
-        const tema = temaSelect.value;
-        localStorage.setItem("tema", tema);
-        cambiarTemaHeader("headerLogin");
-        cambiarTemaTitulo("titulo");
-        cambiarTemaMain("loginMain");
-        cambiarTemaFooter("footer");
-        window.location.reload();
+        const nuevoTema = temaSelect.value;
+        localStorage.setItem("tema", nuevoTema);
+        cambiarTemaHeader("headerLogin", nuevoTema);
+        cambiarTemaTitulo("titulo", nuevoTema);
+        cambiarTemaMain("loginMain", nuevoTema);
+        cambiarTemaFooter("footer", nuevoTema);
     });
 });

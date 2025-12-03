@@ -171,7 +171,21 @@ temaSelect.addEventListener("change", () => {
     localStorage.setItem("tema", temaNuevo);
     document.documentElement.setAttribute("data-tema", temaNuevo);
 
-    window.location.reload();
+    cambiarTemaHeader("header", temaNuevo);
+    cambiarTemaTitulo("titulo", temaNuevo);
+    cambiarTemaMain("editarMain", temaNuevo);
+    cambiarTemaFooter("footer", temaNuevo);
+
+    // const usuarioHeader = $("usuarioHeader");
+    // const usuarioMenu = $("usuarioMenu");
+
+    if (temaNuevo === "claro") {
+        usuarioMenu.classList.add("cerrar-sesion-claro");
+        usuarioMenu.classList.remove("cerrar-sesion-oscuro");
+    } else {
+        usuarioMenu.classList.add("cerrar-sesion-oscuro");
+        usuarioMenu.classList.remove("cerrar-sesion-claro");
+    }
 });
 
 usuarioHeader.addEventListener("click", () => {
